@@ -81,7 +81,7 @@ class loginForm extends React.Component {
               </Segment>
             </Form>
             <Message>
-              New to Kantasky? <a>Sign Up</a>
+              New to Kantasky? <a href="./views/signUpForm">Sign Up</a>
             </Message>
           </Grid.Column>
         </Grid>

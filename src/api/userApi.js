@@ -9,7 +9,15 @@ class User {
         catch (err) { 
             console.log("ERROR: " + err)
         }
-        
+    }
+
+    static async signUp(user) { 
+        try {
+            return await (axios.post(kantaskyServer + 'signup', user))
+        }
+        catch (err) { 
+            console.log("ERROR: " + err)
+        }
     }
 }
 
