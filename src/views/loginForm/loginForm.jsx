@@ -9,6 +9,7 @@ import {
 } from "semantic-ui-react";
 import "./loginForm.css";
 import kantaskyUser from "../../api/userApi";
+import { Link, Redirect } from "react-router-dom";
 
 class loginForm extends React.Component {
   constructor() {
@@ -55,9 +56,11 @@ class loginForm extends React.Component {
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 450 }}>
+          <Message>
             <Header as="h1" color="blue" textAlign="center">
               Log-in to your account
             </Header>
+            </Message>
             <Form size="large" onSubmit={this.login}>
               <Segment stacked>
                 <Form.Input
@@ -81,7 +84,10 @@ class loginForm extends React.Component {
               </Segment>
             </Form>
             <Message>
-              New to Kantasky? <a href="./views/signUpForm">Sign Up</a>
+              New to Kantasky?
+              <a href="/signup">
+                <Link to="/signup"> Sign Up </Link>
+              </a>
             </Message>
           </Grid.Column>
         </Grid>

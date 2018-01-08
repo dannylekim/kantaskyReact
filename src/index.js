@@ -1,9 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import LoginForm from './views/loginForm/loginForm';
-import SignupForm from './views/signUpForm/signUpForm';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import registerServiceWorker from "./registerServiceWorker";
+import App from "./app";
+import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.render(<SignupForm />, document.getElementById("root"))
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);
 registerServiceWorker();
