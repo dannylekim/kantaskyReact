@@ -9,7 +9,7 @@ import {
 } from "semantic-ui-react";
 import "./loginForm.css";
 import kantaskyUser from "../../api/userApi";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class loginForm extends React.Component {
   constructor() {
