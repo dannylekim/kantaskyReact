@@ -134,7 +134,7 @@ class signupForm extends React.Component {
             </Form>
             <Message>
               Already have an account?
-              <Link to="/"> Login</Link>
+              <Link to="/login"> Login</Link>
             </Message>
           </Grid.Column>
         </Grid>
