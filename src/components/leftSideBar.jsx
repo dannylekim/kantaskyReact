@@ -16,13 +16,12 @@ class SidebarLeftPush extends Component {
 
   render() {
     let divStyle = {
-      height: 20 + "em"
+      height: 25 + "em"
     };
 
     const { visible } = this.state;
     return (
       <div>
-        <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
         <Sidebar.Pushable as={Segment}>
           <Sidebar
             as={Menu}
@@ -37,21 +36,36 @@ class SidebarLeftPush extends Component {
               <Icon name="home" />
               Home
             </Menu.Item>
-            <Menu.Item name="gamepad">
-              <Icon name="gamepad" />
-              Games
+            <Menu.Item name="profile">
+              <Icon name="user circle" />
+              Profile
             </Menu.Item>
-            <Menu.Item name="camera">
-              <Icon name="camera" />
-              Channels
+            <Menu.Item name="personal">
+              <Icon name="tasks" />
+              Personal Tasks
+            </Menu.Item>
+            <Menu.Item name="groups">
+              <Icon name="users" />
+              Groups
+            </Menu.Item>
+            <Menu.Item name="settings">
+              <Icon name="settings" />
+              Settings
+            </Menu.Item>
+            <Menu.Item name="signOut">
+              <Icon name="sign out" />
+              Sign Out
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
+              
+              <Menu.Item onClick={this.toggleVisibility} >
+                <Icon name="sidebar" />
+              </Menu.Item>
               <Header as="h3">Application Content</Header>
               <div style={divStyle}>
                 Testing the SideBar
-               
               </div>
               <Link to="/login">
                   <Button color="teal">Go to Login</Button>
