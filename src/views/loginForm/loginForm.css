@@ -1,0 +1,9 @@
+body > div,
+body > div > div,
+body > div > div > div.login-form {
+  height: 100%;
+}
+
+body { 
+  background-color: #e8e8e8;
+}
