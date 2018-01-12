@@ -9,33 +9,28 @@ import {
   Icon
 } from "semantic-ui-react";
 import "./loginForm.css";
-import kantaskyUser from "../../api/userApi";
 import { Link } from "react-router-dom";
 import Particles from "react-particles-js";
+import { login } from "../../redux/user/userActionDispatcher";
+import { connect } from "react-redux";
 
 class loginForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       username: "",
-      password: "",
-      error: undefined
+      password: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.login = this.login.bind(this);
+    this.loginUser = this.loginUser.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.verifyNull = this.verifyNull.bind(this);
   }
 
-  async login() {
-    try {
-      const response = await kantaskyUser.authenticate(this.state);
-      alert(response.data.message);
-    } catch (err) {
-      this.setState({ error: err.data });
-    }
+  loginUser() {
+    this.props.login(this.state);
   }
 
   verifyNull() {
@@ -53,9 +48,10 @@ class loginForm extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     this.setState({ error: undefined });
     const isValid = this.verifyNull();
-    if (isValid) this.login();
+    if (isValid) this.loginUser();
   }
 
   handleInputChange(event) {
@@ -70,8 +66,6 @@ class loginForm extends React.Component {
   }
 
   render() {
-    const { error } = this.state;
-
     const particles = {
       particles: {
         number: {
@@ -194,10 +188,16 @@ class loginForm extends React.Component {
                 </Header>
               </Segment>
 
-              {this.state.error && (
+              {this.props.error && (
                 <Segment inverted color="red" tertiary>
                   <Icon name="warning" />
-                  {error}
+                  {this.props.error}
+                </Segment>
+              )}
+              {this.props.token && (
+                <Segment inverted color="blue" tertiary>
+                  <Icon name="warning" />
+                  {this.props.token}
                 </Segment>
               )}
               <Form size="large" onSubmit={this.handleSubmit}>
@@ -238,4 +238,9 @@ class loginForm extends React.Component {
   }
 }
 
-export default loginForm;
+const mapState = state => ({
+  error: state.user.error,
+  token: state.user.token
+});
+const mapDispatch = { login };
+export default connect(mapState, mapDispatch)(loginForm);
