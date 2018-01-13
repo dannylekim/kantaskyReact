@@ -6,7 +6,8 @@ import {
   Header,
   Segment,
   Divider,
-  Icon
+  Icon,
+  Message
 } from "semantic-ui-react";
 import "./loginForm.css";
 import { Link } from "react-router-dom";
@@ -22,18 +23,20 @@ class loginForm extends React.Component {
       username: "",
       password: "",
       mountParticles: false,
+      error: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.loginUser = this.loginUser.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.verifyNull = this.verifyNull.bind(this);
   }
 
-  loginUser() {
-    this.props.login(this.state);
-  }
-
+  /**
+   * Verifies for null fields.
+   *
+   * @returns
+   * @memberof loginForm
+   */
   verifyNull() {
     if (!this.state.username) {
       this.setState({ error: "Please enter a username" });
@@ -48,22 +51,34 @@ class loginForm extends React.Component {
     return true;
   }
 
+  //the two functions below allows rendering of particles.js without breaking the page when it's been redirected
   componentDidMount() {
-    this.setState({mountParticles: true})
+    this.setState({ mountParticles: true, error: null });
   }
 
-  componentWillUnmount() { 
-    this.setState({mountParticles: false})
+  componentWillUnmount() {
+    this.setState({ mountParticles: false });
   }
-  
 
+  /**
+   * Validates the values and then calls the login dispatcher taking in this state.
+   *
+   * @param {any} event
+   * @memberof loginForm
+   */
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ error: undefined });
     const isValid = this.verifyNull();
-    if (isValid) this.loginUser();
+    if (isValid) this.props.login(this.state);
   }
 
+  /**
+   * Handles all input changes within the form
+   *
+   * @param {any} event
+   * @memberof loginForm
+   */
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -76,7 +91,6 @@ class loginForm extends React.Component {
   }
 
   render() {
-    
     const particles = {
       particles: {
         number: {
@@ -185,8 +199,11 @@ class loginForm extends React.Component {
 
     return (
       <div>
+
+        {/* Particles.js */}
         {this.state.mountParticles && (
-        <Particles canvasClassName="particle" params={particles} />)}
+          <Particles canvasClassName="particle" params={particles} />
+        )}
         <div className="login-form">
           <Grid
             textAlign="center"
@@ -194,26 +211,41 @@ class loginForm extends React.Component {
             verticalAlign="middle"
           >
             <Grid.Column style={{ maxWidth: 450 }}>
+
+              {/* Header */}
               <Segment color="blue" tertiary>
                 <Header as="h1" color="blue" textAlign="center">
                   Kantasky
                 </Header>
               </Segment>
 
+              {/* Redux Error */}
               {this.props.error && (
                 <Segment inverted color="red" tertiary>
                   <Icon name="warning" />
                   {this.props.error}
                 </Segment>
               )}
-              {this.props.token && (
-                <Segment inverted color="blue" tertiary>
+
+              {/* Custom Validation Errors */}
+              {this.state.error && (
+                <Segment inverted color="red" tertiary>
                   <Icon name="warning" />
-                  {this.props.token}
+                  {this.state.error}
                 </Segment>
+              )}
+
+              {/* Redux Message */}
+              {this.props.message && (
+                <Message
+                  success
+                  header="Your user registration was succesful!"
+                  content={this.props.message}
+                />
               )}
               <Form size="large" onSubmit={this.handleSubmit}>
                 <Segment stacked secondary>
+                  {/* Username */}
                   <Form.Input
                     fluid
                     icon="user"
@@ -222,6 +254,8 @@ class loginForm extends React.Component {
                     placeholder="Username or E-mail"
                     onChange={this.handleInputChange}
                   />
+
+                  {/* Password */}
                   <Form.Input
                     fluid
                     icon="lock"
@@ -231,9 +265,13 @@ class loginForm extends React.Component {
                     type="password"
                     onChange={this.handleInputChange}
                   />
+
+                  {/* Submit Form */}
                   <Button primary fluid type="submit">
                     Login
                   </Button>
+
+                  {/* Redirect */}
                   <Divider horizontal>Or</Divider>
                   <Link to="/signup">
                     <Button secondary fluid>
@@ -250,9 +288,10 @@ class loginForm extends React.Component {
   }
 }
 
+//====================== REDUX CONNECTION =========================
 const mapState = state => ({
   error: state.user.error,
-  token: state.user.token
+  message: state.user.message
 });
 const mapDispatch = { login };
 export default connect(mapState, mapDispatch)(loginForm);

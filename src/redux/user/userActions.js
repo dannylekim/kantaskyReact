@@ -8,4 +8,6 @@ export const loginSuccess = token => ({
   }),
   loginFail = error => ({ type: types.LOGIN_FAIL, error: error }),
   checkToken = () => ({ type: types.CHECK_TOKEN }),
-  logout = () => ({ type: types.LOGOUT });
+  logout = () => ({ type: types.LOGOUT }),
+  signUpSuccess = () => ({ type: types.SIGNUP_SUCCESS }),
+  signUpFail = error => ({ type: types.SIGNUP_FAIL, error: error });

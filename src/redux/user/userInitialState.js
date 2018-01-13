@@ -3,7 +3,8 @@
 let state = {
   token: null,
   error: null,
-  authenticated: null
+  authenticated: null,
+  message: null
 };
 
 export default state;
