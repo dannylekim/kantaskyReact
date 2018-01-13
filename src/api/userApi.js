@@ -1,10 +1,10 @@
 import axios from 'axios'
-import kantaskyServer from '../config/config'
+import {backendServerURI} from '../config/config'
 
 class User { 
     static async authenticate(credentials) { 
         try { 
-            return Promise.resolve(await axios.post(kantaskyServer + 'login', credentials))
+            return Promise.resolve(await axios.post(backendServerURI + 'login', credentials))
         }
         catch (err) { 
             return Promise.reject(err.response)
@@ -13,7 +13,7 @@ class User {
 
     static async signUp(user) { 
         try {
-            return Promise.resolve(await (axios.post(kantaskyServer + 'signup', user)))
+            return Promise.resolve(await (axios.post(backendServerURI + 'signup', user)))
         }
         catch (err) { 
             

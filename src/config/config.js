@@ -1,3 +1,7 @@
-const backendServerURI = "http://localhost:4000/"
+import {createBrowserHistory} from 'history'
 
-export default backendServerURI
+
+
+export const backendServerURI = "http://localhost:4000/"
+export const history = createBrowserHistory()
+
