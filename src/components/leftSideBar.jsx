@@ -69,7 +69,7 @@ class SidebarLeftPush extends Component {
               </div>
               <Link to="/login">
                   <Button color="teal">Go to Login</Button>
-                </Link>
+              </Link>
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

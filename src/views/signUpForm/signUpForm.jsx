@@ -22,12 +22,20 @@ class signupForm extends React.Component {
       firstName: undefined,
       lastName: undefined,
       email: undefined,
-      confirmPassword: undefined
+      confirmPassword: undefined,
+      mountParticles: false
     };
 
     this.signUp = this.signUp.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
 
+  componentDidMount() {
+    this.setState({ mountParticles: true });
+  }
+
+  componentWillUnmount() {
+    this.setState({ mountParticles: false });
   }
 
   async signUp(event) {
@@ -158,7 +166,9 @@ class signupForm extends React.Component {
     };
     return (
       <div>
-        <Particles className="particle" params={particles} />
+        {this.state.mountParticles && (
+          <Particles canvasClassName="particle" params={particles} />
+        )}
         <div className="signup-form">
           <Grid
             textAlign="center"

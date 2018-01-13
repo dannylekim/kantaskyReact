@@ -20,7 +20,8 @@ class loginForm extends React.Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      mountParticles: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,6 +48,15 @@ class loginForm extends React.Component {
     return true;
   }
 
+  componentDidMount() {
+    this.setState({mountParticles: true})
+  }
+
+  componentWillUnmount() { 
+    this.setState({mountParticles: false})
+  }
+  
+
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ error: undefined });
@@ -66,6 +76,7 @@ class loginForm extends React.Component {
   }
 
   render() {
+    
     const particles = {
       particles: {
         number: {
@@ -174,7 +185,8 @@ class loginForm extends React.Component {
 
     return (
       <div>
-        <Particles className="particle" params={particles} />
+        {this.state.mountParticles && (
+        <Particles canvasClassName="particle" params={particles} />)}
         <div className="login-form">
           <Grid
             textAlign="center"

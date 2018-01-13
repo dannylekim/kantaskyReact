@@ -1,8 +1,6 @@
 import UserApi from "../../api/userApi";
 import { loginSuccess, loginFail } from "./userActions";
-import jwt from "jsonwebtoken";
-import {history} from '../../config/config'
-
+import { history } from "../../config/config";
 
 /**
  * Logs the user in with the credentials and sends either a successful or fail action to the reducer
@@ -11,12 +9,12 @@ import {history} from '../../config/config'
  */
 export const login = credentials => async dispatch => {
   try {
-    const response = await UserApi.authenticate(credentials);
-    dispatch(loginSuccess(response.data.token));
-    localStorage.setItem("token", response.data.token);
-    history.push("/")
+    const response = await UserApi.authenticate(credentials); //api call to login
+    dispatch(loginSuccess(response.data.token)); //dispatch the successful login call
+    localStorage.setItem("token", response.data.token); //set into localStorage for later use
+    history.push("/"); //change page
   } catch (err) {
-    dispatch(loginFail(err.data));
+    dispatch(loginFail(err.data)); //dispatch login fail
   }
 };
 
@@ -25,26 +23,6 @@ export const login = credentials => async dispatch => {
  *
  */
 export const logout = () => dispatch => {
-  dispatch(logout());
-};
-
-/**
- * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user
- *
- * @param {any} token the JWT token
- */
-export const checkToken = () => dispatch => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    dispatch(logout());
-    return;
-  }
-
-  const payload = jwt.decode(token);
-  if (!token || Date.now() > payload.exp) {
-    //TODO: Redirect
-    dispatch(loginSuccess(token));
-  } else {
-    dispatch(logout());
-  }
+  localStorage.clear(); //clear local storage
+  dispatch(logout()); //dispatch logout
 };
