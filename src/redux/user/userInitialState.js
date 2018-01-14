@@ -2,7 +2,8 @@
 
 let state = {
   token: null,
-  error: null,
+  loginError: null,
+  signUpErrors: null,
   authenticated: null,
   message: null
 };

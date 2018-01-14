@@ -9,24 +9,34 @@ const reducer = (state = initial, action) => {
     case types.LOGIN_SUCCESS:
       return Object.assign({}, state, {
         token: action.token,
-        error: null,
+        loginError: null,
         authenticated: true,
-        message: null
+        message: null,
+        signUpErrors: null
       });
 
     //on fail, post the error
     case types.LOGIN_FAIL:
-      return Object.assign({}, state, { error: action.error, message: null });
+      return Object.assign({}, state, {
+        loginError: action.error,
+        message: null
+      });
 
     //null token and unauthenticates the user
     case types.LOGOUT:
-      return Object.assign({}, state, { token: null, authenticated: false });
+      return Object.assign({}, state, {
+        token: null,
+        authenticated: false,
+        loginError: null,
+        signUpError: null
+      });
     case types.SIGNUP_SUCCESS:
       return Object.assign({}, state, {
-        message: "You may now log-in with the username you have chosen"
+        message: "You may now log-in with the username you have chosen",
+        signUpErrors: null
       });
     case types.SIGNUP_FAIL:
-      return Object.assign({}, state, { error: action.error });
+      return Object.assign({}, state, { signUpErrors: action.error });
     default:
       return state;
   }

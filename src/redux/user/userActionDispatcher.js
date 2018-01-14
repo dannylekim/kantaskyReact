@@ -33,6 +33,7 @@ export const signUp = newUser => async dispatch => {
     dispatch(signUpSuccess())
     history.push("/login")
   } catch (err) {
+    console.log(err.data)
     dispatch(signUpFail(err.data))
   }
 };

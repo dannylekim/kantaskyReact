@@ -7,8 +7,7 @@ import { Router } from "react-router-dom";
 import store from "./redux/configureStore";
 import { Provider } from "react-redux";
 import { history } from "./config/config";
-import { LOGOUT, LOGIN_SUCCESS  } from "./redux/user/userActionTypes";
-import jwt from "jsonwebtoken";
+import { LOGOUT, LOGIN_SUCCESS } from "./redux/user/userActionTypes";
 
 /**
  * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user
@@ -18,37 +17,16 @@ import jwt from "jsonwebtoken";
 const checkToken = () => {
   const token = localStorage.getItem("token"); //get the token from localStorage
   if (!token) {
-    store.dispatch({type: LOGOUT}); //if no token exists, logout
+    store.dispatch({ type: LOGOUT }); //if no token exists, logout
     history.push("/login"); //go to login page
     return; //exit function
-  }
-
-
-  else {
+  } else {
     //else dispatch success
-    store.dispatch( {type:LOGIN_SUCCESS, token: token});
+    store.dispatch({ type: LOGIN_SUCCESS, token: token });
   }
-
-  // const payload = jwt.decode(token); //decode the token
-
-  //if token's expiry date has passed, clear the local storage, dispatch to logout and push to login
-  // if (Date.now() > payload.exp) {
-  //   localStorage.clear();
-  //   store.dispatch({type: logout})
-  //   history.push("/login");
-  // } 
-  // else {
-  //   //else dispatch success
-  //   store.dispatch( {type:loginSuccess(token)});
-  // }
 };
 
-
-
-checkToken()
-
-
-
+checkToken();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -59,8 +37,3 @@ ReactDOM.render(
   document.getElementById("root")
 );
 registerServiceWorker();
-
-
-
-
-

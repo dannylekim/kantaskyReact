@@ -5,8 +5,7 @@ import {
   Grid,
   Header,
   Segment,
-  Message,
-  Icon
+  Message
 } from "semantic-ui-react";
 import "./signUpForm.css";
 import { Link } from "react-router-dom";
@@ -16,7 +15,7 @@ import { connect } from "react-redux";
 
 class signupForm extends React.Component {
   constructor() {
-    super(); 
+    super();
 
     this.state = {
       username: undefined,
@@ -46,7 +45,7 @@ class signupForm extends React.Component {
     this.setState({ error: undefined });
     // const isValid = this.verifyNull();
     // if (isValid)
-    this.props.signUp(this.state)
+    this.props.signUp(this.state);
   }
 
   //TODO: CUSTOM VALIDATION
@@ -170,7 +169,6 @@ class signupForm extends React.Component {
     };
     return (
       <div>
-
         {/* Particles.js Canvas */}
         {this.state.mountParticles && (
           <Particles canvasClassName="particle" params={particles} />
@@ -182,7 +180,6 @@ class signupForm extends React.Component {
             verticalAlign="middle"
           >
             <Grid.Column style={{ maxWidth: 450 }}>
-
               {/* Header */}
               <Message>
                 <Header as="h1" color="blue" textAlign="center">
@@ -191,17 +188,16 @@ class signupForm extends React.Component {
               </Message>
 
               {/* Redux Errors */}
-              {this.props.error && (
-                <Segment inverted color="red" tertiary>
-                  <Icon name="warning" />
-                  {this.props.error}
-                </Segment>
+              {this.props.signUpErrors && (
+                <Message
+                  error
+                  header="There were some errors with your submission. Please correct them"
+                  list={this.props.signUpErrors}
+                />
               )}
-
 
               <Form size="large" onSubmit={this.handleSubmit}>
                 <Segment stacked>
-
                   {/* First Name */}
                   <Form.Input
                     fluid
@@ -274,8 +270,6 @@ class signupForm extends React.Component {
                 Already have an account?
                 <Link to="/login"> Login</Link>
               </Message>
-
-
             </Grid.Column>
           </Grid>
         </div>
@@ -284,9 +278,8 @@ class signupForm extends React.Component {
   }
 }
 
-
 //====================== REDUX CONNECTION =========================
 
-const mapState = state => ({ error: state.user.error });
+const mapState = state => ({ signUpErrors: state.user.signUpErrors });
 const mapDispatch = { signUp };
 export default connect(mapState, mapDispatch)(signupForm);

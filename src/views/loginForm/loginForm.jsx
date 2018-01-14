@@ -220,10 +220,10 @@ class loginForm extends React.Component {
               </Segment>
 
               {/* Redux Error */}
-              {this.props.error && (
+              {this.props.loginError && (
                 <Segment inverted color="red" tertiary>
                   <Icon name="warning" />
-                  {this.props.error}
+                  {this.props.loginError}
                 </Segment>
               )}
 
@@ -290,7 +290,7 @@ class loginForm extends React.Component {
 
 //====================== REDUX CONNECTION =========================
 const mapState = state => ({
-  error: state.user.error,
+  loginError: state.user.loginError,
   message: state.user.message
 });
 const mapDispatch = { login };
