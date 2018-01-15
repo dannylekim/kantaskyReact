@@ -23,32 +23,10 @@ class loginForm extends React.Component {
       username: "",
       password: "",
       mountParticles: false,
-      error: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.verifyNull = this.verifyNull.bind(this);
-  }
-
-  /**
-   * Verifies for null fields.
-   *
-   * @returns
-   * @memberof loginForm
-   */
-  verifyNull() {
-    if (!this.state.username) {
-      this.setState({ error: "Please enter a username" });
-      return false;
-    }
-
-    if (!this.state.password) {
-      this.setState({ error: "Please enter a password" });
-      return false;
-    }
-
-    return true;
   }
 
   //the two functions below allows rendering of particles.js without breaking the page when it's been redirected
@@ -69,8 +47,7 @@ class loginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ error: undefined });
-    const isValid = this.verifyNull();
-    if (isValid) this.props.login(this.state);
+    this.props.login(this.state);
   }
 
   /**
@@ -224,14 +201,6 @@ class loginForm extends React.Component {
                 <Segment inverted color="red" tertiary>
                   <Icon name="warning" />
                   {this.props.loginError}
-                </Segment>
-              )}
-
-              {/* Custom Validation Errors */}
-              {this.state.error && (
-                <Segment inverted color="red" tertiary>
-                  <Icon name="warning" />
-                  {this.state.error}
                 </Segment>
               )}
 

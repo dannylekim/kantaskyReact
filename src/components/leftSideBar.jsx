@@ -8,6 +8,8 @@ import {
   Header
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import {signOut} from "../redux/user/userActionDispatcher"
+import {connect} from "react-redux"
 
 class SidebarLeftPush extends Component {
   state = { visible: false };
@@ -18,6 +20,8 @@ class SidebarLeftPush extends Component {
     let divStyle = {
       height: 25 + "em"
     };
+
+ 
 
     const { visible } = this.state;
     return (
@@ -52,7 +56,7 @@ class SidebarLeftPush extends Component {
               <Icon name="settings" />
               Settings
             </Menu.Item>
-            <Menu.Item name="signOut">
+            <Menu.Item name="signOut" onClick={this.props.signOut}>
               <Icon name="sign out" />
               Sign Out
             </Menu.Item>
@@ -78,4 +82,6 @@ class SidebarLeftPush extends Component {
   }
 }
 
-export default SidebarLeftPush;
+const mapDispatch = { signOut };
+export default connect(null, mapDispatch)(SidebarLeftPush);
+

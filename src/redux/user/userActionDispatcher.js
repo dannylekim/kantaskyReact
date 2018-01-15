@@ -1,5 +1,5 @@
 import UserApi from "../../api/userApi";
-import { loginSuccess, loginFail, signUpFail, signUpSuccess } from "./userActions";
+import { loginSuccess, loginFail, signUpFail, signUpSuccess, logout } from "./userActions";
 import { history } from "../../config/config";
 
 /**
@@ -22,9 +22,10 @@ export const login = credentials => async dispatch => {
  * Logs out
  *
  */
-export const logout = () => dispatch => {
+export const signOut = () => dispatch => {
   localStorage.clear(); //clear local storage
   dispatch(logout()); //dispatch logout
+  history.push("/login")
 };
 
 export const signUp = newUser => async dispatch => {
@@ -33,7 +34,6 @@ export const signUp = newUser => async dispatch => {
     dispatch(signUpSuccess())
     history.push("/login")
   } catch (err) {
-    console.log(err.data)
     dispatch(signUpFail(err.data))
   }
 };
