@@ -22,7 +22,7 @@ class loginForm extends React.Component {
     this.state = {
       username: "",
       password: "",
-      mountParticles: false,
+      mountParticles: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -176,19 +176,24 @@ class loginForm extends React.Component {
 
     return (
       <div>
-
         {/* Particles.js */}
         {this.state.mountParticles && (
           <Particles canvasClassName="particle" params={particles} />
         )}
         <div className="login-form">
+          <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
           <Grid
             textAlign="center"
             style={{ height: "100%" }}
             verticalAlign="middle"
           >
             <Grid.Column style={{ maxWidth: 450 }}>
-
               {/* Header */}
               <Segment color="blue" tertiary>
                 <Header as="h1" color="blue" textAlign="center">

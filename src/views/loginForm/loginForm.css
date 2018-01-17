@@ -1,6 +1,4 @@
-body > div,
-body > div > div,
-body > div > div > div.login-form {
+div.login-form {
   height: 100%;
   position: relative;
  
@@ -15,3 +13,4 @@ body > div > div > div.login-form {
   left:0;
   z-index:0; 
 }
+

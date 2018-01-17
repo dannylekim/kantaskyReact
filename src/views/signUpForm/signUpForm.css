@@ -1,6 +1,4 @@
-body > div,
-body > div > div,
-body > div > div > div.signup-form {
+div.signup-form {
   height: 100%;
   position: relative;
  

@@ -8,8 +8,8 @@ import {
   Header
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import {signOut} from "../redux/user/userActionDispatcher"
-import {connect} from "react-redux"
+import { signOut } from "../redux/user/userActionDispatcher";
+import { connect } from "react-redux";
 
 class SidebarLeftPush extends Component {
   state = { visible: false };
@@ -20,9 +20,6 @@ class SidebarLeftPush extends Component {
     let divStyle = {
       height: 25 + "em"
     };
-
- 
-
     const { visible } = this.state;
     return (
       <div>
@@ -63,16 +60,13 @@ class SidebarLeftPush extends Component {
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
-              
-              <Menu.Item onClick={this.toggleVisibility} >
+              <Menu.Item onClick={this.toggleVisibility}>
                 <Icon name="sidebar" />
               </Menu.Item>
               <Header as="h3">Application Content</Header>
-              <div style={divStyle}>
-                Testing the SideBar
-              </div>
+              <div style={divStyle}>Testing the SideBar</div>
               <Link to="/login">
-                  <Button color="teal">Go to Login</Button>
+                <Button color="teal">Go to Login</Button>
               </Link>
             </Segment>
           </Sidebar.Pusher>
@@ -84,4 +78,3 @@ class SidebarLeftPush extends Component {
 
 const mapDispatch = { signOut };
 export default connect(null, mapDispatch)(SidebarLeftPush);
-

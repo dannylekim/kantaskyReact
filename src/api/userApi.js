@@ -21,6 +21,16 @@ class User {
       return Promise.reject(err.response);
     }
   }
+
+  static async getPersonalTasks(id) {
+    try {
+      return Promise.resolve(
+        await axios.post(backendServerURI + "tasks/" + id)
+      );
+    } catch (err) {
+      return Promise.reject(err.response);
+    }
+  }
 }
 
 export default User;

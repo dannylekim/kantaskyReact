@@ -174,6 +174,13 @@ class signupForm extends React.Component {
           <Particles canvasClassName="particle" params={particles} />
         )}
         <div className="signup-form">
+        <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.signup-form {
+        height: 100%;
+      }
+    `}</style>
           <Grid
             textAlign="center"
             style={{ height: "100%" }}
