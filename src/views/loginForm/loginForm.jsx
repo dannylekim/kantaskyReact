@@ -9,8 +9,8 @@ import {
   Icon,
   Message
 } from "semantic-ui-react";
-import "./loginForm.css";
 import { Link } from "react-router-dom";
+import style from "./loginFormStyle"
 import Particles from "react-particles-js";
 import { login } from "../../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
@@ -173,21 +173,14 @@ class loginForm extends React.Component {
       },
       retina_detect: true
     };
-
     return (
       <div>
+        {style}
         {/* Particles.js */}
         {this.state.mountParticles && (
           <Particles canvasClassName="particle" params={particles} />
         )}
         <div className="login-form">
-          <style>{`
-      body > div,
-      body > div > div,
-      body > div > div > div.login-form {
-        height: 100%;
-      }
-    `}</style>
           <Grid
             textAlign="center"
             style={{ height: "100%" }}

@@ -7,8 +7,8 @@ import {
   Segment,
   Message
 } from "semantic-ui-react";
-import "./signUpForm.css";
 import { Link } from "react-router-dom";
+import style from "./signUpFormStyle"
 import Particles from "react-particles-js";
 import { signUp } from "../../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
@@ -167,20 +167,15 @@ class signupForm extends React.Component {
       },
       retina_detect: true
     };
+ 
     return (
       <div>
+        {style}
         {/* Particles.js Canvas */}
         {this.state.mountParticles && (
           <Particles canvasClassName="particle" params={particles} />
         )}
         <div className="signup-form">
-        <style>{`
-      body > div,
-      body > div > div,
-      body > div > div > div.signup-form {
-        height: 100%;
-      }
-    `}</style>
           <Grid
             textAlign="center"
             style={{ height: "100%" }}
