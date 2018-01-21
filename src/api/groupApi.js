@@ -3,6 +3,8 @@ import { backendServerURI } from "../config/config";
 
 class Group {
 
+//================ POST REQUESTS ======================
+
   /**
    * Create a new group
    * 
@@ -21,23 +23,8 @@ class Group {
     }
   }
 
-  /**
-   * Gets the specified Group
-   * 
-   * @static
-   * @param {any} groupId 
-   * @returns Group Object
-   * @memberof Group
-   */
-  static async getGroup(groupId) {
-    try {
-      return Promise.resolve(
-        await axios.get(backendServerURI + "groups/" + groupId)
-      );
-    } catch (err) {
-      return Promise.reject(err.response);
-    }
-  }
+//================ PUT REQUESTS ======================
+
 
   /**
    * Updates the Group. Can change team leader, users and group name
@@ -57,6 +44,29 @@ class Group {
     }
   }
 
+//================ GET REQUESTS ======================
+
+  /**
+   * Gets the specified Group
+   * 
+   * @static
+   * @param {any} groupId 
+   * @returns Group Object
+   * @memberof Group
+   */
+  static async getGroup(groupId) {
+    try {
+      return Promise.resolve(
+        await axios.get(backendServerURI + "groups/" + groupId)
+      );
+    } catch (err) {
+      return Promise.reject(err.response);
+    }
+  }
+
+
+//================ DELETE REQUESTS ======================
+  
 
 /**
  * Deletes the group

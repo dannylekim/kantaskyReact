@@ -4,6 +4,8 @@ import { backendServerURI } from "../config/config";
 class User {
 
 
+  //================ POST REQUESTS ======================
+
   /**
    * Authenticates User.
    * 
@@ -40,6 +42,8 @@ class User {
     }
   }
 
+//================ PUT REQUESTS ======================
+
   /**
    * Updates User's email, first Name and Last name
    * 
@@ -70,6 +74,26 @@ class User {
     try {
       return Promise.resolve(
         await axios.put(backendServerURI + "changePassword/" + userId)
+      );
+    } catch (err) {
+      return Promise.reject(err.response);
+    }
+  }
+
+//================ GET REQUESTS ======================
+
+/**
+ * Gets the associated user Id. Requester can only take his own
+ * 
+ * @static
+ * @param {any} userId 
+ * @returns 
+ * @memberof User
+ */
+static async getUser(userId) { 
+    try {
+      return Promise.resolve(
+        await axios.get(backendServerURI + "user/" + userId)
       );
     } catch (err) {
       return Promise.reject(err.response);
