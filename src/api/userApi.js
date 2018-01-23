@@ -1,5 +1,4 @@
 import axios from "axios";
-import { backendServerURI } from "../config/config";
 
 class User {
 
@@ -17,7 +16,7 @@ class User {
   static async authenticate(credentials) {
     try {
       return Promise.resolve(
-        await axios.post(backendServerURI + "login", credentials)
+        await axios.post("login", credentials)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -35,7 +34,7 @@ class User {
   static async signUp(user) {
     try {
       return Promise.resolve(
-        await axios.post(backendServerURI + "signup", user)
+        await axios.post("signup", user)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -55,7 +54,7 @@ class User {
   static async updateUser(userId) {
     try {
       return Promise.resolve(
-        await axios.put(backendServerURI + "users/" + userId)
+        await axios.put("users/" + userId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -73,7 +72,7 @@ class User {
   static async changePassword(userId) {
     try {
       return Promise.resolve(
-        await axios.put(backendServerURI + "changePassword/" + userId)
+        await axios.put("changePassword/" + userId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -93,9 +92,10 @@ class User {
 static async getUser(userId) { 
     try {
       return Promise.resolve(
-        await axios.get(backendServerURI + "user/" + userId)
+        await axios.get("users/" + userId)
       );
     } catch (err) {
+      console.log(err)
       return Promise.reject(err.response);
     }
   }

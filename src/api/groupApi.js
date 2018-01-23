@@ -1,5 +1,4 @@
 import axios from "axios";
-import { backendServerURI } from "../config/config";
 
 class Group {
 
@@ -16,7 +15,7 @@ class Group {
   static async createGroup(userId) {
     try {
       return Promise.resolve(
-        await axios.post(backendServerURI + "groups/" + userId)
+        await axios.post("groups/" + userId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -37,7 +36,7 @@ class Group {
   static async updateGroup(groupId) {
     try {
       return Promise.resolve(
-        await axios.put(backendServerURI + "groups/" + groupId)
+        await axios.put("groups/" + groupId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -57,7 +56,7 @@ class Group {
   static async getGroup(groupId) {
     try {
       return Promise.resolve(
-        await axios.get(backendServerURI + "groups/" + groupId)
+        await axios.get("groups/" + groupId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -79,7 +78,7 @@ class Group {
 static async deleteGroup(groupId) {
     try {
       return Promise.resolve(
-        await axios.delete(backendServerURI + "groups/" + groupId)
+        await axios.delete("groups/" + groupId)
       );
     } catch (err) {
       return Promise.reject(err.response);

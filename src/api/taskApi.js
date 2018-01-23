@@ -1,5 +1,4 @@
 import axios from "axios";
-import { backendServerURI } from "../config/config";
 
 class Task {
 
@@ -17,7 +16,7 @@ class Task {
   static async createTaskInGroup(groupId, userId) {
     try {
       return Promise.resolve(
-        await axios.post(backendServerURI + "tasks/" + groupId + "/" + userId)
+        await axios.post("tasks/" + groupId + "/" + userId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -37,7 +36,7 @@ class Task {
   static async updateTask(taskId) {
     try {
       return Promise.resolve(
-        await axios.put(backendServerURI + "tasks/" + taskId)
+        await axios.put("tasks/" + taskId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -58,7 +57,7 @@ class Task {
   static async getPersonalTasks(userId) {
     try {
       return Promise.resolve(
-        await axios.get(backendServerURI + "tasks/" + userId)
+        await axios.get("tasks/" + userId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -77,7 +76,7 @@ class Task {
   static async getUsersTasksInGroup(groupId, userId) {
     try {
       return Promise.resolve(
-        await axios.get(backendServerURI + "tasks/" + groupId + "/" + userId)
+        await axios.get("tasks/" + groupId + "/" + userId)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -96,7 +95,7 @@ class Task {
   static async deleteTask(taskId) {
     try {
       return Promise.resolve(
-        await axios.delete(backendServerURI + "tasks/" + taskId)
+        await axios.delete("tasks/" + taskId)
       );
     } catch (err) {
       return Promise.reject(err.response);

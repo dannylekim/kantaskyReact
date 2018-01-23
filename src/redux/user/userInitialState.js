@@ -5,7 +5,8 @@ let state = {
   loginError: null,
   signUpErrors: null,
   authenticated: null,
-  message: null
+  message: null,
+  user: null
 };
 
 export default state;

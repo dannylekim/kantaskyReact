@@ -1,6 +1,8 @@
 import UserApi from "../../api/userApi";
-import { loginSuccess, loginFail, signUpFail, signUpSuccess, logout } from "./userActions";
+import { loginSuccess, loginFail, signUpFail, signUpSuccess, logout, getUserSuccess } from "./userActions";
 import { history } from "../../config/config";
+import userApi from "../../api/userApi";
+import axios from "axios"
 
 /**
  * Logs the user in with the credentials and sends either a successful or fail action to the reducer
@@ -10,8 +12,10 @@ import { history } from "../../config/config";
 export const login = credentials => async dispatch => {
   try {
     const response = await UserApi.authenticate(credentials); //api call to login
-    dispatch(loginSuccess(response.data.token)); //dispatch the successful login call
     localStorage.setItem("token", response.data.token); //set into localStorage for later use
+    axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token
+    dispatch(loginSuccess(response.data.token)); //dispatch the successful login call
+
     history.push("/"); //change page
   } catch (err) {
     dispatch(loginFail(err.data)); //dispatch login fail
@@ -37,3 +41,13 @@ export const signUp = newUser => async dispatch => {
     dispatch(signUpFail(err.data))
   }
 };
+
+export const getUser = (userId) => async dispatch => {
+  try{
+    const response = await userApi.getUser(userId)
+    dispatch(getUserSuccess(response.data))
+  }
+  catch (err){
+    console.log(err)
+  }
+}

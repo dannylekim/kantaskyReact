@@ -37,6 +37,9 @@ const reducer = (state = initial, action) => {
       });
     case types.SIGNUP_FAIL:
       return Object.assign({}, state, { signUpErrors: action.error });
+
+    case types.GET_USER_SUCCESS:
+      return Object.assign({}, state, { user: action.user });
     default:
       return state;
   }

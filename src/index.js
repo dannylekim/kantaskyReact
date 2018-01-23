@@ -8,6 +8,7 @@ import store from "./redux/configureStore";
 import { Provider } from "react-redux";
 import { history } from "./config/config";
 import { LOGOUT, LOGIN_SUCCESS } from "./redux/user/userActionTypes";
+import axios from "axios"
 
 /**
  * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user
@@ -22,6 +23,7 @@ const checkToken = () => {
     return; //exit function
   } else {
     //else dispatch success
+    axios.defaults.headers.common['Authorization'] = "Bearer " + token
     store.dispatch({ type: LOGIN_SUCCESS, token: token });
   }
 };
