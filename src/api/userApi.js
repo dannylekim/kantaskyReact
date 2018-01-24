@@ -51,10 +51,10 @@ class User {
    * @returns Success Message
    * @memberof User
    */
-  static async updateUser(userId) {
+  static async updateUser(updatedUser, userId) {
     try {
       return Promise.resolve(
-        await axios.put("users/" + userId)
+        await axios.put("users/" + userId, updatedUser)
       );
     } catch (err) {
       return Promise.reject(err.response);
@@ -69,10 +69,10 @@ class User {
    * @returns Success Message
    * @memberof User
    */
-  static async changePassword(userId) {
+  static async changePassword(newPassword, userId) {
     try {
       return Promise.resolve(
-        await axios.put("changePassword/" + userId)
+        await axios.put("changePassword/" + userId, newPassword)
       );
     } catch (err) {
       return Promise.reject(err.response);

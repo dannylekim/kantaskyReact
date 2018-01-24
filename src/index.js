@@ -10,6 +10,7 @@ import { history } from "./config/config";
 import { LOGOUT, LOGIN_SUCCESS } from "./redux/user/userActionTypes";
 import axios from "axios"
 
+//FIXME:Consider moving this to redux in some way?
 /**
  * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user
  *

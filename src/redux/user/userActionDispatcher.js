@@ -1,8 +1,20 @@
 import UserApi from "../../api/userApi";
-import { loginSuccess, loginFail, signUpFail, signUpSuccess, logout, getUserSuccess } from "./userActions";
+import {
+  loginSuccess,
+  loginFail,
+  signUpFail,
+  signUpSuccess,
+  logout,
+  getUserSuccess,
+  updateUserSuccess,
+  updateUserFail,
+  getUserFail,
+  changePasswordSuccess,
+  changePasswordFail
+} from "./userActions";
 import { history } from "../../config/config";
 import userApi from "../../api/userApi";
-import axios from "axios"
+import axios from "axios";
 
 /**
  * Logs the user in with the credentials and sends either a successful or fail action to the reducer
@@ -13,7 +25,8 @@ export const login = credentials => async dispatch => {
   try {
     const response = await UserApi.authenticate(credentials); //api call to login
     localStorage.setItem("token", response.data.token); //set into localStorage for later use
-    axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + response.data.token;
     dispatch(loginSuccess(response.data.token)); //dispatch the successful login call
 
     history.push("/"); //change page
@@ -29,25 +42,42 @@ export const login = credentials => async dispatch => {
 export const signOut = () => dispatch => {
   localStorage.clear(); //clear local storage
   dispatch(logout()); //dispatch logout
-  history.push("/login")
+  history.push("/login");
 };
 
 export const signUp = newUser => async dispatch => {
   try {
     await UserApi.signUp(newUser);
-    dispatch(signUpSuccess())
-    history.push("/login")
+    dispatch(signUpSuccess());
+    history.push("/login");
   } catch (err) {
-    dispatch(signUpFail(err.data))
+    dispatch(signUpFail(err.data));
   }
 };
 
-export const getUser = (userId) => async dispatch => {
-  try{
-    const response = await userApi.getUser(userId)
-    dispatch(getUserSuccess(response.data))
+export const getUser = userId => async dispatch => {
+  try {
+    const response = await userApi.getUser(userId);
+    dispatch(getUserSuccess(response.data));
+  } catch (err) {
+    dispatch(getUserFail(err.data));
   }
-  catch (err){
-    console.log(err)
+};
+
+export const changePassword = (password, userId) => async dispatch => {
+  try {
+    const response = await userApi.changePassword(password, userId);
+    dispatch(changePasswordSuccess(response.data));
+  } catch (err) {
+    dispatch(changePasswordFail(err.data));
   }
-}
+};
+
+export const updateAccount = (newAccountDetails, userId) => async dispatch => {
+  try {
+    const response = await userApi.updateUser(newAccountDetails, userId);
+    dispatch(updateUserSuccess(response.data));
+  } catch (err) {
+    dispatch(updateUserFail(err.data));
+  }
+};
