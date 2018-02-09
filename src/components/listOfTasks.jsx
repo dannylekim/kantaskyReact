@@ -2,13 +2,13 @@ import React from "react";
 import { Card } from "semantic-ui-react";
 import TaskModal from "./taskModal";
 
-const listOfTasks = props => (
+const listOfTasks = ({items, category}) => (
   <Card>
     <Card.Content>
-      <Card.Header> {props.category}</Card.Header>
+      <Card.Header> {category}</Card.Header>
     </Card.Content>
     <Card.Content>
-      {props.items.map(task => (
+      {items.map(task => (
         <TaskModal
           category={task.category}
           description={task.description}

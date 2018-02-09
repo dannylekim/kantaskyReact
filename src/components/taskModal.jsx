@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Modal, Button } from "semantic-ui-react";
+import { Header, Modal } from "semantic-ui-react";
 import Task from "./task";
 
 const taskModal = ({name, description, importance, user, status, dueDate, createdDate, category, 
@@ -24,7 +24,7 @@ const taskModal = ({name, description, importance, user, status, dueDate, create
         <p>Importance: {importance}</p>
         <p>Status: {status}</p>
         <p>Due date: {dueDate}</p>
-        <p>Created date" {createdDate}</p>
+        <p>Created date: {createdDate}</p>
       </Modal.Description>
     </Modal.Content>
   </Modal>
