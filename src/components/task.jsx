@@ -2,13 +2,14 @@ import React from "react";
 
 import { Card } from "semantic-ui-react";
 
-const task = props => (
+const task = ({name, description, importance,user, ...rest}) => (
   <Card
     link
-    header={props.name}
-    description={props.description}
-    meta={props.importance}
-    extra={props.user}
+    header={name}
+    description={description}
+    meta={importance}
+    extra={user}
+    {...rest}
   />
 );
 

@@ -1,4 +1,4 @@
-import UserApi from "../../api/userApi";
+
 import {
   loginSuccess,
   loginFail,
@@ -13,7 +13,7 @@ import {
   changePasswordFail
 } from "./userActions";
 import { history } from "../../config/config";
-import userApi from "../../api/userApi";
+import UserApi from "../../api/userApi";
 import axios from "axios";
 
 /**
@@ -57,7 +57,7 @@ export const signUp = newUser => async dispatch => {
 
 export const getUser = userId => async dispatch => {
   try {
-    const response = await userApi.getUser(userId);
+    const response = await UserApi.getUser(userId);
     dispatch(getUserSuccess(response.data));
   } catch (err) {
     dispatch(getUserFail(err.data));
@@ -66,7 +66,7 @@ export const getUser = userId => async dispatch => {
 
 export const changePassword = (password, userId) => async dispatch => {
   try {
-    const response = await userApi.changePassword(password, userId);
+    const response = await UserApi.changePassword(password, userId);
     dispatch(changePasswordSuccess(response.data));
   } catch (err) {
     dispatch(changePasswordFail(err.data));
@@ -75,7 +75,7 @@ export const changePassword = (password, userId) => async dispatch => {
 
 export const updateAccount = (newAccountDetails, userId) => async dispatch => {
   try {
-    const response = await userApi.updateUser(newAccountDetails, userId);
+    const response = await UserApi.updateUser(newAccountDetails, userId);
     dispatch(updateUserSuccess(response.data));
   } catch (err) {
     dispatch(updateUserFail(err.data));

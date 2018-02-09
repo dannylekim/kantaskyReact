@@ -1,28 +1,30 @@
 import React from "react";
-import { Header, Modal } from "semantic-ui-react";
+import { Header, Modal, Button } from "semantic-ui-react";
 import Task from "./task";
 
-const taskModal = props => (
+const taskModal = ({name, description, importance, user, status, dueDate, createdDate, category, 
+   ...rest}) => (
   <Modal
     trigger={
       <Task
-        name={props.name}
-        description={props.description}
-        user={props.user}
-        importance={props.importance}
+        name={name}
+        description={description}
+        user={user}
+        importance={importance}
+        {...rest}
       />
     }
   >
-    <Modal.Header>{props.name}</Modal.Header>
+    <Modal.Header>{name}</Modal.Header>
     <Modal.Content>
       <Modal.Description>
-        <Header>{props.category}</Header>
-        <p>{props.description}</p>
-        <p>Assigned to: {props.user} </p>
-        <p>Importance: {props.importance}</p>
-        <p>Status: {props.status}</p>
-        <p>Due date: {props.dueDate}</p>
-        <p>Created date" {props.createdDate}</p>
+        <Header>{category}</Header>
+        <p>{description}</p>
+        <p>Assigned to: {user} </p>
+        <p>Importance: {importance}</p>
+        <p>Status: {status}</p>
+        <p>Due date: {dueDate}</p>
+        <p>Created date" {createdDate}</p>
       </Modal.Description>
     </Modal.Content>
   </Modal>

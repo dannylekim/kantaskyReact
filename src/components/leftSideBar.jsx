@@ -41,10 +41,12 @@ class SidebarLeftPush extends Component {
               <Icon name="user circle" />
               Profile
             </Menu.Item>
+            <Link to="/tasks">
             <Menu.Item name="personal">
               <Icon name="tasks" />
               Personal Tasks
             </Menu.Item>
+            </Link>
             <Menu.Item name="groups">
               <Icon name="users" />
               Groups
