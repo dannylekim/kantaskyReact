@@ -1,20 +1,20 @@
 import React from "react";
 import { Card, Icon } from "semantic-ui-react";
 
-const extra = props => (
+const extra = numberOfUsers => (
   <a>
     <Icon name="user" />
-    {props} Users
+    {numberOfUsers} Users
   </a>
 );
 
-const groupCard = props => (
+const groupCard = (name, teamLeader, description, users) => (
   <Card
     image="http://via.placeholder.com/290x290"
-    header={props.name}
-    meta={props.teamLeader}
-    description={props.description}
-    extra={extra(props.users.length())}
+    header={name}
+    meta={teamLeader}
+    description={description}
+    extra={extra(users.length())}
   />
 );
 

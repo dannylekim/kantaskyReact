@@ -1,5 +1,4 @@
 import React from "react";
-import LeftSideBar from "../../components/leftSideBar";
 import { getUser } from "../../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
 import jwt from "jsonwebtoken";
@@ -15,12 +14,11 @@ class Main extends React.Component {
   }
 
   render() {
-    const user = this.props.user
-    console.log(user)
+    // const user = this.props.user
     return (
       <div>
-        <LeftSideBar />
       </div>
+     
     );
   }
 }
