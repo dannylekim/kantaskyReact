@@ -10,6 +10,7 @@ const task = ({name, description, importance,user, ...rest}) => (
     meta={importance}
     extra={user}
     {...rest}
+    color='red'
   />
 );
 

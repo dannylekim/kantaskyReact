@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { history } from "./config/config";
 import { LOGOUT, LOGIN_SUCCESS } from "./redux/user/userActionTypes";
 import axios from "axios"
+import {decode} from "jsonwebtoken"
 
 //FIXME:Consider moving this to redux in some way?
 /**
@@ -25,7 +26,8 @@ const checkToken = () => {
   } else {
     //else dispatch success
     axios.defaults.headers.common['Authorization'] = "Bearer " + token
-    store.dispatch({ type: LOGIN_SUCCESS, token: token });
+    const userId = decode(token).id
+    store.dispatch({ type: LOGIN_SUCCESS, token: token, user:userId });
   }
 };
 

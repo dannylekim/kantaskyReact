@@ -15,6 +15,7 @@ import {
 import { history } from "../../config/config";
 import UserApi from "../../api/userApi";
 import axios from "axios";
+import {decode} from "jsonwebtoken"
 
 /**
  * Logs the user in with the credentials and sends either a successful or fail action to the reducer
@@ -27,7 +28,8 @@ export const login = credentials => async dispatch => {
     localStorage.setItem("token", response.data.token); //set into localStorage for later use
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + response.data.token;
-    dispatch(loginSuccess(response.data.token)); //dispatch the successful login call
+    const payload = decode(response.data.token)
+    dispatch(loginSuccess(response.data.token, payload.id)); //dispatch the successful login call
 
     history.push("/"); //change page
   } catch (err) {

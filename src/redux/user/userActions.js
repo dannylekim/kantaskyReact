@@ -2,9 +2,10 @@
 
 import * as types from "./userActionTypes";
 
-export const loginSuccess = token => ({
+export const loginSuccess = (token, userId) => ({
     type: types.LOGIN_SUCCESS,
-    token: token
+    token: userId,
+    user: userId
   }),
   loginFail = error => ({ type: types.LOGIN_FAIL, error: error }),
   checkToken = () => ({ type: types.CHECK_TOKEN }),

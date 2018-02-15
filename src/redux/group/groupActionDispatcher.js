@@ -1,14 +1,17 @@
 import groupApi from "../../api/groupApi";
-import { getGroup } from "./groupActions";
-import { history } from "../../config/config";
+import {getGroupSuccess } from "./groupActions";
+import store from "../configureStore"
 
 
-export const getUsersGroups = userId => async dispatch => {
+export const getUsersGroups = () => async dispatch => {
   try {
-    const response = await groupApi.getUsersGroups(userId); //api call to login
-    dispatch(getGroup(response.data)); //dispatch the successful login call
+    const userId = store.getState().user.userId
+    const response = await groupApi.getAllUsersGroups(userId); //api call to login
+    dispatch(getGroupSuccess(response.data)); //dispatch the successful login call
   } catch (err) {
     //TODO:
   }
 };
+
+
 

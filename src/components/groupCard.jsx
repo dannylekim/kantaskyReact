@@ -1,20 +1,24 @@
 import React from "react";
-import { Card, Icon } from "semantic-ui-react";
+import { Card, Icon, Label } from "semantic-ui-react";
 
-const extra = numberOfUsers => (
-  <a>
-    <Icon name="user" />
-    {numberOfUsers} Users
-  </a>
+const extra = (numberOfUsers, category) => (
+  <div>
+    <Label as="a"  color='red'>
+      <Icon name="user" />
+      {numberOfUsers} Users
+    </Label>
+    <Label as="a"  color={(category === 'personal') ? 'green' : 'blue'}>{category}</Label>
+  </div>
 );
 
-const groupCard = (name, teamLeader, description, users) => (
+const groupCard = ({ name, teamLeader, category, description, users }) => (
   <Card
-    image="http://via.placeholder.com/290x290"
+    // image="http://via.placeholder.com/290x290"
     header={name}
-    meta={teamLeader}
+    meta={"Project Lead: " + teamLeader}
     description={description}
-    extra={extra(users.length())}
+    extra={extra(users.length, category)}
+    color='blue'
   />
 );
 

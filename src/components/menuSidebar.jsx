@@ -1,25 +1,33 @@
 import React, { Component } from "react";
-import {
-  Sidebar,
-  Menu,
-  Icon,
-} from "semantic-ui-react";
+import { Sidebar, Menu, Icon } from "semantic-ui-react";
 import { signOut } from "../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
 import { history } from "../config/config";
 
 class MenuSidebar extends Component {
-  constructor(props){
-    super(props)
-    this.goToTasks = this.goToTasks.bind(this)
-    this.goToHome = this.goToHome.bind(this)
+  constructor(props) {
+    super(props);
+    this.goToPersonal = this.goToPersonal.bind(this);
+    this.goToHome = this.goToHome.bind(this);
+    this.goToGroups = this.goToGroups.bind(this);
+    this.goToSettings = this.goToSettings.bind(this);
+    this.goToProfile = this.goToProfile.bind(this);
   }
- 
-  goToTasks() {
-    history.push("/tasks");
+
+  goToPersonal() {
+    history.push("/personal");
   }
-  goToHome(){
-    history.push("/")
+  goToHome() {
+    history.push("/");
+  }
+  goToGroups() {
+    history.push("/groups");
+  }
+  goToSettings() {
+    history.push("/settings");
+  }
+  goToProfile() {
+    history.push("/profile");
   }
 
   render() {
@@ -37,21 +45,21 @@ class MenuSidebar extends Component {
           <Icon name="home" />
           Home
         </Menu.Item>
-        <Menu.Item name="profile" >
+        <Menu.Item name="profile" onClick={this.goToProfile}>
           <Icon name="user circle" />
           Profile
         </Menu.Item>
 
-        <Menu.Item name="personal" onClick={this.goToTasks}>
+        <Menu.Item name="personal" onClick={this.goToPersonal}>
           <Icon name="tasks" />
           Personal Tasks
         </Menu.Item>
 
-        <Menu.Item name="groups">
+        <Menu.Item name="groups" onClick={this.goToGroups}>
           <Icon name="users" />
           Groups
         </Menu.Item>
-        <Menu.Item name="settings">
+        <Menu.Item name="settings" onClick={this.goToSettings}>
           <Icon name="settings" />
           Settings
         </Menu.Item>
