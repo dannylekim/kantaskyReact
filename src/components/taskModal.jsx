@@ -38,22 +38,19 @@ const taskModal = ({
       <Modal.Content>
         <Modal.Description>
           <Header>{category}</Header>
-          <p>{description}</p>
-          <p>
+          {description}
+          <br/><br/>
             Assigned to: <Label color="blue"> {user} </Label>
-          </p>
-          <p>
+            <br/><br/>
+         
             Importance: <Label color={importanceColor}>{importance} </Label>
-          </p>
-          <p>
+            <br/><br/>
             Status: <Label color={statusColor}> {status} </Label>
-          </p>
-          <p>
+            <br/><br/>
             Due date: {(dueDate) && <Label color="purple"> {dueDate} </Label>}
-          </p>
-          <p>
+            <br/><br/>
             Created date: {(createdDate) && <Label color="pink"> {createdDate} </Label>}
-          </p>
+       
         </Modal.Description>
       </Modal.Content>
     </Modal>

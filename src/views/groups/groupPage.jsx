@@ -25,11 +25,12 @@ class GroupPage extends React.Component {
           teamLeader={group.teamLeader.name}
           description={group.description}
           users={group.users}
+          id={group._id}
         />
       ));
     }
 
-    return <Card.Group centered={true}>{groupCards}</Card.Group>;
+    return <Card.Group>{groupCards}</Card.Group>;
   }
 }
 

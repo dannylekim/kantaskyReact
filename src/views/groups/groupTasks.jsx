@@ -1,18 +1,18 @@
 import React from "react";
 import ListOfTasks from "../../components/listOfTasks";
-import { getPersonalTasks } from "../../redux/task/taskActionDispatcher";
+import { getUsersTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card } from "semantic-ui-react";
 
-class TaskPage extends React.Component {
+class GroupTasks extends React.Component {
   constructor(props) {
     super(props);
     this.sortOutTasks = this.sortOutTasks.bind(this);
   }
 
-  //TODO: Eventually will have the user saved as a state so can just pull information from there
   componentWillMount() {
-    this.props.getPersonalTasks();
+    const groupId = this.props.match.params.groupId
+    this.props.getUsersTasks(groupId);
   }
 
   sortOutTasks(tasks) {
@@ -53,8 +53,8 @@ class TaskPage extends React.Component {
 
 //====================== REDUX CONNECTION =========================
 
-const mapState = state => ({ tasks: state.task.personalTasks });
+const mapState = state => ({ tasks: state.task.tasks });
 const mapDispatch = {
-  getPersonalTasks
+  getUsersTasks
 };
-export default connect(mapState, mapDispatch)(TaskPage);
+export default connect(mapState, mapDispatch)(GroupTasks);

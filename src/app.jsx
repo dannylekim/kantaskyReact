@@ -1,12 +1,13 @@
 import React from "react";
 import Login from "./views/loginForm/loginForm";
 import SignUp from "./views/signUpForm/signUpForm";
-import Main from "./views/main/main";
-import TaskPage from "./views/taskPage/taskPage";
+import Main from "./views/Main/main"
+import Personal from "./views/taskPage/taskPage";
 import { Route, Switch } from "react-router-dom";
 import requireAuth from "./config/requireAuth";
 import MenuSidebar from "./components/menuSidebar";
 import GroupPage from "./views/groups/groupPage";
+import GroupTask from "./views/groups/groupTasks"
 import { Sidebar, Segment, Menu, Icon } from "semantic-ui-react";
 import noRequireAuth from "./config/noRequireAuth";
 
@@ -33,8 +34,9 @@ class App extends React.Component {
               <Route path="/login" component={noRequireAuth(Login)} />
               <Route path="/signup" component={noRequireAuth(SignUp)} />
               <Route exact path="/" component={requireAuth(Main)} />
-              <Route path="/personal" component={requireAuth(TaskPage)} />
-              <Route path="/groups" component={requireAuth(GroupPage)} />
+              <Route path="/personal" component={requireAuth(Personal)} />
+              <Route exact path="/groups" component={requireAuth(GroupPage)} />
+              <Route path='/groups/:groupId' component={requireAuth(GroupTask)} />
             </Switch>
           </div>
         </Sidebar.Pusher>

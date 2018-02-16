@@ -10,6 +10,10 @@ const reducer = (state = initial, action) => {
       return Object.assign({}, state, {
         personalTasks: action.personalTasks
       });
+    case types.GET_USERS_GROUP_TASKS_SUCCESS:
+    return Object.assign({}, state, {
+      tasks: action.tasks
+    });
     default:
       return state;
   }

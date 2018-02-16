@@ -3,17 +3,18 @@ import { Card, Icon, Label } from "semantic-ui-react";
 
 const extra = (numberOfUsers, category) => (
   <div>
-    <Label as="a"  color='red'>
+    <Label color='red'>
       <Icon name="user" />
-      {numberOfUsers} Users
+      {numberOfUsers} User{(numberOfUsers > 1) && 's'}
     </Label>
-    <Label as="a"  color={(category === 'personal') ? 'green' : 'blue'}>{category}</Label>
+    <Label color={(category === 'personal') ? 'green' : 'blue'}>{category}</Label>
   </div>
 );
 
-const groupCard = ({ name, teamLeader, category, description, users }) => (
+const groupCard = ({ name, teamLeader, category, description, users, id }) => (
   <Card
     // image="http://via.placeholder.com/290x290"
+    href={'/groups/' + id}
     header={name}
     meta={"Project Lead: " + teamLeader}
     description={description}

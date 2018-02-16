@@ -13,24 +13,24 @@ export const createTaskInGroupSuccess = task => ({
     tasks: tasks
   }), //TODO: add to task list, figure this out
   deleteTaskFail = error => ({ type: types.DELETE_TASK_FAIL, error: error }),
-  getUsersTaskSuccess = tasks => ({
+  getPersonalTaskSuccess = tasks => ({
     type: types.GET_USERS_PERSONAL_TASKS_SUCCESS,
     personalTasks: tasks
   }),
-  getUsersTaskFail = error => ({
+  getPersonalTaskFail = error => ({
     type: types.GET_USERS_PERSONAL_TASKS_FAIL,
     error: error
   }),
   getUsersTasksInGroupSuccess = tasks => ({
-    types: types.GET_USERS_GROUP_TASKS_SUCCESS,
+    type: types.GET_USERS_GROUP_TASKS_SUCCESS,
     tasks: tasks
   }), //TODO: where to put tasks
   getUsersTasksInGroupFail = error => ({
-    types: types.GET_USERS_GROUP_TASKS_FAIL,
+    type: types.GET_USERS_GROUP_TASKS_FAIL,
     error: error
   }),
   updateTaskSuccess = tasks => ({
-    types: types.UPDATE_TASK_SUCCESS,
+    type: types.UPDATE_TASK_SUCCESS,
     tasks: tasks
   }), //TODO: WHERE to put this
   updateTaskFail = error => ({ types: types.UPDATE_TASK_FAIL, error: error });

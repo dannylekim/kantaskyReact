@@ -4,7 +4,6 @@ import { Card } from "semantic-ui-react";
 
 const task = ({name, description, importance,user, ...rest}) => (
   <Card
-    link
     header={name}
     description={description}
     meta={importance}
