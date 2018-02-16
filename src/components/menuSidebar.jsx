@@ -52,7 +52,7 @@ class MenuSidebar extends Component {
 
         <Menu.Item name="personal" onClick={this.goToPersonal}>
           <Icon name="tasks" />
-          Personal Tasks
+          Your Tasks
         </Menu.Item>
 
         <Menu.Item name="groups" onClick={this.goToGroups}>

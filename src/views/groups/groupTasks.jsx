@@ -1,6 +1,6 @@
 import React from "react";
 import ListOfTasks from "../../components/listOfTasks";
-import { getUsersTasks } from "../../redux/task/taskActionDispatcher";
+import { getGroupsTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card } from "semantic-ui-react";
 
@@ -12,7 +12,7 @@ class GroupTasks extends React.Component {
 
   componentWillMount() {
     const groupId = this.props.match.params.groupId
-    this.props.getUsersTasks(groupId);
+    this.props.getGroupsTasks(groupId);
   }
 
   sortOutTasks(tasks) {
@@ -55,6 +55,6 @@ class GroupTasks extends React.Component {
 
 const mapState = state => ({ tasks: state.task.tasks });
 const mapDispatch = {
-  getUsersTasks
+  getGroupsTasks
 };
 export default connect(mapState, mapDispatch)(GroupTasks);

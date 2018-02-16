@@ -54,7 +54,7 @@ class Task {
    * @returns Personal Task Object
    * @memberof Task
    */
-  static async getPersonalTasks(userId) {
+  static async getUsersTasks(userId) {
     try {
       return Promise.resolve(
         await axios.get("tasks/" + userId)
@@ -80,6 +80,25 @@ class Task {
       );
     } catch (err) {
       return Promise.reject(err.response);
+    }
+  }
+
+  /**
+   * Get all tasks in group
+   * 
+   * @static
+   * @param {any} groupId 
+   * @returns 
+   * @memberof Task
+   */
+  static async getGroupsTasks(groupId) {
+    try{
+      return Promise.resolve(
+        await axios.get("tasks/groupTasks/" + groupId)
+      )
+    }
+    catch(err){
+      return Promise.reject(err.response)
     }
   }
 
