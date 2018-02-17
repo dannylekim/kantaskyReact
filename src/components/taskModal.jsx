@@ -14,12 +14,12 @@ const taskModal = ({
   ...rest
 }) => {
   let importanceColor, statusColor;
-  if (importance == "urgent") importanceColor = "red";
-  else if (importance == "important") importanceColor = "orange";
+  if (importance === "urgent") importanceColor = "red";
+  else if (importance === "important") importanceColor = "orange";
   else importanceColor = "yellow";
 
-  if (status == "ongoing") statusColor = "orange";
-  else if (status == "pending") statusColor = "grey";
+  if (status === "ongoing") statusColor = "orange";
+  else if (status === "pending") statusColor = "grey";
   else statusColor = "teal";
 
   return (
