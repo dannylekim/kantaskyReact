@@ -6,10 +6,11 @@ import {
   Header,
   Segment,
   Divider,
-  Icon
+  Icon,
+  Message
 } from "semantic-ui-react";
-import "./loginForm.css";
 import { Link } from "react-router-dom";
+import style from "./loginFormStyle"
 import Particles from "react-particles-js";
 import { login } from "../../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
@@ -20,40 +21,41 @@ class loginForm extends React.Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      mountParticles: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.loginUser = this.loginUser.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.verifyNull = this.verifyNull.bind(this);
   }
 
-  loginUser() {
-    this.props.login(this.state);
+  //the two functions below allows rendering of particles.js without breaking the page when it's been redirected
+  componentDidMount() {
+    this.setState({ mountParticles: true, error: null });
   }
 
-  verifyNull() {
-    if (!this.state.username) {
-      this.setState({ error: "Please enter a username" });
-      return false;
-    }
-
-    if (!this.state.password) {
-      this.setState({ error: "Please enter a password" });
-      return false;
-    }
-
-    return true;
+  componentWillUnmount() {
+    this.setState({ mountParticles: false });
   }
 
+  /**
+   * Validates the values and then calls the login dispatcher taking in this state.
+   *
+   * @param {any} event
+   * @memberof loginForm
+   */
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ error: undefined });
-    const isValid = this.verifyNull();
-    if (isValid) this.loginUser();
+    this.props.login(this.state);
   }
 
+  /**
+   * Handles all input changes within the form
+   *
+   * @param {any} event
+   * @memberof loginForm
+   */
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -134,11 +136,11 @@ class loginForm extends React.Component {
         detect_on: "canvas",
         events: {
           onhover: {
-            enable: true,
+            enable: false,
             mode: "repulse"
           },
           onclick: {
-            enable: true,
+            enable: false,
             mode: "push"
           },
           resize: true
@@ -171,10 +173,13 @@ class loginForm extends React.Component {
       },
       retina_detect: true
     };
-
     return (
       <div>
-        <Particles className="particle" params={particles} />
+        {style}
+        {/* Particles.js */}
+        {this.state.mountParticles && (
+          <Particles canvasClassName="particle" params={particles} />
+        )}
         <div className="login-form">
           <Grid
             textAlign="center"
@@ -182,26 +187,32 @@ class loginForm extends React.Component {
             verticalAlign="middle"
           >
             <Grid.Column style={{ maxWidth: 450 }}>
+              {/* Header */}
               <Segment color="blue" tertiary>
                 <Header as="h1" color="blue" textAlign="center">
                   Kantasky
                 </Header>
               </Segment>
 
-              {this.props.error && (
+              {/* Redux Error */}
+              {this.props.loginError && (
                 <Segment inverted color="red" tertiary>
                   <Icon name="warning" />
-                  {this.props.error}
+                  {this.props.loginError}
                 </Segment>
               )}
-              {this.props.token && (
-                <Segment inverted color="blue" tertiary>
-                  <Icon name="warning" />
-                  {this.props.token}
-                </Segment>
+
+              {/* Redux Message */}
+              {this.props.message && (
+                <Message
+                  success
+                  header="Your user registration was succesful!"
+                  content={this.props.message}
+                />
               )}
               <Form size="large" onSubmit={this.handleSubmit}>
                 <Segment stacked secondary>
+                  {/* Username */}
                   <Form.Input
                     fluid
                     icon="user"
@@ -210,6 +221,8 @@ class loginForm extends React.Component {
                     placeholder="Username or E-mail"
                     onChange={this.handleInputChange}
                   />
+
+                  {/* Password */}
                   <Form.Input
                     fluid
                     icon="lock"
@@ -219,9 +232,13 @@ class loginForm extends React.Component {
                     type="password"
                     onChange={this.handleInputChange}
                   />
+
+                  {/* Submit Form */}
                   <Button primary fluid type="submit">
                     Login
                   </Button>
+
+                  {/* Redirect */}
                   <Divider horizontal>Or</Divider>
                   <Link to="/signup">
                     <Button secondary fluid>
@@ -238,9 +255,10 @@ class loginForm extends React.Component {
   }
 }
 
+//====================== REDUX CONNECTION =========================
 const mapState = state => ({
-  error: state.user.error,
-  token: state.user.token
+  loginError: state.user.loginError,
+  message: state.user.message
 });
 const mapDispatch = { login };
 export default connect(mapState, mapDispatch)(loginForm);

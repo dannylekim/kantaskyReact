@@ -7,14 +7,15 @@ import {
   Segment,
   Message
 } from "semantic-ui-react";
-import kantaskyUser from "../../api/userApi";
-import "./signUpForm.css";
 import { Link } from "react-router-dom";
+import style from "./signUpFormStyle"
 import Particles from "react-particles-js";
+import { signUp } from "../../redux/user/userActionDispatcher";
+import { connect } from "react-redux";
 
 class signupForm extends React.Component {
   constructor() {
-    super(); //handle bindings differently in a more clean manner
+    super();
 
     this.state = {
       username: undefined,
@@ -22,22 +23,32 @@ class signupForm extends React.Component {
       firstName: undefined,
       lastName: undefined,
       email: undefined,
-      confirmPassword: undefined
+      confirmPassword: undefined,
+      mountParticles: false
     };
 
-    this.signUp = this.signUp.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async signUp(event) {
-    try {
-      const response = await kantaskyUser.authenticate(this.state);
-      alert(response.data.message);
-    } catch (err) {
-      console.log(err);
-    }
+  //These two allow for the page to not break when redirected from authorized Route
+  componentDidMount() {
+    this.setState({ mountParticles: true });
   }
+
+  componentWillUnmount() {
+    this.setState({ mountParticles: false });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({ error: undefined });
+    // const isValid = this.verifyNull();
+    // if (isValid)
+    this.props.signUp(this.state);
+  }
+
+  //TODO: CUSTOM VALIDATION
 
   handleInputChange(event) {
     const target = event.target;
@@ -119,11 +130,11 @@ class signupForm extends React.Component {
         detect_on: "canvas",
         events: {
           onhover: {
-            enable: true,
+            enable: false,
             mode: "repulse"
           },
           onclick: {
-            enable: true,
+            enable: false,
             mode: "push"
           },
           resize: true
@@ -156,9 +167,14 @@ class signupForm extends React.Component {
       },
       retina_detect: true
     };
+ 
     return (
       <div>
-        <Particles className="particle" params={particles} />
+        {style}
+        {/* Particles.js Canvas */}
+        {this.state.mountParticles && (
+          <Particles canvasClassName="particle" params={particles} />
+        )}
         <div className="signup-form">
           <Grid
             textAlign="center"
@@ -166,13 +182,25 @@ class signupForm extends React.Component {
             verticalAlign="middle"
           >
             <Grid.Column style={{ maxWidth: 450 }}>
+              {/* Header */}
               <Message>
                 <Header as="h1" color="blue" textAlign="center">
                   Create a Kantasky Account!
                 </Header>
               </Message>
-              <Form size="large" onSubmit={this.signUp}>
+
+              {/* Redux Errors */}
+              {this.props.signUpErrors && (
+                <Message
+                  error
+                  header="There were some errors with your submission. Please correct them"
+                  list={this.props.signUpErrors}
+                />
+              )}
+
+              <Form size="large" onSubmit={this.handleSubmit}>
                 <Segment stacked>
+                  {/* First Name */}
                   <Form.Input
                     fluid
                     placeholder="First Name"
@@ -181,6 +209,8 @@ class signupForm extends React.Component {
                     onChange={this.handleInputChange}
                     required
                   />
+
+                  {/* Last Name */}
                   <Form.Input
                     fluid
                     placeholder="Last Name"
@@ -189,6 +219,8 @@ class signupForm extends React.Component {
                     onChange={this.handleInputChange}
                     required
                   />
+
+                  {/* Email */}
                   <Form.Input
                     fluid
                     placeholder="Email"
@@ -197,6 +229,8 @@ class signupForm extends React.Component {
                     onChange={this.handleInputChange}
                     required
                   />
+
+                  {/* Username */}
                   <Form.Input
                     fluid
                     placeholder="Username"
@@ -205,6 +239,8 @@ class signupForm extends React.Component {
                     onChange={this.handleInputChange}
                     required
                   />
+
+                  {/* Password */}
                   <Form.Input
                     fluid
                     placeholder="Password"
@@ -213,6 +249,8 @@ class signupForm extends React.Component {
                     onChange={this.handleInputChange}
                     required
                   />
+
+                  {/* Confirm Password */}
                   <Form.Input
                     fluid
                     placeholder="Confirm Password"
@@ -221,11 +259,15 @@ class signupForm extends React.Component {
                     onChange={this.handleInputChange}
                     required
                   />
+
+                  {/* Submit Form */}
                   <Button color="blue" fluid size="large" type="submit">
                     Sign-up
                   </Button>
                 </Segment>
               </Form>
+
+              {/* Redirect Message */}
               <Message>
                 Already have an account?
                 <Link to="/login"> Login</Link>
@@ -238,4 +280,8 @@ class signupForm extends React.Component {
   }
 }
 
-export default signupForm;
+//====================== REDUX CONNECTION =========================
+
+const mapState = state => ({ signUpErrors: state.user.signUpErrors });
+const mapDispatch = { signUp };
+export default connect(mapState, mapDispatch)(signupForm);

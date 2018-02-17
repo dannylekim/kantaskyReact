@@ -3,15 +3,41 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./app";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 import store from "./redux/configureStore";
-import {Provider} from 'react-redux';
+import { Provider } from "react-redux";
+import { history } from "./config/config";
+import { LOGOUT, LOGIN_SUCCESS } from "./redux/user/userActionTypes";
+import axios from "axios"
+import {decode} from "jsonwebtoken"
+
+//FIXME:Consider moving this to redux in some way?
+/**
+ * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user
+ *
+ * @param {any} token the JWT token
+ */
+const checkToken = () => {
+  const token = localStorage.getItem("token"); //get the token from localStorage
+  if (!token) {
+    store.dispatch({ type: LOGOUT }); //if no token exists, logout
+    history.push("/login"); //go to login page
+    return; //exit function
+  } else {
+    //else dispatch success
+    axios.defaults.headers.common['Authorization'] = "Bearer " + token
+    const userId = decode(token).id
+    store.dispatch({ type: LOGIN_SUCCESS, token: token, user:userId });
+  }
+};
+
+checkToken();
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <App />
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
