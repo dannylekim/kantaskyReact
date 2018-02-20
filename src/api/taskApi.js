@@ -13,10 +13,10 @@ class Task {
    * @returns Updated Group
    * @memberof Task
    */
-  static async createTaskInGroup(groupId, userId) {
+  static async createTaskInGroup(groupId, userId, task) {
     try {
       return Promise.resolve(
-        await axios.post("tasks/" + groupId + "/" + userId)
+        await axios.post("tasks/" + groupId + "/" + userId, task)
       );
     } catch (err) {
       return Promise.reject(err.response);
