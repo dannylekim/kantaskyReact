@@ -39,21 +39,12 @@ class TaskForm extends React.Component {
 
   render() {
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100%" }}
-        verticalAlign="middle"
-      >
-        <Grid.Column style={{ maxWidth: 450 }}>
-          {/* Header */}
-          <Segment color="blue" tertiary>
-            <Header as="h1" color="blue" textAlign="center">
-              Kantasky
-            </Header>
-          </Segment>
+      <Grid>
+        <Grid.Column>
           <Form size="large" onSubmit={this.handleSubmit}>
-            <Segment stacked secondary>
-              {/* Name */}
+            {/* Name */}
+            <Form.Field required>
+            <label>Task Name</label>
               <Form.Input
                 fluid
                 icon="user"
@@ -61,43 +52,44 @@ class TaskForm extends React.Component {
                 iconPosition="left"
                 placeholder="Task Name"
                 onChange={this.handleInputChange}
+                required
               />
-              {/* Should be buttons */}
-              {/* TODO: */}
-              {/* Status */}
+            </Form.Field>
+            {/* Should be buttons */}
+            {/* TODO: */}
+            {/* Status */}
 
-              {/* Should be buttons */}
-              {/* TODO: */}
-              {/* Importance */}
+            {/* Should be buttons */}
+            {/* TODO: */}
+            {/* Importance */}
 
-              <Form.Input
-                fluid
-                icon="lock"
-                name="Due Date"
-                iconPosition="left"
-                placeholder="Input Due Date"
-                onChange={this.handleInputChange}
-              />
+            <Form.Input
+              fluid
+              icon="lock"
+              name="Due Date"
+              iconPosition="left"
+              placeholder="Input Due Date"
+              onChange={this.handleInputChange}
+            />
 
-              <Form.Input
-                fluid
-                icon="lock"
-                name="Category"
-                iconPosition="left"
-                placeholder="Input Category"
-                onChange={this.handleInputChange}
-              />
+            <Form.Input
+              fluid
+              icon="lock"
+              name="Category"
+              iconPosition="left"
+              placeholder="Input Category"
+              onChange={this.handleInputChange}
+            />
 
-              {/* TODO: TEXT AREA */}
-              <Form.Input
-                fluid
-                icon="lock"
-                name="Description"
-                iconPosition="left"
-                placeholder="Input Description"
-                onChange={this.handleInputChange}
-              />
-            </Segment>
+            {/* TODO: TEXT AREA */}
+            <Form.Input
+              fluid
+              icon="lock"
+              name="Description"
+              iconPosition="left"
+              placeholder="Input Description"
+              onChange={this.handleInputChange}
+            />
           </Form>
         </Grid.Column>
       </Grid>

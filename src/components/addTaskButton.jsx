@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Menu, Modal, Icon } from "semantic-ui-react";
 import TaskForm from "./taskForm";
 
-const AddTaskModal = () => (
+const AddTaskModal = ({...rest}) => (
   <Menu.Item>
-    <Button basic color="green" inverted icon="add" />
+    <Button color="green" inverted icon="add" {...rest}/>
   </Menu.Item>
 );
 

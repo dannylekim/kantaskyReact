@@ -3,6 +3,7 @@ import ListOfTasks from "../../components/listOfTasks";
 import { getGroupsTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card } from "semantic-ui-react";
+import TaskMenuBar from "../../components/taskMenuBar";
 
 class GroupTasks extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class GroupTasks extends React.Component {
   }
 
   componentWillMount() {
-    const groupId = this.props.match.params.groupId
+    const groupId = this.props.match.params.groupId;
     this.props.getGroupsTasks(groupId);
   }
 
@@ -42,12 +43,17 @@ class GroupTasks extends React.Component {
           key={index}
           items={taskObj.taskList[category]}
           category={category}
-          color='blue'
+          color="blue"
         />
       ));
     }
 
-    return <Card.Group>{listOfTasks}</Card.Group>;
+    return (
+      <div>
+        <TaskMenuBar />
+        <Card.Group>{listOfTasks}</Card.Group>
+      </div>
+    );
   }
 }
 
