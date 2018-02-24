@@ -12,7 +12,13 @@ const reducer = (state = initial, action) => {
       });
     case types.GET_GROUP_TASKS_SUCCESS:
       return Object.assign({}, state, {
-        tasks: state.tasks.push(action.task)
+        tasks: action.tasks
+      });
+    case types.CREATE_TASK_SUCCESS:
+      let taskArray = state.tasks;
+      taskArray.push(action.task);
+      return Object.assign({}, state, {
+        tasks: taskArray
       });
     default:
       return state;

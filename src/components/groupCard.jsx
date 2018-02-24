@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Icon, Label } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import {history} from "../config/config"
 
 const extra = (numberOfUsers, category) => (

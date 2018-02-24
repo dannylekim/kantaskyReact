@@ -2,7 +2,7 @@ import * as types from "./taskActionTypes";
 
 export const createTaskInGroupSuccess = task => ({
     type: types.CREATE_TASK_SUCCESS,
-    tasks: task
+    task: task
   }), //TODO: add to the task list, figure out how you do this
   createTaskInGroupFail = error => ({
     type: types.CREATE_TASK_FAIL,

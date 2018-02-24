@@ -8,12 +8,16 @@ import TaskMenuBar from "../../components/taskMenuBar";
 class GroupTasks extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      groupId: null
+    }
     this.sortOutTasks = this.sortOutTasks.bind(this);
   }
 
   componentWillMount() {
-    const groupId = this.props.match.params.groupId;
+    const groupId = this.props.match.params.groupId
     this.props.getGroupsTasks(groupId);
+    this.setState({groupId: groupId});
   }
 
   sortOutTasks(tasks) {
@@ -50,7 +54,7 @@ class GroupTasks extends React.Component {
 
     return (
       <div>
-        <TaskMenuBar />
+        <TaskMenuBar groupId={this.state.groupId}/>
         <Card.Group>{listOfTasks}</Card.Group>
       </div>
     );

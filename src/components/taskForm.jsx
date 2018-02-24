@@ -1,47 +1,10 @@
 import React from "react";
-import { Form, Grid, Segment, Header, Button } from "semantic-ui-react";
-import { createTaskInGroup } from "../redux/task/taskActionDispatcher";
+import { Form, Grid} from "semantic-ui-react";
 
-class TaskForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      name: null,
-      dueDate: null,
-      category: "Misc.",
-      importance: "normal",
-      status: "pending",
-      description: null
-    };
-    this.addTask = this.addTask.bind(this);
-  }
-  /**
-   * Handles all input changes within the form
-   *
-   * @param {any} event
-   * @memberof loginForm
-   */
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
-    //set the appropriate value to the state
-    this.setState({
-      [name]: value
-    });
-  }
-
-  addTask() {
-    const groupId = this.props.match.params.groupId;
-    createTaskInGroup(groupId, this.state);
-  }
-
-  render() {
-    return (
+const TaskForm = ({onClickFunction}) => (
       <Grid>
         <Grid.Column>
-          <Form size="large" onSubmit={this.handleSubmit}>
+          <Form size="large">
             {/* Name */}
             <Form.Field required>
             <label>Task Name</label>
@@ -51,7 +14,7 @@ class TaskForm extends React.Component {
                 name="name"
                 iconPosition="left"
                 placeholder="Task Name"
-                onChange={this.handleInputChange}
+                onChange={onClickFunction}
                 required
               />
             </Form.Field>
@@ -66,35 +29,33 @@ class TaskForm extends React.Component {
             <Form.Input
               fluid
               icon="lock"
-              name="Due Date"
+              name="dueDate"
               iconPosition="left"
               placeholder="Input Due Date"
-              onChange={this.handleInputChange}
+              onChange={onClickFunction}
             />
 
             <Form.Input
               fluid
               icon="lock"
-              name="Category"
+              name="category"
               iconPosition="left"
               placeholder="Input Category"
-              onChange={this.handleInputChange}
+              onChange={onClickFunction}
             />
 
             {/* TODO: TEXT AREA */}
             <Form.Input
               fluid
               icon="lock"
-              name="Description"
+              name="description"
               iconPosition="left"
               placeholder="Input Description"
-              onChange={this.handleInputChange}
+              onChange={onClickFunction}
             />
           </Form>
         </Grid.Column>
       </Grid>
-    );
-  }
-}
+)
 
 export default TaskForm;

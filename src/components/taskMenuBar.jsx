@@ -2,10 +2,10 @@ import React from "react";
 import { Menu, Icon, Input } from "semantic-ui-react";
 import AddTaskButton from "./addTaskButton"
 
-const taskMenuBar = ({ isTeamLeader }) => {
+const taskMenuBar = ({ isTeamLeader, groupId }) => {
   return (
     <Menu>
-      <AddTaskButton/>
+      <AddTaskButton groupId={groupId}/>
       <Menu.Item>
         <Icon name="remove" />
       </Menu.Item>
