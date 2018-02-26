@@ -2,10 +2,10 @@ import React from "react";
 import { Button, Menu, Modal, Icon } from "semantic-ui-react";
 import { createTaskInGroup } from "../redux/task/taskActionDispatcher";
 import TaskForm from "./taskForm";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 
-const AddTaskModal = ({ ...rest }) => (
-  <Menu.Item>
+const AddTaskButton = ({ ...rest, onClick }) => (
+  <Menu.Item onClick={onClick}>
     <Button color="green" inverted icon="add" {...rest} />
   </Menu.Item>
 );
@@ -14,15 +14,19 @@ class CreateTask extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
-      dueDate: null,
-      category: "Misc.",
-      importance: "normal",
-      status: "pending",
-      description: null
+      task: {
+        name: null,
+        dueDate: null,
+        category: "Misc.",
+        importance: "normal",
+        status: "pending",
+        description: null
+      },
+      showModal: false
     };
     this.addTask = this.addTask.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.toggleAddModal = this.toggleAddModal.bind(this);
   }
   /**
    * Handles all input changes within the form
@@ -37,19 +41,34 @@ class CreateTask extends React.Component {
 
     //set the appropriate value to the state
     this.setState({
-      [name]: value
+      task: {
+        [name]: value
+      }
     });
   }
 
+  toggleAddModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
 
-//CLOSE MODAL TODO:
+  //CLOSE MODAL TODO:
   addTask() {
     this.props.createTaskInGroup(this.state, this.props.groupId);
+    const nullState = {
+      name: null,
+      dueDate: null,
+      category: "Misc.",
+      importance: "normal",
+      status: "pending",
+      description: null
+    };
+    this.setState({ task: nullState });
+    this.toggleAddModal();
   }
 
   render() {
     return (
-      <Modal trigger={<AddTaskModal />}>
+      <Modal trigger={<AddTaskButton onClick={this.toggleAddModal}/>} open={this.state.showModal} onClose={this.toggleAddModal}>
         <Modal.Header>Create a Task in this group</Modal.Header>
         <Modal.Content>
           <Modal.Description>
@@ -57,10 +76,10 @@ class CreateTask extends React.Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button basic color="green" onClick={this.addTask}>
+          <Button inverted color="green" onClick={this.addTask}>
             <Icon name="checkmark" /> Confirm
           </Button>
-          <Button basic color="red" >
+          <Button inverted color="red" onClick={this.toggleAddModal}>
             <Icon name="remove" /> Cancel
           </Button>
         </Modal.Actions>
@@ -74,4 +93,3 @@ const mapDispatch = {
   createTaskInGroup
 };
 export default connect(mapState, mapDispatch)(CreateTask);
-

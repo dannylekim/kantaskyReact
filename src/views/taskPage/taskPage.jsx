@@ -53,7 +53,7 @@ class TaskPage extends React.Component {
 
 //====================== REDUX CONNECTION =========================
 
-const mapState = state => ({ tasks: state.task.personalTasks });
+const mapState = state => ({ tasks: state.task.tasks });
 const mapDispatch = {
   getUsersTasks
 };
