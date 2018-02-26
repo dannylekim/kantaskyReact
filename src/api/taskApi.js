@@ -111,7 +111,7 @@ class Task {
    * @returns Deleted Message
    * @memberof Task
    */
-  static async deleteTask(taskId) {
+  static async removeTask(taskId) {
     try {
       return Promise.resolve(
         await axios.delete("tasks/" + taskId)

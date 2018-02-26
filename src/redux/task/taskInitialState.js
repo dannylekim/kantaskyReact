@@ -1,5 +1,4 @@
 let initial = {
-  personalTasks: null,
   tasks: []
 };
 

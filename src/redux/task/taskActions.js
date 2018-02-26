@@ -8,11 +8,11 @@ export const createTaskInGroupSuccess = task => ({
     type: types.CREATE_TASK_FAIL,
     error: error
   }),
-  deleteTaskSuccess = tasks => ({
-    type: types.DELETE_TASK_SUCCESS,
-    tasks: tasks
+  removeTaskSuccess = (removedTaskId) => ({
+    type: types.REMOVE_TASK_SUCCESS,
+    removedTaskId: removedTaskId
   }), //TODO: add to task list, figure this out
-  deleteTaskFail = error => ({ type: types.DELETE_TASK_FAIL, error: error }),
+  deleteTaskFail = error => ({ type: types.REMOVE_TASK_FAIL, error: error }),
   getUsersTasksSuccess = tasks => ({
     type: types.GET_USERS_PERSONAL_TASKS_SUCCESS,
     personalTasks: tasks

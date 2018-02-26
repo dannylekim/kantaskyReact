@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Icon, Input } from "semantic-ui-react";
-import AddTaskButton from "./addTaskButton"
+import AddTaskButton from "./createTask"
 
 const taskMenuBar = ({ isTeamLeader, groupId }) => {
   return (
