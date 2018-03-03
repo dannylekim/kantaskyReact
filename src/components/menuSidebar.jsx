@@ -59,10 +59,10 @@ class MenuSidebar extends Component {
           <Icon name="users" />
           Groups
         </Menu.Item>
-        <Menu.Item name="settings" onClick={this.goToSettings}>
+        {/* <Menu.Item name="settings" onClick={this.goToSettings}>
           <Icon name="settings" />
           Settings
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item name="signOut" onClick={this.props.signOut}>
           <Icon name="sign out" />
           Sign Out

@@ -6,6 +6,7 @@ import Personal from "./views/taskPage/taskPage";
 import { Route, Switch } from "react-router-dom";
 import requireAuth from "./config/requireAuth";
 import MenuSidebar from "./components/menuSidebar";
+import ProfilePage from "./views/profile/profilePage";
 import GroupPage from "./views/groups/groupPage";
 import GroupTask from "./views/groups/groupTasks";
 import { Sidebar, Segment, Menu, Icon } from "semantic-ui-react";
@@ -34,6 +35,7 @@ class App extends React.Component {
             </Menu.Item>
             <div style={{ marginLeft: 2 + "em", marginTop: 1 + "em" }}>
               <Route exact path="/" component={requireAuth(Main)} />
+              <Route path="/profile" component={requireAuth(ProfilePage)} />
               <Route path="/personal" component={requireAuth(Personal)} />
               <Route exact path="/groups" component={requireAuth(GroupPage)} />
               <Route
