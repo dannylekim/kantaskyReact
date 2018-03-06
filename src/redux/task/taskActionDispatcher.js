@@ -5,7 +5,7 @@ import store from "../configureStore";
 
 export const getUsersTasks = () => async dispatch => {
   try {
-    const userId = store.getState().user.userId;
+    const userId = store.getState().user.user._id;
     const response = await taskApi.getUsersTasks(userId); //api call to login
     dispatch(actions.getUsersTasksSuccess(response.data)); //dispatch the successful login call
   } catch (err) {
@@ -24,7 +24,7 @@ export const getGroupsTasks = groupId => async dispatch => {
 
 export const createTaskInGroup = (task, groupId) => async dispatch => {
   try {
-    const userId = store.getState().user.userId;
+    const userId = store.getState().user.user._id;
     const response = await taskApi.createTaskInGroup(groupId, userId, task);
     dispatch(actions.createTaskInGroupSuccess(response.data));
   } catch (err) {

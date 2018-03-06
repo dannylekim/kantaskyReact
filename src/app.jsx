@@ -13,8 +13,8 @@ import { Sidebar, Segment, Menu, Icon } from "semantic-ui-react";
 import noRequireAuth from "./config/noRequireAuth";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { visible: true };
     this.toggleVisibility = this.toggleVisibility.bind(this);
   }
@@ -22,7 +22,13 @@ class App extends React.Component {
   toggleVisibility() {
     this.setState({ visible: !this.state.visible });
   }
+
+  componentWillMount() {
+    this.props.checkToken()
+  }
+  
   render() {
+    
     return (
       <Switch>
         <Route path="/login" component={noRequireAuth(Login)} />

@@ -95,7 +95,6 @@ static async getUser(userId) {
         await axios.get("users/" + userId)
       );
     } catch (err) {
-      console.log(err)
       return Promise.reject(err.response);
     }
   }
