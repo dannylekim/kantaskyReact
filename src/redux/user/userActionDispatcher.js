@@ -30,8 +30,9 @@ export const login = credentials => async dispatch => {
       "Bearer " + response.data.token;
     const payload = decode(response.data.token)
     dispatch(loginSuccess(response.data.token, payload.id)); //dispatch the successful login call
-    history.push("/"); //change page
-    getUser(payload.id);
+    return payload.id
+    // getUser(payload.id);
+    // history.push("/"); //change page
   } catch (err) {
     dispatch(loginFail(err.data)); //dispatch login fail
   }

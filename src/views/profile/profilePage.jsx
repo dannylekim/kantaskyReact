@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Segment } from "semantic-ui-react";
+import { Grid, Segment, Label, Header, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 class ProfilePage extends React.Component {
@@ -48,28 +48,47 @@ class ProfilePage extends React.Component {
       <Grid columns={3} divided>
         <Grid.Row stretched>
           <Grid.Column>
-            <Segment>{this.state.firstName}</Segment>
+            <Segment raised>
+              <Label as="a" color="green" ribbon>
+                Name
+              </Label>
+              <Header textAlign="center" as="h1">
+                {this.state.firstName} {this.state.lastName}
+              </Header>
+            </Segment>
+            <Segment raised>
+              <Label as="a" color="blue" ribbon>
+                Email
+              </Label>
+              <Header as="h1" textAlign="center">
+                {this.state.email}
+              </Header>
+            </Segment>
+            <Button fluid>Save Changes</Button>
           </Grid.Column>
           <Grid.Column>
-            <Segment>{this.state.lastName}</Segment>
-            <Segment>{this.state.email}</Segment>
+            <Segment raised>
+              {" "}
+              <Label as="a" color="yellow" ribbon>
+                Old Password
+              </Label>
+            </Segment>
+            <Segment raised>
+              {" "}
+              <Label as="a" color="orange" ribbon>
+                New Password
+              </Label>{" "}
+            </Segment>
+            <Segment raised>
+              {" "}
+              <Label as="a" color="red" ribbon>
+                Confirm New Password
+              </Label>
+            </Segment>
+            <Button fluid>Change Password</Button>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row stretched>
-          <Grid.Column>
-            <Segment> Old Password</Segment>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row stretched>
-          <Grid.Column>
-          <Segment> New Password</Segment>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row stretched>
-          <Grid.Column>
-          <Segment> Confirm New Password</Segment>
-          </Grid.Column>
-        </Grid.Row>
+ 
       </Grid>
     );
   }

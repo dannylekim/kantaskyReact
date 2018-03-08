@@ -12,8 +12,9 @@ import {
 import { Link } from "react-router-dom";
 import style from "./loginFormStyle"
 import Particles from "react-particles-js";
-import { login } from "../../redux/user/userActionDispatcher";
+import { login, getUser } from "../../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
+import {history} from "../../config/config"
 
 class loginForm extends React.Component {
   constructor(props) {
@@ -44,10 +45,12 @@ class loginForm extends React.Component {
    * @param {any} event
    * @memberof loginForm
    */
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     this.setState({ error: undefined });
-    this.props.login(this.state);
+    const userId = await this.props.login(this.state);
+    this.props.getUser(userId);
+    history.push("/")
   }
 
   /**
@@ -260,5 +263,5 @@ const mapState = state => ({
   loginError: state.user.loginError,
   message: state.user.message
 });
-const mapDispatch = { login };
+const mapDispatch = { login, getUser };
 export default connect(mapState, mapDispatch)(loginForm);

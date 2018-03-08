@@ -1,23 +1,20 @@
 import React from "react";
 import { Button, Modal, Icon } from "semantic-ui-react";
-import { createTaskInGroup } from "../redux/task/taskActionDispatcher";
-import TaskForm from "./taskForm";
+import { createGroup } from "../redux/group/groupActionDispatcher";
+import GroupForm from "./groupForm";
 import { connect } from "react-redux";
 import MenuButton from "./menuButton"
 
-class CreateTask extends React.Component {
+class CreateGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        name: null,
-        dueDate: null,
-        category: "Misc.",
-        importance: "normal",
-        status: "pending",
-        description: null,
+      name: null,
+      category: null,
+      description: null,
       showModal: false
     };
-    this.addTask = this.addTask.bind(this);
+    this.addGroup = this.addGroup.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.toggleAddModal = this.toggleAddModal.bind(this);
   }
@@ -33,42 +30,38 @@ class CreateTask extends React.Component {
     const name = target.name;
 
     //set the appropriate value to the state
-    this.setState({
-        [name]: value
-    });
+    this.setState(
+      { [name]: value });
   }
 
   toggleAddModal() {
     this.setState({ showModal: !this.state.showModal });
   }
 
-  addTask() {
-    let newTask = Object.assign({}, this.state)
-    newTask.showModal = undefined
-    this.props.createTaskInGroup(this.state.task, this.props.groupId);
+  addGroup() {
+    let newGroup = Object.assign({}, this.state)
+    newGroup.showModal = undefined
+    this.props.createGroup(newGroup)
     const nullState = {
       name: null,
-      dueDate: null,
-      category: "Misc.",
-      importance: "normal",
-      status: "pending",
-      description: null
+      category: null,
+      description: null,
     };
-    this.setState({ task: nullState });
+    this.setState({ nullState });
     this.toggleAddModal();
   }
 
   render() {
     return (
-      <Modal trigger={<MenuButton onClick={this.toggleAddModal} color='green' icon='add'/>}  open={this.state.showModal} onClose={this.toggleAddModal} >
-        <Modal.Header>Create a Task in this group</Modal.Header>
+      <Modal trigger={<MenuButton onClick={this.toggleAddModal} color='green' icon='add' />} open={this.state.showModal} onClose={this.toggleAddModal} >
+        <Modal.Header>Create a Group</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <TaskForm onClickFunction={this.handleInputChange} />
+            <GroupForm onChangeFunction={this.handleInputChange} />
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button inverted color="green" onClick={this.addTask}>
+          <Button inverted color="green" onClick={this.addGroup}>
             <Icon name="checkmark" /> Confirm
           </Button>
           <Button inverted color="red" onClick={this.toggleAddModal}>
@@ -82,6 +75,6 @@ class CreateTask extends React.Component {
 
 const mapState = state => ({});
 const mapDispatch = {
-  createTaskInGroup
+  createGroup
 };
-export default connect(mapState, mapDispatch)(CreateTask);
+export default connect(mapState, mapDispatch)(CreateGroup);
