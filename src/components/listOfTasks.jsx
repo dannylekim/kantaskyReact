@@ -19,6 +19,7 @@ const listOfTasks = ({items, category, color}) => (
           createdDate={task.createdDate}
           name={task.name}
           user={task.user}
+          id={task._id}
         />
       ))}
     </Card.Content>

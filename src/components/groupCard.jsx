@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Icon, Label } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import {history} from "../config/config"
 
 const extra = (numberOfUsers, category) => (
@@ -19,7 +18,7 @@ return (
 
     <Card
       // image="http://via.placeholder.com/290x290"
-      href
+      href=''
       onClick={pushToGroupItem}
       header={name}
       meta={"Project Lead: " + teamLeader}

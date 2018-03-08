@@ -1,6 +1,5 @@
 let initial = {
-  personalTasks: null,
-  tasks: null
+  tasks: []
 };
 
 export default initial;

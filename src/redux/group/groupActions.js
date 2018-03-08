@@ -20,7 +20,7 @@ export const getGroupSuccess = groups => ({
   }),
   createGroupSuccess = group => ({
     type: types.CREATE_GROUP_SUCCESS,
-    groups: group //TODO: should be adding to the list
+    group: group //TODO: should be adding to the list
   }),
   createGroupFail = error => ({
     type: types.CREATE_GROUP_FAIL,

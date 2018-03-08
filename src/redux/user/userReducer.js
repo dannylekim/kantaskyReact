@@ -13,7 +13,6 @@ const reducer = (state = initial, action) => {
         authenticated: true,
         message: null,
         signUpErrors: null,
-        userId: action.user
       });
     //on fail, post the error
     case types.LOGIN_FAIL:

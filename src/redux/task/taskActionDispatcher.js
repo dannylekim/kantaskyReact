@@ -1,26 +1,43 @@
 import taskApi from "../../api/taskApi";
-import { getGroupsTasksSuccess, getUsersTasksSuccess } from "./taskActions";
+import * as actions from "./taskActions";
 // import { history } from "../../config/config";
-import store from "../configureStore"
-
+import store from "../configureStore";
 
 export const getUsersTasks = () => async dispatch => {
   try {
-    const userId = store.getState().user.userId
+    const userId = store.getState().user.user._id;
     const response = await taskApi.getUsersTasks(userId); //api call to login
-    dispatch(getUsersTasksSuccess(response.data)); //dispatch the successful login call
+    dispatch(actions.getUsersTasksSuccess(response.data)); //dispatch the successful login call
   } catch (err) {
     //TODO:
   }
-}
+};
 
-export const getGroupsTasks = (groupId) => async dispatch => {
+export const getGroupsTasks = groupId => async dispatch => {
   try {
-    const response = await taskApi.getGroupsTasks(groupId)
-    dispatch(getGroupsTasksSuccess(response.data))
+    const response = await taskApi.getGroupsTasks(groupId);
+    dispatch(actions.getGroupsTasksSuccess(response.data));
+  } catch (err) {
+    //TODO:
   }
-  catch(err){
+};
+
+export const createTaskInGroup = (task, groupId) => async dispatch => {
+  try {
+    const userId = store.getState().user.user._id;
+    const response = await taskApi.createTaskInGroup(groupId, userId, task);
+    dispatch(actions.createTaskInGroupSuccess(response.data));
+  } catch (err) {
+    //TODO:
+  }
+};
+
+export const removeTask = (taskId) => async dispatch => {
+  try{ 
+    const response = await taskApi.removeTask(taskId) //FIXME: This actually has a response to use for a toastr
+    dispatch(actions.removeTaskSuccess(taskId))
+  }
+  catch(err) {
     //TODO:
   }
 }
-

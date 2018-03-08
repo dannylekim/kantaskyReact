@@ -11,9 +11,9 @@ class Group {
    * @returns New Group
    * @memberof Group
    */
-  static async createGroup(userId) {
+  static async createGroup(userId, newGroup) {
     try {
-      return Promise.resolve(await axios.post("groups/" + userId));
+      return Promise.resolve(await axios.post("groups/" + userId, newGroup));
     } catch (err) {
       return Promise.reject(err.response);
     }

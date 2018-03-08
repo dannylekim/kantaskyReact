@@ -1,11 +1,10 @@
 import React from "react";
 import { Menu, Icon, Input } from "semantic-ui-react";
+import CreateGroupButton from "./createGroup"
 
 const groupMenuBar = () => (
   <Menu>
-    <Menu.Item>
-      <Icon name="add" />
-    </Menu.Item>
+    <CreateGroupButton/>
     <Menu.Item>
       <Icon name="remove" />
     </Menu.Item>

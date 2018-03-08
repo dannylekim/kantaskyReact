@@ -3,16 +3,21 @@ import ListOfTasks from "../../components/listOfTasks";
 import { getGroupsTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card } from "semantic-ui-react";
+import TaskMenuBar from "../../components/taskMenuBar";
 
 class GroupTasks extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      groupId: null
+    }
     this.sortOutTasks = this.sortOutTasks.bind(this);
   }
 
   componentWillMount() {
     const groupId = this.props.match.params.groupId
     this.props.getGroupsTasks(groupId);
+    this.setState({groupId: groupId});
   }
 
   sortOutTasks(tasks) {
@@ -42,12 +47,17 @@ class GroupTasks extends React.Component {
           key={index}
           items={taskObj.taskList[category]}
           category={category}
-          color='blue'
+          color="blue"
         />
       ));
     }
 
-    return <Card.Group>{listOfTasks}</Card.Group>;
+    return (
+      <div>
+        <TaskMenuBar groupId={this.state.groupId}/>
+        <Card.Group>{listOfTasks}</Card.Group>
+      </div>
+    );
   }
 }
 
