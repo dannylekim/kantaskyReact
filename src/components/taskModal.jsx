@@ -2,6 +2,7 @@ import React from "react";
 import { Header, Modal, Label, Button, Icon } from "semantic-ui-react";
 import Task from "./task";
 import RemoveTaskButton from "./removeTaskButton";
+import EditTaskModal from "./editTaskModal"
 
 class taskModal extends React.Component {
   constructor(props) {
@@ -72,9 +73,7 @@ class taskModal extends React.Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button inverted color="blue" onClick={this.toggleModal}>
-            <Icon name="checkmark" /> Edit Task
-          </Button>
+          <EditTaskModal closeModalFunction={this.toggleModal}/>
           <RemoveTaskButton
             id={this.props.id}
             modalFunction={this.toggleModal}
