@@ -19,6 +19,7 @@ return (
     <Card
       // image="http://via.placeholder.com/290x290"
       href=''
+      key={id}
       onClick={pushToGroupItem}
       header={name}
       meta={"Project Lead: " + teamLeader}

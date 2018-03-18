@@ -8,15 +8,26 @@ import {
   Form,
   TextArea
 } from "semantic-ui-react";
+import EditTaskButton from "./editTaskButton";
 
 class EditTaskModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      showModal: false,
+      name: this.props.name,
+      description: this.props.description,
+      status: this.props.status,
+      importance: this.props.importance,
+      category: this.props.category,
+      user: this.props.user,
+      dueDate: this.props.dueDate,
+      id: this.props.id,
+      group: this.props.group
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   //this toggles and closes the previous modal behind it
@@ -30,16 +41,12 @@ class EditTaskModal extends React.Component {
     this.setState({ showModal: !this.state.showModal });
   }
 
+  handleInputChange(event, { value, name }) {
+    //set the appropriate value to the state
+    this.setState({ [name]: value });
+  }
+
   render() {
-    // let importanceColor, statusColor;
-    // if (this.props.importance === "urgent") importanceColor = "red";
-    // else if (this.props.importance === "important") importanceColor = "orange";
-    // else importanceColor = "yellow";
-
-    // if (this.props.status === "ongoing") statusColor = "orange";
-    // else if (this.props.status === "pending") statusColor = "grey";
-    // else statusColor = "teal";
-
     return (
       <Modal
         trigger={
@@ -56,17 +63,13 @@ class EditTaskModal extends React.Component {
             <Form>
               <Form.Field>
                 <label>Task Name</label>
-                <input placeholder="Input Task Name" value={this.props.name} />
+                <Form.Input placeholder="Input Task Name" value={this.state.name} name='name' onChange={this.handleInputChange} />
               </Form.Field>
               <TextArea
                 placeholder="Task Description"
-                value={this.props.description}
-              />
-              <Dropdown
-                placeholder="Category"
-                search
-                selection
-                options={this.props.category}
+                value={this.state.description}
+                onChange={this.handleInputChange}
+                name='description'
               />
               <br />
               <br />
@@ -74,7 +77,16 @@ class EditTaskModal extends React.Component {
                 placeholder="Select a User"
                 search
                 selection
-                options={this.props.user}
+                options={[
+                  {
+                    key: this.state.user,
+                    text: this.state.user,
+                    value: this.state.user
+                  }
+                ]}
+                value={this.state.user}
+                onChange={this.handleInputChange}
+                name='user'
               />
               <br />
               <br />
@@ -82,7 +94,14 @@ class EditTaskModal extends React.Component {
                 placeholder="Select an importance"
                 search
                 selection
-                options={this.props.importance}
+                options={[
+                  { text: "normal", key: 1, value: "normal" },
+                  { text: "urgent", key: 2, value: "urgent" },
+                  { text: "important", key: 3, value: "important" }
+                ]}
+                value={this.state.importance}
+                onChange={this.handleInputChange}
+                name='importance'
               />
               <br />
               <br />
@@ -90,13 +109,20 @@ class EditTaskModal extends React.Component {
                 placeholder="Select a status"
                 search
                 selection
-                options={this.props.status}
+                options={[
+                  { text: "pending", key: 4, value: "pending" },
+                  { text: "ongoing", key: 5, value: "ongoing" },
+                  { text: "completed", key: 6, value: "completed" }
+                ]}
+                value={this.state.status}
+                onChange={this.handleInputChange}
+                name='status'
               />
               <br />
               <br />
               Due date:{" "}
-              {this.props.dueDate && (
-                <Label color="purple"> {this.props.dueDate} </Label>
+              {this.state.dueDate && (
+                <Label color="purple"> {this.state.dueDate} </Label>
               )}
               <br />
               <br />
@@ -104,9 +130,7 @@ class EditTaskModal extends React.Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button inverted color="blue" onClick={this.toggleModal}>
-            <Icon name="checkmark" /> Save Changes
-          </Button>
+          <EditTaskButton task={this.state} toggleModal={this.toggleModal} />
           <Button basic color="red" onClick={this.toggleModal}>
             <Icon name="remove" /> Close
           </Button>

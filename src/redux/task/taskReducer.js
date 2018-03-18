@@ -21,9 +21,17 @@ const reducer = (state = initial, action) => {
         tasks: taskArray
       });
     case types.REMOVE_TASK_SUCCESS:
-      let newArray = state.tasks.filter(task => task._id !== action.removedTaskId);
+      let newArray = state.tasks.filter(
+        task => task._id !== action.removedTaskId
+      );
       return Object.assign({}, state, {
         tasks: newArray
+      });
+    case types.UPDATE_TASK_SUCCESS:
+      let updatedTaskArray = state.tasks.filter(task => task._id !== action.task.id);
+      updatedTaskArray.push(action.task);
+      return Object.assign({}, state, {
+        tasks: updatedTaskArray
       });
     default:
       return state;

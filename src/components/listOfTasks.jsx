@@ -20,6 +20,7 @@ const listOfTasks = ({items, category, color}) => (
           name={task.name}
           user={task.user}
           id={task._id}
+          group={task.group}
         />
       ))}
     </Card.Content>
