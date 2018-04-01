@@ -13,11 +13,10 @@ const extra = (numberOfUsers, category) => (
 );
 
 const groupCard = ({ name, teamLeader, category, description, users, id }) => {
-  const pushToGroupItem = () => {history.push("/groups/" + id)} 
+  const pushToGroupItem = () => {history.push("/groups/" + id)} //
 return (
 
     <Card
-      // image="http://via.placeholder.com/290x290"
       href=''
       key={id}
       onClick={pushToGroupItem}

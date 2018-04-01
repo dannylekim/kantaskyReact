@@ -2,21 +2,37 @@ import React from "react";
 import {
   Dropdown,
   Modal,
-  Label,
   Button,
   Icon,
   Form,
   TextArea
 } from "semantic-ui-react";
+import { connect } from "react-redux"
 
 class EditGroupModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      showModal: false,
+      teamLeader: null,
+      description: null,
+      users: null,
+      category: null,
+      name: null
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.openModal = this.openModal.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    const group = {
+      users:this.props.users,
+      name:this.props.name,
+      description:this.props.description,
+      category:this.props.category,
+      teamLeader:this.props.teamLeader
+    }
+    this.setState(group)
   }
 
   //this toggles and closes the previous modal behind it
@@ -31,20 +47,12 @@ class EditGroupModal extends React.Component {
   }
 
   render() {
-    // let importanceColor, statusColor;
-    // if (this.props.importance === "urgent") importanceColor = "red";
-    // else if (this.props.importance === "important") importanceColor = "orange";
-    // else importanceColor = "yellow";
-
-    // if (this.props.status === "ongoing") statusColor = "orange";
-    // else if (this.props.status === "pending") statusColor = "grey";
-    // else statusColor = "teal";
-
     return (
+
       <Modal
         trigger={
           <Button inverted color="blue" onClick={this.openModal}>
-            <Icon name="checkmark" /> Edit Task
+            <Icon name="checkmark" /> Edit Group
           </Button>
         }
         open={this.state.showModal}
@@ -55,26 +63,26 @@ class EditGroupModal extends React.Component {
           <Modal.Description>
             <Form>
               <Form.Field>
-                <label>Task Name</label>
-                <input placeholder="Input Task Name" value={this.props.name} />
+                <label>Group Name</label>
+                <input placeholder="Input Group Name" value={this.state.name} />
               </Form.Field>
               <TextArea
-                placeholder="Task Description"
-                value={this.props.description}
+                placeholder="Group Description"
+                value={this.state.description}
               />
-                <Form.Field>
-                <label>Task Name</label>
-                <input placeholder="Input Team Leader Name" value={this.props.teamLeader} />
+              <Form.Field>
+                <label>Team Leader</label>
+                <input
+                  placeholder="Input Team Leader Name"
+                  value={this.state.teamLeader}
+                />
               </Form.Field>
-
-
               <Dropdown
-                placeholder="Category"
+                placeholder="Team Leader"
                 search
                 selection
-                options={this.props.category}
+                options={this.state.category}
               />
-             
             </Form>
           </Modal.Description>
         </Modal.Content>
@@ -91,4 +99,5 @@ class EditGroupModal extends React.Component {
   }
 }
 
-export default EditGroupModal;
+const mapStateToProps = state => ({ group: state.group.groups });
+export default connect(mapStateToProps)(EditGroupModal);

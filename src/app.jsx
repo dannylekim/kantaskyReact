@@ -37,7 +37,7 @@ class App extends React.Component {
           <MenuSidebar visible={this.state.visible} />
           <Sidebar.Pusher style={{ height: 100 + "vh" }}>
             <Menu.Item onClick={this.toggleVisibility}>
-              <Icon color="blue" size="big" name="sidebar" />
+              <Icon color="red" size="big" name="sidebar" />
             </Menu.Item>
             <div style={{ marginLeft: 2 + "em", marginTop: 1 + "em" }}>
               <Route exact path="/" component={requireAuth(Main)} />

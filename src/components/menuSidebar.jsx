@@ -45,10 +45,10 @@ class MenuSidebar extends Component {
           <Icon name="home" />
           Home
         </Menu.Item>
-        <Menu.Item name="profile" onClick={this.goToProfile}>
+        {/* <Menu.Item name="profile" onClick={this.goToProfile}>
           <Icon name="user circle" />
           Profile
-        </Menu.Item>
+        </Menu.Item> */}
 
         <Menu.Item name="personal" onClick={this.goToPersonal}>
           <Icon name="tasks" />

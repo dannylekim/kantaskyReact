@@ -10,7 +10,7 @@ const reducer = (state = initial, action) => {
       return Object.assign({}, state, {
         groups: action.groups
       });
-      case types.CREATE_GROUP_SUCCESS:
+    case types.CREATE_GROUP_SUCCESS:
       let groupArray = state.groups.slice(); // This is done because you want to CLONE the state rather than mutate it
       groupArray.push(action.group);
       return Object.assign({}, state, {
