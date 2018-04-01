@@ -69,10 +69,10 @@ class User {
    * @returns Success Message
    * @memberof User
    */
-  static async changePassword(newPassword, userId) {
+  static async changePassword(password, userId) {
     try {
       return Promise.resolve(
-        await axios.put("changePassword/" + userId, newPassword)
+        await axios.put("changePassword/" + userId, password)
       );
     } catch (err) {
       return Promise.reject(err.response);

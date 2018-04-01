@@ -1,20 +1,38 @@
 import React from "react";
-import {
-  Modal,
-  Button,
-  Icon,
-  Form,
-  Dropdown
-} from "semantic-ui-react";
+import { Modal, Button, Icon, Form, Dropdown } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { changePassword } from "../redux/user/userActionDispatcher";
 
 class ChangePasswordModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      id: null,
+      password: null,
+      oldPassword: null,
+      confirmPassword: null
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  /**
+   * This is done to initialize the profile page and set it up with information
+   *
+   * @memberof ProfilePage
+   */
+  initializePage() {
+    const userProps = this.props.user;
+    //done to check for different. Could be extracted into a utility method if need be
+    if (userProps && userProps._id !== this.state.id) {
+      this.setState({ id: userProps._id });
+    }
+  }
+  componentDidUpdate() {
+    this.initializePage();
+  }
+  componentWillMount() {
+    this.initializePage();
   }
 
   handleInputChange(event, { value, name }) {
@@ -22,10 +40,9 @@ class ChangePasswordModal extends React.Component {
     this.setState({ [name]: value });
   }
 
-
-  handleSubmit(){
-      if(this.state.password === this.state.confirmPassword)
-      this.handleSubmit()
+  handleSubmit() {
+    if (this.state.password === this.state.confirmPassword)
+      this.props.changePassword(this.state.password, this.state.id); //TODO:
   }
 
   render() {
@@ -38,7 +55,6 @@ class ChangePasswordModal extends React.Component {
               <Form.Field>
                 <label>Current Password</label>
                 <Form.Input
-                  value={this.state.oldPassword}
                   name="oldPassword"
                   type="password"
                   onChange={this.handleInputChange}
@@ -47,7 +63,6 @@ class ChangePasswordModal extends React.Component {
               <Form.Field>
                 <label>New Password</label>
                 <Form.Input
-                  value={this.state.password}
                   name="password"
                   type="password"
                   onChange={this.handleInputChange}
@@ -56,7 +71,6 @@ class ChangePasswordModal extends React.Component {
               <Form.Field>
                 <label>Confirm Password</label>
                 <Form.Input
-                  value={this.state.confirmPassword}
                   name="confirmPassword"
                   type="password"
                   onChange={this.handleInputChange}
@@ -66,7 +80,7 @@ class ChangePasswordModal extends React.Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-        <Button basic color="green" onClick={this.handleSubmit}>
+          <Button inverted color="green" onClick={this.handleSubmit}>
             <Icon name="check" /> Change Password
           </Button>
           <Button basic secondary color="red">
@@ -78,4 +92,8 @@ class ChangePasswordModal extends React.Component {
   }
 }
 
-export default ChangePasswordModal;
+const mapToState = state => ({ user: state.user.user });
+const mapToDispatch = {
+  changePassword
+};
+export default connect(mapToState, mapToDispatch)(ChangePasswordModal);

@@ -47,10 +47,7 @@ const reducer = (state = initial, action) => {
 
     //display message, null errors
     case types.USER_CHANGE_PASSWORD_SUCCESS:
-      return Object.assign({}, state, {
-        message: "You have successfully changed your password",
-        errors: null
-      });
+      return state
 
     //display errors
     case types.USER_CHANGE_PASSWORD_FAIL:
@@ -59,9 +56,7 @@ const reducer = (state = initial, action) => {
     //display message and null errors
     case types.USER_UPDATE_SUCCESS:
       return Object.assign({}, state, {
-        message: "You have successfully updated your account!",
         user: action.user,
-        errors: null
       });
 
     //display message and null errors
