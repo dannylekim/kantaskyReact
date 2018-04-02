@@ -15,9 +15,6 @@ class ViewGroupModal extends React.Component {
   }
 
   componentWillReceiveProps(){
-    if(this.props.group){
-      console.log(this.props.group)
-    }
   }
 
 
@@ -69,8 +66,5 @@ class ViewGroupModal extends React.Component {
 }
 
 
-const mapStateToProps = state => { console.log(state); return {} };
-const mapDispatch = () => async dispatch => { 
-  dispatch({type:null})
-}
-export default connect(mapStateToProps, mapDispatch)(ViewGroupModal);
+const mapStateToProps = state => {};
+export default connect(mapStateToProps)(ViewGroupModal);

@@ -10,14 +10,14 @@ class GroupTasks extends React.Component {
     super(props);
     this.state = {
       groupId: null
-    }
+    };
     this.sortOutTasks = this.sortOutTasks.bind(this);
   }
 
   componentWillMount() {
-    const groupId = this.props.match.params.groupId
+    const groupId = this.props.match.params.groupId;
     this.props.getGroupsTasks(groupId);
-    this.setState({groupId: groupId});
+    this.setState({ groupId: groupId });
   }
 
   sortOutTasks(tasks) {
@@ -54,7 +54,7 @@ class GroupTasks extends React.Component {
 
     return (
       <div>
-        <TaskMenuBar groupId={this.state.groupId}/>
+        <TaskMenuBar groupId={this.state.groupId} />
         <Card.Group>{listOfTasks}</Card.Group>
       </div>
     );
@@ -63,8 +63,11 @@ class GroupTasks extends React.Component {
 
 //====================== REDUX CONNECTION =========================
 
-const mapState = state => ({ tasks: state.task.tasks });
+const mapState = state => ({
+  tasks: state.task.tasks,
+  groups: state.group.groups
+});
 const mapDispatch = {
-  getGroupsTasks
+  getGroupsTasks,
 };
 export default connect(mapState, mapDispatch)(GroupTasks);

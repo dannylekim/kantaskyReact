@@ -3,6 +3,7 @@ import { Dropdown } from "semantic-ui-react";
 import ProfileButton from "./profileButton";
 import UpdateUserModal from "./updateUserModal";
 import ChangePasswordModal from "./changePasswordModal";
+import { signOut } from "../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
 class DropDownMenu extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class DropDownMenu extends Component {
           <Dropdown.Header>{this.state.email}</Dropdown.Header>
           <UpdateUserModal />
           <ChangePasswordModal userID={this.state.id} />
-          <Dropdown.Item text="Sign Out" />
+          <Dropdown.Item text="Sign Out" onClick={this.props.signOut}/>
         </Dropdown.Menu>
       </Dropdown>
     );
@@ -60,4 +61,7 @@ class DropDownMenu extends Component {
 }
 
 const mapToState = state => ({ user: state.user.user });
-export default connect(mapToState)(DropDownMenu);
+const mapToDispatch = {
+  signOut
+}
+export default connect(mapToState, mapToDispatch)(DropDownMenu);

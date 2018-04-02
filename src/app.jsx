@@ -11,6 +11,7 @@ import GroupPage from "./views/groups/groupPage";
 import GroupTask from "./views/groups/groupTasks";
 import { Sidebar, Segment, Menu, Icon } from "semantic-ui-react";
 import noRequireAuth from "./config/noRequireAuth";
+import DropdownMenu from "./components/dropdownMenu"
 
 class App extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class App extends React.Component {
             <Menu.Item onClick={this.toggleVisibility}>
               <Icon color="red" size="big" name="sidebar" />
             </Menu.Item>
+            <DropdownMenu />
             <div style={{ marginLeft: 2 + "em", marginTop: 1 + "em" }}>
               <Route exact path="/" component={requireAuth(Main)} />
               <Route path="/profile" component={requireAuth(ProfilePage)} />

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Icon, Label } from "semantic-ui-react";
-import {history} from "../config/config"
+import { Redirect } from "react-router-dom";
 
 const extra = (numberOfUsers, category) => (
   <div>
@@ -12,22 +12,37 @@ const extra = (numberOfUsers, category) => (
   </div>
 );
 
-const groupCard = ({ name, teamLeader, category, description, users, id }) => {
-  const pushToGroupItem = () => {history.push("/groups/" + id)} //
-return (
+class GroupCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+    };
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
 
-    <Card
-      href=''
-      key={id}
-      onClick={pushToGroupItem}
-      header={name}
-      meta={"Project Lead: " + teamLeader}
-      description={description}
-      extra={extra(users.length, category)}
-      color="blue"
-    />
- 
-)}
-;
+  handleOnClick = () => {
+    this.setState({ redirect: true });
+  };
 
-export default groupCard;
+  render() {
+    if (this.state.redirect) {
+      return <Redirect to={"/groups/" + this.props.id} />;
+    }
+
+    return (
+      <Card
+        href=""
+        key={this.props.id}
+        onClick={this.handleOnClick}
+        header={this.props.name}
+        meta={"Project Lead: " + this.props.teamLeader}
+        description={this.props.description}
+        extra={extra(this.props.users.length, this.props.category)}
+        color="blue"
+      />
+    );
+  }
+}
+
+export default GroupCard;

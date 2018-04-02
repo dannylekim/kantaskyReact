@@ -41,10 +41,10 @@ class MenuSidebar extends Component {
         vertical
         inverted
       >
-        <Menu.Item name="home" onClick={this.goToHome}>
+        {/* <Menu.Item name="home" onClick={this.goToHome}>
           <Icon name="home" />
           Home
-        </Menu.Item>
+        </Menu.Item> */}
         {/* <Menu.Item name="profile" onClick={this.goToProfile}>
           <Icon name="user circle" />
           Profile
@@ -63,10 +63,10 @@ class MenuSidebar extends Component {
           <Icon name="settings" />
           Settings
         </Menu.Item> */}
-        <Menu.Item name="signOut" onClick={this.props.signOut}>
+        {/* <Menu.Item name="signOut" onClick={this.props.signOut}>
           <Icon name="sign out" />
           Sign Out
-        </Menu.Item>
+        </Menu.Item> */}
       </Sidebar>
     );
   }

@@ -13,9 +13,14 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAIL
 } from "./redux/user/userActionTypes";
+import { GET_GROUP_SUCCESS } from "./redux/group/groupActionTypes";
+import { GET_USERS_PERSONAL_TASKS_SUCCESS } from "./redux/task/taskActionTypes";
 import axios from "axios";
 import { decode } from "jsonwebtoken";
 import userApi from "./api/userApi";
+import groupApi from "./api/groupApi";
+import taskApi from "./api/taskApi";
+import task from "./components/task";
 //FIXME:Consider moving this to redux in some way?
 /**
  * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user
@@ -33,7 +38,11 @@ const checkToken = () => {
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     const userId = decode(token).id;
     store.dispatch({ type: LOGIN_SUCCESS, token: token });
+
+    //load all
     getProfile(userId);
+    getUsersGroups(userId);
+    getUsersTasks(userId);
   }
 };
 
@@ -43,6 +52,30 @@ const getProfile = async userId => {
     store.dispatch({ type: GET_USER_SUCCESS, user: response.data });
   } catch (err) {
     store.dispatch({ type: GET_USER_FAIL, error: err.data });
+  }
+};
+
+const getUsersGroups = async userId => {
+  try {
+    const response = await groupApi.getAllUsersGroups(userId); //api call to login
+    store.dispatch({
+      type: GET_GROUP_SUCCESS,
+      groups: response.data
+    }); //dispatch the successful login call
+  } catch (err) {
+    //TODO:
+  }
+};
+
+const getUsersTasks = async userId => {
+  try {
+    const response = await taskApi.getUsersTasks(userId); //api call to login
+    store.dispatch({
+      type: GET_USERS_PERSONAL_TASKS_SUCCESS,
+      personalTasks: response.data
+    }); //dispatch the successful login call
+  } catch (err) {
+    //TODO:
   }
 };
 
