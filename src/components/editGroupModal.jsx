@@ -7,32 +7,32 @@ import {
   Form,
   TextArea
 } from "semantic-ui-react";
-import { connect } from "react-redux"
 
 class EditGroupModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      teamLeader: null,
-      description: null,
-      users: null,
-      category: null,
-      name: null
+      teamLeader: "",
+      description: "",
+      users: "",
+      category: "",
+      name: ""
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.openModal = this.openModal.bind(this);
   }
 
-  componentWillReceiveProps() {
+  componentWillMount() {
     const group = {
-      users:this.props.users,
-      name:this.props.name,
-      description:this.props.description,
-      category:this.props.category,
-      teamLeader:this.props.teamLeader
-    }
-    this.setState(group)
+      users: this.props.users,
+      name: this.props.name,
+      description: this.props.description,
+      category: this.props.category,
+      teamLeader: this.props.teamLeader
+    };
+    console.log(group);
+    this.setState(group);
   }
 
   //this toggles and closes the previous modal behind it
@@ -48,7 +48,6 @@ class EditGroupModal extends React.Component {
 
   render() {
     return (
-
       <Modal
         trigger={
           <Button inverted color="blue" onClick={this.openModal}>
@@ -99,5 +98,4 @@ class EditGroupModal extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ group: state.group.groups });
-export default connect(mapStateToProps)(EditGroupModal);
+export default EditGroupModal;

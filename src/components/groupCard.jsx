@@ -24,7 +24,7 @@ class GroupCard extends React.Component {
   handleOnClick = () => {
     this.setState({ redirect: true });
   };
-
+//TODO: Need to do an SPA way of routing. This forces a refreshes and there is a lag that comes along with it
   render() {
     if (this.state.redirect) {
       return <Redirect to={"/groups/" + this.props.id} />;

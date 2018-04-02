@@ -2,7 +2,6 @@ import React from "react";
 import { Modal, Button, Icon } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import EditGroupModal from "./editGroupModal";
-import { connect } from "react-redux";
 
 class ViewGroupModal extends React.Component {
   constructor(props) {
@@ -14,10 +13,6 @@ class ViewGroupModal extends React.Component {
     this.openModal = this.openModal.bind(this);
   }
 
-  componentWillReceiveProps(){
-  }
-
-
   //this toggles and closes the previous modal behind it
   toggleModal() {
     this.setState({ showModal: !this.state.showModal });
@@ -26,6 +21,14 @@ class ViewGroupModal extends React.Component {
   //this just opens this modal
   openModal() {
     this.setState({ showModal: !this.state.showModal });
+  }
+
+  componentWillReceiveProps(){
+    if(this.props.group){
+      this.props.group.showModal = this.state.showModal
+      this.props.group.teamLeader = this.props.group.teamLeader.name
+      this.setState(this.props.group)
+    }
   }
 
   render() {
@@ -40,20 +43,20 @@ class ViewGroupModal extends React.Component {
         <Modal.Header>View Group</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            {this.props.name}
-            {this.props.description}
-            {this.props.teamLeader}
-            {this.props.category}
-            {this.props.users}
+            {/* {this.state.name}
+            {this.state.description}
+            {this.state.teamLeader}
+            {this.state.category}
+            {this.state.users} */}
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
           <EditGroupModal
-            users={this.props.users}
-            name={this.props.name}
-            description={this.props.description}
-            category={this.props.category}
-            teamLeader={this.props.teamLeader}
+            users={this.state.users}
+            name={this.state.name}
+            description={this.state.description}
+            category={this.state.category}
+            teamLeader={this.state.teamLeader}
             closeModalFunction={this.toggleModal}
           />
           <Button basic color="red" onClick={this.toggleModal}>
@@ -65,6 +68,4 @@ class ViewGroupModal extends React.Component {
   }
 }
 
-
-const mapStateToProps = state => {};
-export default connect(mapStateToProps)(ViewGroupModal);
+export default (ViewGroupModal);

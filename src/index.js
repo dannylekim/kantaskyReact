@@ -20,7 +20,6 @@ import { decode } from "jsonwebtoken";
 import userApi from "./api/userApi";
 import groupApi from "./api/groupApi";
 import taskApi from "./api/taskApi";
-import task from "./components/task";
 //FIXME:Consider moving this to redux in some way?
 /**
  * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user

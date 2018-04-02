@@ -9,7 +9,8 @@ class GroupTasks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupId: null
+      groupId: null,
+      group: null
     };
     this.sortOutTasks = this.sortOutTasks.bind(this);
   }
@@ -52,9 +53,14 @@ class GroupTasks extends React.Component {
       ));
     }
 
+    if(this.props.groups && this.state.group === null) {
+      const result = this.props.groups.filter(group => group._id === this.state.groupId)
+      this.setState({group: result[0]})
+    }
+
     return (
       <div>
-        <TaskMenuBar groupId={this.state.groupId} />
+        <TaskMenuBar groupId={this.state.groupId} group={this.state.group}/>
         <Card.Group>{listOfTasks}</Card.Group>
       </div>
     );
@@ -68,6 +74,6 @@ const mapState = state => ({
   groups: state.group.groups
 });
 const mapDispatch = {
-  getGroupsTasks,
+  getGroupsTasks
 };
 export default connect(mapState, mapDispatch)(GroupTasks);

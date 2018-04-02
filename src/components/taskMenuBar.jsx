@@ -3,7 +3,7 @@ import { Menu, Icon, Input } from "semantic-ui-react";
 import AddTaskButton from "./createTask"
 import ViewGroupModal from "./viewGroupModal"
 
-const taskMenuBar = ({ isTeamLeader, groupId }) => {
+const taskMenuBar = ({ isTeamLeader, groupId, group }) => {
   isTeamLeader = true
   return (
     <Menu>
@@ -20,7 +20,7 @@ const taskMenuBar = ({ isTeamLeader, groupId }) => {
             <Icon name="remove user" />
           </Menu.Item>
         ) && (
-          <ViewGroupModal groupId={groupId}/>
+          <ViewGroupModal group={group}/>
         )}
       <Menu.Menu position="right">
         <Menu.Item>
