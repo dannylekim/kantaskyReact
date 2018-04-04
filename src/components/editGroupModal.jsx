@@ -72,12 +72,11 @@ class EditGroupModal extends React.Component {
               <Form.Field>
                 <label>Team Leader</label>
                 <input
-                  placeholder="Input Team Leader Name"
-                  value={this.state.teamLeader}
+                  value={(this.state.teamLeader) ? this.state.teamLeader.name : null}
                 />
               </Form.Field>
               <Dropdown
-                placeholder="Team Leader"
+                placeholder="Select a new team Leader"
                 search
                 selection
                 options={this.state.category}

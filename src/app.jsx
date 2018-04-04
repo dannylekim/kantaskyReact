@@ -11,7 +11,7 @@ import GroupPage from "./views/groups/groupPage";
 import GroupTask from "./views/groups/groupTasks";
 import { Sidebar, Segment, Menu, Icon } from "semantic-ui-react";
 import noRequireAuth from "./config/noRequireAuth";
-import DropdownMenu from "./components/dropdownMenu"
+import DropdownMenu from "./components/dropdownMenu";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,11 +25,10 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.props.checkToken()
+    this.props.checkToken();
   }
-  
+
   render() {
-    
     return (
       <Switch>
         <Route path="/login" component={noRequireAuth(Login)} />
@@ -45,9 +44,9 @@ class App extends React.Component {
               <Route exact path="/" component={requireAuth(Main)} />
               <Route path="/profile" component={requireAuth(ProfilePage)} />
               <Route path="/personal" component={requireAuth(Personal)} />
-              <Route exact path="/groups" component={requireAuth(GroupPage)} />
+              <Route path="/groups" component={requireAuth(GroupPage)} />
               <Route
-                path="/groups/:groupId"
+                path="/group/:groupId"
                 component={requireAuth(GroupTask)}
               />
             </div>

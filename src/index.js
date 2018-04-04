@@ -41,7 +41,7 @@ const checkToken = () => {
     //load all
     getProfile(userId);
     getUsersGroups(userId);
-    getUsersTasks(userId);
+    // getUsersTasks(userId);
   }
 };
 

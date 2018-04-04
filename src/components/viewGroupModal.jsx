@@ -1,7 +1,8 @@
 import React from "react";
-import { Modal, Button, Icon } from "semantic-ui-react";
+import { Modal, Button, Icon, Header, Label } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import EditGroupModal from "./editGroupModal";
+import HorizontalList from "./horizontalList";
 
 class ViewGroupModal extends React.Component {
   constructor(props) {
@@ -23,11 +24,10 @@ class ViewGroupModal extends React.Component {
     this.setState({ showModal: !this.state.showModal });
   }
 
-  componentWillReceiveProps(){
-    if(this.props.group){
-      this.props.group.showModal = this.state.showModal
-      this.props.group.teamLeader = this.props.group.teamLeader.name
-      this.setState(this.props.group)
+  componentWillReceiveProps() {
+    if (this.props.group) {
+      this.props.group.showModal = this.state.showModal;
+      this.setState(this.props.group);
     }
   }
 
@@ -40,14 +40,19 @@ class ViewGroupModal extends React.Component {
         open={this.state.showModal}
         onClose={this.toggleModal}
       >
-        <Modal.Header>View Group</Modal.Header>
+        <Modal.Header>{this.state.name}</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            {/* {this.state.name}
-            {this.state.description}
-            {this.state.teamLeader}
-            {this.state.category}
-            {this.state.users} */}
+            Description: {this.state.description}
+            <br />
+            <br />
+            Team Leader:
+            <Label color="blue">
+              {this.state.teamLeader ? this.state.teamLeader.name : ""}
+            </Label>
+            <br />
+            <br />
+            <HorizontalList users={this.state.users}/>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
@@ -68,4 +73,4 @@ class ViewGroupModal extends React.Component {
   }
 }
 
-export default (ViewGroupModal);
+export default ViewGroupModal;
