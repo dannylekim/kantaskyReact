@@ -63,13 +63,18 @@ class EditTaskModal extends React.Component {
             <Form>
               <Form.Field>
                 <label>Task Name</label>
-                <Form.Input placeholder="Input Task Name" value={this.state.name} name='name' onChange={this.handleInputChange} />
+                <Form.Input
+                  placeholder="Input Task Name"
+                  value={this.state.name}
+                  name="name"
+                  onChange={this.handleInputChange}
+                />
               </Form.Field>
               <TextArea
                 placeholder="Task Description"
                 value={this.state.description}
                 onChange={this.handleInputChange}
-                name='description'
+                name="description"
               />
               <br />
               <br />
@@ -86,7 +91,7 @@ class EditTaskModal extends React.Component {
                 ]}
                 value={this.state.user}
                 onChange={this.handleInputChange}
-                name='user'
+                name="user"
               />
               <br />
               <br />
@@ -101,7 +106,7 @@ class EditTaskModal extends React.Component {
                 ]}
                 value={this.state.importance}
                 onChange={this.handleInputChange}
-                name='importance'
+                name="importance"
               />
               <br />
               <br />
@@ -116,7 +121,7 @@ class EditTaskModal extends React.Component {
                 ]}
                 value={this.state.status}
                 onChange={this.handleInputChange}
-                name='status'
+                name="status"
               />
               <br />
               <br />

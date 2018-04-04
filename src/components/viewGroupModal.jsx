@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Icon, Header, Label } from "semantic-ui-react";
+import { Modal, Button, Icon, Label } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import EditGroupModal from "./editGroupModal";
 import HorizontalList from "./horizontalList";
@@ -62,6 +62,7 @@ class ViewGroupModal extends React.Component {
             description={this.state.description}
             category={this.state.category}
             teamLeader={this.state.teamLeader}
+            id={this.state._id}
             closeModalFunction={this.toggleModal}
           />
           <Button basic color="red" onClick={this.toggleModal}>

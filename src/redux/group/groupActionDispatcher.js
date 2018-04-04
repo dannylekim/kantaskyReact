@@ -24,3 +24,12 @@ export const createGroup = (newGroup) => async dispatch => {
   }
 }
 
+export const editGroup = (updatedGroup, groupId) => async dispatch => {
+  try{
+    const response = await groupApi.updateGroup(updatedGroup, groupId)
+    console.log(response)
+  }
+  catch(err){
+    //TODO:
+  }
+}
