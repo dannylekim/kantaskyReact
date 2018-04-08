@@ -16,6 +16,12 @@ const reducer = (state = initial, action) => {
       return Object.assign({}, state, {
         groups: groupArray
       });
+    case types.UPDATE_GROUP_SUCCESS:
+    let updatedGroupArray = state.groups.filter(group => group._id !== action.group._id);
+    updatedGroupArray.push(action.group);
+    return Object.assign({}, state, {
+      groups: updatedGroupArray
+    });
     default:
       return state;
   }

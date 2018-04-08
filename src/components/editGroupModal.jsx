@@ -66,9 +66,9 @@ class EditGroupModal extends React.Component {
     let updatedGroup = Object.assign({}, this.state);
     delete updatedGroup.showModal;
     const groupId = updatedGroup.id;
-    delete updatedGroup.id;
     delete updatedGroup.users;
-    this.props.editGroup(updatedGroup, groupId);
+    this.props.editGroup(updatedGroup, groupId); //TODO: Receive a success message
+    
     this.toggleModal();
   }
 

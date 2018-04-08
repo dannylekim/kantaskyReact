@@ -1,23 +1,19 @@
 import axios from "axios";
 
 class User {
-
-
   //================ POST REQUESTS ======================
 
   /**
    * Authenticates User.
-   * 
+   *
    * @static
-   * @param {any} credentials 
+   * @param {any} credentials
    * @returns Message and Token
    * @memberof User
    */
   static async authenticate(credentials) {
     try {
-      return Promise.resolve(
-        await axios.post("login", credentials)
-      );
+      return Promise.resolve(await axios.post("login", credentials));
     } catch (err) {
       return Promise.reject(err.response);
     }
@@ -25,37 +21,33 @@ class User {
 
   /**
    * Creates a new user.
-   * 
+   *
    * @static
-   * @param {any} user 
+   * @param {any} user
    * @returns User Object
    * @memberof User
    */
   static async signUp(user) {
     try {
-      return Promise.resolve(
-        await axios.post("signup", user)
-      );
+      return Promise.resolve(await axios.post("signup", user));
     } catch (err) {
       return Promise.reject(err.response);
     }
   }
 
-//================ PUT REQUESTS ======================
+  //================ PUT REQUESTS ======================
 
   /**
    * Updates User's email, first Name and Last name
-   * 
+   *
    * @static
-   * @param {any} userId 
+   * @param {any} userId
    * @returns Success Message
    * @memberof User
    */
   static async updateUser(updatedUser, userId) {
     try {
-      return Promise.resolve(
-        await axios.put("users/" + userId, updatedUser)
-      );
+      return Promise.resolve(await axios.put("users/" + userId, updatedUser));
     } catch (err) {
       return Promise.reject(err.response);
     }
@@ -63,9 +55,9 @@ class User {
 
   /**
    * Updates Password
-   * 
+   *
    * @static
-   * @param {any} userId 
+   * @param {any} userId
    * @returns Success Message
    * @memberof User
    */
@@ -79,21 +71,35 @@ class User {
     }
   }
 
-//================ GET REQUESTS ======================
+  //================ GET REQUESTS ======================
 
-/**
- * Gets the associated user Id. Requester can only take his own
- * 
- * @static
- * @param {any} userId 
- * @returns 
- * @memberof User
- */
-static async getUser(userId) { 
+  /**
+   * Gets the associated user Id. Requester can only take his own
+   *
+   * @static
+   * @param {any} userId
+   * @returns
+   * @memberof User
+   */
+  static async getUser(userId) {
     try {
-      return Promise.resolve(
-        await axios.get("users/" + userId)
-      );
+      return Promise.resolve(await axios.get("users/" + userId));
+    } catch (err) {
+      return Promise.reject(err.response);
+    }
+  }
+
+  /**
+   * Search for a user by email
+   *
+   * @static
+   * @param {any} userId
+   * @returns
+   * @memberof User
+   */
+  static async searchUser(email) {
+    try {
+      return Promise.resolve(await axios.get("/searchUser/" + email));
     } catch (err) {
       return Promise.reject(err.response);
     }

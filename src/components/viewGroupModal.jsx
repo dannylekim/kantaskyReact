@@ -3,6 +3,7 @@ import { Modal, Button, Icon, Label } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import EditGroupModal from "./editGroupModal";
 import HorizontalList from "./horizontalList";
+import { connect } from "react-redux"
 
 class ViewGroupModal extends React.Component {
   constructor(props) {
@@ -24,10 +25,19 @@ class ViewGroupModal extends React.Component {
     this.setState({ showModal: !this.state.showModal });
   }
 
-  componentWillReceiveProps() {
-    if (this.props.group) {
-      this.props.group.showModal = this.state.showModal;
-      this.setState(this.props.group);
+  componentWillUpdate() {
+    if (this.props.groups) {
+      const viewGroup = this.props.groups.filter(group => group._id === this.state.groupId);
+      //TODO: verify all users if they're the same8
+      if (viewGroup.length === 1 && (viewGroup[0].name !== this.state.name || viewGroup[0].description !== this.state.description || viewGroup[0].teamLeader.leaderId !== this.state.teamLeader.leaderId)) {
+        viewGroup[0].showModal = this.state.showModal
+        viewGroup[0].groupId = this.state.groupId
+        this.setState(viewGroup[0]);
+      }
+
+    }
+    if (this.props.groupId !== this.state.groupId) {
+      this.setState({ groupId: this.props.groupId })
     }
   }
 
@@ -52,7 +62,7 @@ class ViewGroupModal extends React.Component {
             </Label>
             <br />
             <br />
-            <HorizontalList users={this.state.users}/>
+            <HorizontalList users={this.state.users} />
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
@@ -73,5 +83,5 @@ class ViewGroupModal extends React.Component {
     );
   }
 }
-
-export default ViewGroupModal;
+const mapState = state => ({ groups: state.group.groups });
+export default connect(mapState)(ViewGroupModal);

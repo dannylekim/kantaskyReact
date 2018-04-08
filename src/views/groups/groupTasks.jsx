@@ -57,10 +57,10 @@ class GroupTasks extends React.Component {
       const result = this.props.groups.filter(group => group._id === this.state.groupId)
       this.setState({group: result[0]})
     }
-
+    //TODO: set the teamLeader props to the proper one 
     return (
       <div>
-        <TaskMenuBar groupId={this.state.groupId} group={this.state.group}/>
+        <TaskMenuBar groupId={this.state.groupId} group={this.state.group} isTeamLeader={true}/>
         <Card.Group>{listOfTasks}</Card.Group>
       </div>
     );

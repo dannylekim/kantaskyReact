@@ -28,7 +28,7 @@ export const getGroupSuccess = groups => ({
   }),
   updateGroupSuccess = group => ({
     type: types.UPDATE_GROUP_SUCCESS,
-    groups: group //TODO: should be changing that group on the list
+    group: group //TODO: should be changing that group on the list
   }),
   updateGroupFail = error => ({
     type: types.UPDATE_GROUP_FAIL,

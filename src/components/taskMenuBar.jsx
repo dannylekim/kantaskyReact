@@ -1,27 +1,24 @@
 import React from "react";
 import { Menu, Icon, Input } from "semantic-ui-react";
-import AddTaskButton from "./createTask"
-import ViewGroupModal from "./viewGroupModal"
+import AddTaskButton from "./createTask";
+import ViewGroupModal from "./viewGroupModal";
+import AddUserModal from "./addUserModal";
 
 const taskMenuBar = ({ isTeamLeader, groupId, group }) => {
-  isTeamLeader = true
   return (
     <Menu>
-      <AddTaskButton groupId={groupId}/>
+      <AddTaskButton groupId={groupId} />
       <Menu.Item>
         <Icon name="remove" />
       </Menu.Item>
+
       {isTeamLeader && (
-          <Menu.Item>
-            <Icon name="add user" />
-          </Menu.Item>
-        ) && (
-          <Menu.Item>
-            <Icon name="remove user" />
-          </Menu.Item>
-        ) && (
-          <ViewGroupModal group={group}/>
-        )}
+        <Menu.Item>
+          <Icon name="remove user" />
+        </Menu.Item>
+      )}
+      {isTeamLeader && <ViewGroupModal groupId={groupId} />}
+      {isTeamLeader && <AddUserModal />}
       <Menu.Menu position="right">
         <Menu.Item>
           <Input
