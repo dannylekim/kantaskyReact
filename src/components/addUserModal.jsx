@@ -17,6 +17,7 @@ class SearchUserModal extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   //this toggles and closes the previous modal behind it
@@ -31,6 +32,7 @@ class SearchUserModal extends React.Component {
     } catch (err) {
       response = err;
     }
+    //FIXME: 200 should be extracted out to another where it handles all constants
     if (response.status === 200) {
       this.setState({
         firstName: response.data.firstName,
@@ -40,6 +42,11 @@ class SearchUserModal extends React.Component {
     } else {
       this.setState({ errors: response.data, firstName: null, lastName: null });
     }
+  }
+
+  async handleSubmit() {
+    this.toggleModal();
+    //TODO: decide if you want to add via redux or via a normal call
   }
 
   //this just opens this modal
@@ -83,6 +90,9 @@ class SearchUserModal extends React.Component {
           </Button>
         </Modal.Content>
         <Modal.Actions>
+          <Button inverted color="blue" onClick={this.handleSubmit}>
+            <Icon name="add user" /> Save Changes
+          </Button>
           <Button basic color="red" onClick={this.toggleModal}>
             <Icon name="remove" /> Close
           </Button>

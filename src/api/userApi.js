@@ -104,6 +104,25 @@ class User {
       return Promise.reject(err.response);
     }
   }
+
+  /**
+   * Invites the user to the target group Id
+   * 
+   * @static
+   * @param {any} targetGroupId 
+   * @param {any} invitedUserId 
+   * @returns 
+   * @memberof User
+   */
+  static async inviteUser(targetGroupId, invitedUserId) {
+    try {
+      return Promise.resolve(
+        await axios.get(`/invite/${invitedUserId}/${targetGroupId}`)
+      );
+    } catch (err) {
+      return Promise.reject(err.response);
+    }
+  }
 }
 
 export default User;
