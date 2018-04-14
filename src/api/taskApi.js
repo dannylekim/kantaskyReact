@@ -33,10 +33,10 @@ class Task {
    * @returns Task
    * @memberof Task
    */
-  static async updateTask(taskId) {
+  static async updateTask(task) {
     try {
       return Promise.resolve(
-        await axios.put("tasks/" + taskId)
+        await axios.put("tasks/" + task.id, task)
       );
     } catch (err) {
       return Promise.reject(err.response);

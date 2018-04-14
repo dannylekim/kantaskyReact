@@ -2,6 +2,7 @@ import React from "react";
 import { Header, Modal, Label, Button, Icon } from "semantic-ui-react";
 import Task from "./task";
 import RemoveTaskButton from "./removeTaskButton";
+import EditTaskModal from "./editTaskModal";
 
 class taskModal extends React.Component {
   constructor(props) {
@@ -37,7 +38,6 @@ class taskModal extends React.Component {
             {...this.props.rest}
             onClick={this.toggleModal}
           />
-
         }
         open={this.state.showModal}
         onClose={this.toggleModal}
@@ -72,9 +72,18 @@ class taskModal extends React.Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button inverted color="blue" onClick={this.toggleModal}>
-            <Icon name="checkmark" /> Edit Task
-          </Button>
+          <EditTaskModal
+            closeModalFunction={this.toggleModal}
+            name={this.props.name}
+            dueDate={this.props.dueDate}
+            status={this.props.status}
+            importance={this.props.importance}
+            user={this.props.user}
+            category={this.props.category}
+            description={this.props.description}
+            id={this.props.id}
+            group={this.props.group}
+          />
           <RemoveTaskButton
             id={this.props.id}
             modalFunction={this.toggleModal}

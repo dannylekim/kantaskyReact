@@ -12,6 +12,7 @@ class MenuSidebar extends Component {
     this.goToGroups = this.goToGroups.bind(this);
     this.goToSettings = this.goToSettings.bind(this);
     this.goToProfile = this.goToProfile.bind(this);
+    this.goToNotifications = this.goToNotifications.bind(this);
   }
 
   goToPersonal() {
@@ -29,6 +30,9 @@ class MenuSidebar extends Component {
   goToProfile() {
     history.push("/profile");
   }
+  goToNotifications() {
+    history.push("/notifications");
+  }
 
   render() {
     return (
@@ -41,14 +45,14 @@ class MenuSidebar extends Component {
         vertical
         inverted
       >
-        <Menu.Item name="home" onClick={this.goToHome}>
+        {/* <Menu.Item name="home" onClick={this.goToHome}>
           <Icon name="home" />
           Home
-        </Menu.Item>
-        <Menu.Item name="profile" onClick={this.goToProfile}>
+        </Menu.Item> */}
+        {/* <Menu.Item name="profile" onClick={this.goToProfile}>
           <Icon name="user circle" />
           Profile
-        </Menu.Item>
+        </Menu.Item> */}
 
         <Menu.Item name="personal" onClick={this.goToPersonal}>
           <Icon name="tasks" />
@@ -59,14 +63,19 @@ class MenuSidebar extends Component {
           <Icon name="users" />
           Groups
         </Menu.Item>
+
+        <Menu.Item name="mail" onClick={this.goToNotifications}>
+          <Icon name="mail" />
+          Notifications
+        </Menu.Item>
         {/* <Menu.Item name="settings" onClick={this.goToSettings}>
           <Icon name="settings" />
           Settings
         </Menu.Item> */}
-        <Menu.Item name="signOut" onClick={this.props.signOut}>
+        {/* <Menu.Item name="signOut" onClick={this.props.signOut}>
           <Icon name="sign out" />
           Sign Out
-        </Menu.Item>
+        </Menu.Item> */}
       </Sidebar>
     );
   }

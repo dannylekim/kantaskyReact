@@ -9,14 +9,14 @@ export default ComposedComponent => {
     //Verifies if the user is authenticated. If yes, redirect back on first arrival
     componentWillMount() {
       if (this.props.authenticated) {
-        this.props.history.push("/");
+        this.props.history.push("/groups");
       }
     }
 
     //Verifies if the user is authenticated. If yes, redirect back on updates
     componentWillUpdate(nextProps) {
       if (nextProps.authenticated) {
-        this.props.history.push("/");
+        this.props.history.push("/groups");
       }
     }
 

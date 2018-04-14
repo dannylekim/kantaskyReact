@@ -1,5 +1,5 @@
 import groupApi from "../../api/groupApi";
-import {getGroupSuccess, createGroupSuccess } from "./groupActions";
+import {getGroupSuccess, createGroupSuccess, updateGroupSuccess } from "./groupActions";
 import store from "../configureStore"
 
 
@@ -24,3 +24,12 @@ export const createGroup = (newGroup) => async dispatch => {
   }
 }
 
+export const editGroup = (updatedGroup, groupId) => async dispatch => {
+  try{
+    const response = await groupApi.updateGroup(updatedGroup, groupId)
+    dispatch(updateGroupSuccess(response.data))
+  }
+  catch(err){
+    //TODO:
+  }
+}

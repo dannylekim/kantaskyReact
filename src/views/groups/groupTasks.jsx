@@ -9,15 +9,16 @@ class GroupTasks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupId: null
-    }
+      groupId: null,
+      group: null
+    };
     this.sortOutTasks = this.sortOutTasks.bind(this);
   }
 
   componentWillMount() {
-    const groupId = this.props.match.params.groupId
+    const groupId = this.props.match.params.groupId;
     this.props.getGroupsTasks(groupId);
-    this.setState({groupId: groupId});
+    this.setState({ groupId: groupId });
   }
 
   sortOutTasks(tasks) {
@@ -52,9 +53,14 @@ class GroupTasks extends React.Component {
       ));
     }
 
+    if(this.props.groups && this.state.group === null) {
+      const result = this.props.groups.filter(group => group._id === this.state.groupId)
+      this.setState({group: result[0]})
+    }
+    //TODO: set the teamLeader props to the proper one 
     return (
       <div>
-        <TaskMenuBar groupId={this.state.groupId}/>
+        <TaskMenuBar groupId={this.state.groupId} group={this.state.group} isTeamLeader={true}/>
         <Card.Group>{listOfTasks}</Card.Group>
       </div>
     );
@@ -63,7 +69,10 @@ class GroupTasks extends React.Component {
 
 //====================== REDUX CONNECTION =========================
 
-const mapState = state => ({ tasks: state.task.tasks });
+const mapState = state => ({
+  tasks: state.task.tasks,
+  groups: state.group.groups
+});
 const mapDispatch = {
   getGroupsTasks
 };

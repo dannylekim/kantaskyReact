@@ -29,9 +29,9 @@ export const createTaskInGroupSuccess = task => ({
     type: types.GET_USERS_GROUP_TASKS_FAIL,
     error: error
   }),
-  updateTaskSuccess = tasks => ({
+  updateTaskSuccess = task => ({
     type: types.UPDATE_TASK_SUCCESS,
-    tasks: tasks
+    task: task
   }), //TODO: WHERE to put this
   updateTaskFail = error => ({ type: types.UPDATE_TASK_FAIL, error: error }),
   getGroupsTasksSuccess = tasks => ({

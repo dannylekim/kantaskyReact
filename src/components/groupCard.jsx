@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Icon, Label } from "semantic-ui-react";
-import {history} from "../config/config"
+import { Link } from "react-router-dom";
 
 const extra = (numberOfUsers, category) => (
   <div>
@@ -12,22 +12,42 @@ const extra = (numberOfUsers, category) => (
   </div>
 );
 
-const groupCard = ({ name, teamLeader, category, description, users, id }) => {
-  const pushToGroupItem = () => {history.push("/groups/" + id)} 
-return (
+class GroupCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false
+    };
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
 
-    <Card
-      // image="http://via.placeholder.com/290x290"
-      href=''
-      onClick={pushToGroupItem}
-      header={name}
-      meta={"Project Lead: " + teamLeader}
-      description={description}
-      extra={extra(users.length, category)}
-      color="blue"
-    />
- 
-)}
-;
+  handleOnClick = () => {
+    this.setState({ redirect: true });
+  };
+  //TODO: Need to do an SPA way of routing. This forces a refreshes and there is a lag that comes along with it
+  render() {
+    //FIXME: This is a hack to have proper formatting and have this still SPA
+    const description = this.props.description
+      ? this.props.description
+      : "No description available";
 
-export default groupCard;
+    return (
+      <Card>
+        <Link to={"/group/" + this.props.id}>
+          <Card
+            href=""
+            key={this.props.id}
+            onClick={this.handleOnClick}
+            header={this.props.name}
+            meta={"Project Lead: " + this.props.teamLeader}
+            description={description}
+            extra={extra(this.props.users.length, this.props.category)}
+            color="blue"
+          />
+        </Link>
+      </Card>
+    );
+  }
+}
+
+export default GroupCard;

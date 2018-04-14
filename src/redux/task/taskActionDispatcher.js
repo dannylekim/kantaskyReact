@@ -41,3 +41,13 @@ export const removeTask = (taskId) => async dispatch => {
     //TODO:
   }
 }
+
+export const editTask = (task) => async dispatch => {
+  try{ 
+    await taskApi.updateTask(task)
+    dispatch(actions.updateTaskSuccess(task))
+  }
+  catch(err) { 
+    //TODO:
+  }
+}

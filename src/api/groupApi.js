@@ -29,9 +29,9 @@ class Group {
    * @returns
    * @memberof Group
    */
-  static async updateGroup(groupId) {
+  static async updateGroup(updatedGroup, groupId) {
     try {
-      return Promise.resolve(await axios.put("groups/" + groupId));
+      return Promise.resolve(await axios.put("groups/" + groupId, updatedGroup));
     } catch (err) {
       return Promise.reject(err.response);
     }

@@ -9,8 +9,10 @@ import MenuSidebar from "./components/menuSidebar";
 import ProfilePage from "./views/profile/profilePage";
 import GroupPage from "./views/groups/groupPage";
 import GroupTask from "./views/groups/groupTasks";
+import Notifications from "./views/notifications/notifications";
 import { Sidebar, Segment, Menu, Icon } from "semantic-ui-react";
 import noRequireAuth from "./config/noRequireAuth";
+import DropdownMenu from "./components/dropdownMenu";
 
 class App extends React.Component {
   constructor(props) {
@@ -24,11 +26,10 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.props.checkToken()
+    this.props.checkToken();
   }
-  
+
   render() {
-    
     return (
       <Switch>
         <Route path="/login" component={noRequireAuth(Login)} />
@@ -37,15 +38,20 @@ class App extends React.Component {
           <MenuSidebar visible={this.state.visible} />
           <Sidebar.Pusher style={{ height: 100 + "vh" }}>
             <Menu.Item onClick={this.toggleVisibility}>
-              <Icon color="blue" size="big" name="sidebar" />
+              <Icon color="red" size="big" name="sidebar" />
             </Menu.Item>
+            <DropdownMenu />
             <div style={{ marginLeft: 2 + "em", marginTop: 1 + "em" }}>
               <Route exact path="/" component={requireAuth(Main)} />
               <Route path="/profile" component={requireAuth(ProfilePage)} />
               <Route path="/personal" component={requireAuth(Personal)} />
-              <Route exact path="/groups" component={requireAuth(GroupPage)} />
               <Route
-                path="/groups/:groupId"
+                path="/notifications"
+                component={requireAuth(Notifications)}
+              />
+              <Route path="/groups" component={requireAuth(GroupPage)} />
+              <Route
+                path="/group/:groupId"
                 component={requireAuth(GroupTask)}
               />
             </div>

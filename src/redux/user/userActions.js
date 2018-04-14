@@ -19,4 +19,5 @@ export const loginSuccess = (token) => ({
     error: error
   }),
   updateUserSuccess = user => ({ type: types.USER_UPDATE_SUCCESS, user: user }),
-  updateUserFail = error => ({ type: types.USER_UPDATE_FAIL, error: error });
+  updateUserFail = error => ({ type: types.USER_UPDATE_FAIL, error: error }),
+  inviteUserSuccess = () => ({type: types.INVITE_USER_SUCCESS});
