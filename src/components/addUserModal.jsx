@@ -11,6 +11,7 @@ class SearchUserModal extends React.Component {
       firstName: null,
       lastName: null,
       email: null,
+      userId: null,
       errors: null
     };
     this.toggleModal = this.toggleModal.bind(this);
@@ -22,7 +23,12 @@ class SearchUserModal extends React.Component {
 
   //this toggles and closes the previous modal behind it
   toggleModal() {
-    this.setState({ showModal: !this.state.showModal, errors: null });
+    this.setState({ showModal: !this.state.showModal, errors: null, firstName: null, lastName: null, email: null, userId: null });
+  }
+
+  componentWillReceiveProps() {
+    if (this.props.groupId && this.props.groupId !== this.state.groupId)
+      this.setState({ groupId: this.props.groupId });
   }
 
   async handleSearch() {
@@ -32,11 +38,12 @@ class SearchUserModal extends React.Component {
     } catch (err) {
       response = err;
     }
-    //FIXME: 200 should be extracted out to another where it handles all constants
+    //FIXME: 200 should be extracted out to another file where it handles all constants
     if (response.status === 200) {
       this.setState({
         firstName: response.data.firstName,
         lastName: response.data.lastName,
+        userId: response.data.id,
         errors: null
       });
     } else {
@@ -45,7 +52,22 @@ class SearchUserModal extends React.Component {
   }
 
   async handleSubmit() {
-    this.toggleModal();
+    let response;
+    try {
+      response = await userAPI.inviteUser(
+        this.state.groupId,
+        this.state.userId
+      );
+    } catch (err) {
+      response = err;
+    }
+
+    if (response.status === 200) {
+      this.toggleModal();
+    } else {
+      this.setState({ errors: response.data });
+    }
+
     //TODO: decide if you want to add via redux or via a normal call
   }
 

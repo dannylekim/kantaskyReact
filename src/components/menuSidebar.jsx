@@ -12,6 +12,7 @@ class MenuSidebar extends Component {
     this.goToGroups = this.goToGroups.bind(this);
     this.goToSettings = this.goToSettings.bind(this);
     this.goToProfile = this.goToProfile.bind(this);
+    this.goToNotifications = this.goToNotifications.bind(this);
   }
 
   goToPersonal() {
@@ -28,6 +29,9 @@ class MenuSidebar extends Component {
   }
   goToProfile() {
     history.push("/profile");
+  }
+  goToNotifications() {
+    history.push("/notifications");
   }
 
   render() {
@@ -58,6 +62,11 @@ class MenuSidebar extends Component {
         <Menu.Item name="groups" onClick={this.goToGroups}>
           <Icon name="users" />
           Groups
+        </Menu.Item>
+
+        <Menu.Item name="mail" onClick={this.goToNotifications}>
+          <Icon name="mail" />
+          Notifications
         </Menu.Item>
         {/* <Menu.Item name="settings" onClick={this.goToSettings}>
           <Icon name="settings" />

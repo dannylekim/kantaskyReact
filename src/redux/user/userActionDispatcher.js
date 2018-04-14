@@ -15,7 +15,6 @@ import { history } from "../../config/config";
 import UserApi from "../../api/userApi";
 import axios from "axios";
 import { decode } from "jsonwebtoken";
-import User from "../../api/userApi";
 
 /**
  * Logs the user in with the credentials and sends either a successful or fail action to the reducer
