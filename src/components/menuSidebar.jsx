@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Sidebar, Menu, Icon } from "semantic-ui-react";
+import { Sidebar, Menu, Icon, Label } from "semantic-ui-react";
 import { signOut } from "../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
 import { history } from "../config/config";
@@ -66,6 +66,11 @@ class MenuSidebar extends Component {
 
         <Menu.Item name="mail" onClick={this.goToNotifications}>
           <Icon name="mail" />
+          {this.props.user && (
+            <Label color="red" floating>
+              {this.props.user.notifications.length}
+            </Label>
+          )}
           Notifications
         </Menu.Item>
         {/* <Menu.Item name="settings" onClick={this.goToSettings}>
@@ -82,4 +87,5 @@ class MenuSidebar extends Component {
 }
 
 const mapDispatch = { signOut };
-export default connect(null, mapDispatch)(MenuSidebar);
+const mapToState = state => ({ user: state.user.user });
+export default connect(mapToState, mapDispatch)(MenuSidebar);
