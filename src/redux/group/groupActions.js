@@ -10,9 +10,9 @@ export const getGroupSuccess = groups => ({
     type: types.GET_GROUP_FAIL,
     error: error
   }),
-  deleteGroupSuccess = message => ({
+  deleteGroupSuccess = groupId => ({
     type: types.DELETE_GROUP_SUCCESS,
-    message: message
+    groupId: groupId
   }),
   deleteGroupFail = error => ({
     type: types.DELETE_GROUP_FAIL,
@@ -33,4 +33,12 @@ export const getGroupSuccess = groups => ({
   updateGroupFail = error => ({
     type: types.UPDATE_GROUP_FAIL,
     error: error
-  });
+  }),
+  leaveGroupSuccess = groupId => ({
+    type: types.LEAVE_GROUP_SUCCESS,
+    groupId: groupId
+  }),
+  joinGroupSuccess = group => ({
+    type:types.JOIN_GROUP_SUCCESS,
+    group: group
+  })
