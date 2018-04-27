@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Button, Icon } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import { connect } from "react-redux";
+import {deleteGroup} from "../redux/group/groupActionDispatcher"
 
 class DeleteGroupModal extends React.Component {
   constructor(props) {
@@ -38,7 +39,9 @@ class DeleteGroupModal extends React.Component {
     }
   }
 
-  async handleSubmit() {}
+  async handleSubmit() {
+    this.props.deleteGroup(this.state.groupId)
+  }
 
   //this just opens this modal
   openModal() {
@@ -74,4 +77,7 @@ class DeleteGroupModal extends React.Component {
 }
 
 const mapState = state => ({ groups: state.group.groups });
-export default connect(mapState)(DeleteGroupModal);
+const mapToDispatch = {
+  deleteGroup
+}
+export default connect(mapState, mapToDispatch)(DeleteGroupModal);

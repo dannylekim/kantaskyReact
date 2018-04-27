@@ -8,6 +8,7 @@ import {
   joinGroupSuccess
 } from "./groupActions";
 import store from "../configureStore";
+import { history } from "../../config/config";
 
 export const getUsersGroups = () => async dispatch => {
   try {
@@ -41,6 +42,8 @@ export const editGroup = (updatedGroup, groupId) => async dispatch => {
 export const leaveGroup = (groupId, newTeamLeader) => async dispatch => {
   try {
     await groupApi.leaveGroup(groupId, newTeamLeader);
+    dispatch(leaveGroupSuccess(groupId))
+    history.push("/groups");
   } catch (err) {
     //TODO:
   }
@@ -49,7 +52,8 @@ export const leaveGroup = (groupId, newTeamLeader) => async dispatch => {
 export const deleteGroup = groupId => async dispatch => {
   try {
     await groupApi.deleteGroup(groupId);
-    deleteGroupSuccess(groupId);
+    dispatch(deleteGroupSuccess(groupId));
+    history.push("/groups");
   } catch (err) {
     //TODO:
   }
@@ -58,7 +62,7 @@ export const deleteGroup = groupId => async dispatch => {
 export const joinGroup = groupId => async dispatch => {
   try {
     const response = await groupApi.joinGroup(groupId);
-    joinGroupSuccess(response.data);
+    dispatch(joinGroupSuccess(response.data));
   } catch (err) {
     //TODO:
   }

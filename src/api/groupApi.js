@@ -112,7 +112,7 @@ class Group {
   static async leaveGroup(groupId, newTeamLeader) {
     try {
       return Promise.resolve(
-        await axios.delete("leave/" + groupId, newTeamLeader)
+        await axios.post("groups/leave/" + groupId, newTeamLeader)
       );
     } catch (err) {
       return Promise.reject(err.response);

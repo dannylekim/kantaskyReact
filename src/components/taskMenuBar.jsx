@@ -13,7 +13,7 @@ const taskMenuBar = ({ isTeamLeader, groupId, group }) => {
       {isTeamLeader && <ViewGroupModal groupId={groupId} />}
       {isTeamLeader && <AddUserModal groupId={groupId} />}
       {isTeamLeader && <DeleteGroupModal groupId={groupId} />}
-      {isTeamLeader && <LeaveGroupModal groupId={groupId} isTeamLeader={isTeamLeader}/>}
+      {isTeamLeader && <LeaveGroupModal groupId={groupId} isTeamLeader={isTeamLeader} group={group}/>}
       <Menu.Menu position="right">
         <Menu.Item>
           <Input
