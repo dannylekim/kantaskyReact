@@ -75,7 +75,7 @@ class Group {
 
   static async joinGroup(groupId) {
     try {
-      return Promise.resolve(await axios.get("join/" + groupId));
+      return Promise.resolve(await axios.get("groups/join/" + groupId));
     } catch (err) {
       return Promise.reject(err.response);
     }

@@ -1,10 +1,9 @@
 import React from "react";
 import { Button, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { joinGroup } from "../redux/group/groupActionDispatcher";
 import { updateAccount } from "../redux/user/userActionDispatcher";
 
-class JoinGroupButton extends React.Component {
+class DeclineInvitationButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,14 +16,11 @@ class JoinGroupButton extends React.Component {
 
   //TODO: WHEN YOU CLICK JOIN IT MUST ALSO UPDATE THE USER AND REMOVE HIS NOTIFICATIONS AND UPDATE REDUX FOR THAT
   async handleClick() {
-    const hasJoined = await this.props.joinGroup(this.state.groupId);
-    if (hasJoined) {
-      let newAccountDetails;
+      let newAccountDetails = {};
        newAccountDetails.notifications = this.state.notifications.filter((notification) => {
         return notification.groupId !== this.state.groupId
       })
       this.props.updateAccount(newAccountDetails, this.state.userId)
-    }
   }
 
   /**
@@ -61,13 +57,13 @@ class JoinGroupButton extends React.Component {
 
   render() {
     return (
-      <Button inverted color="blue" onClick={this.handleClick}>
-        <Icon name="checkmark" /> Join Group
+      <Button Basic onClick={this.handleClick}>
+        <Icon name="checkmark" /> Decline Invitation
       </Button>
     );
   }
 }
 
 const mapStateToProps = state => ({ user: state.user.user });
-const mapDispatch = { joinGroup, updateAccount };
-export default connect(mapStateToProps, mapDispatch)(JoinGroupButton);
+const mapDispatch = { updateAccount };
+export default connect(mapStateToProps, mapDispatch)(DeclineInvitationButton);

@@ -63,6 +63,7 @@ export const joinGroup = groupId => async dispatch => {
   try {
     const response = await groupApi.joinGroup(groupId);
     dispatch(joinGroupSuccess(response.data));
+    return true
   } catch (err) {
     //TODO:
   }
