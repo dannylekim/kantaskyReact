@@ -70,20 +70,27 @@ class Notifications extends React.Component {
         )
       );
     }
-    let invitation = this.state.invitation;
+    const invitation = this.state.invitation;
+    let notificationStillExists;
+    if (invitation) {
+      notificationStillExists = this.props.notifications.find(notification => {
+        return notification.groupId === invitation.groupId;
+      });
+    }
     return (
       <div>
         <List selection verticalAlign="middle">
           {listOfNotifications}
         </List>
-        {invitation && (
-          <Invitation
-            teamLeader={invitation.teamLeader}
-            name={invitation.name}
-            groupId={invitation.groupId}
-            description={invitation.description}
-          />
-        )}
+        {invitation &&
+          notificationStillExists &&
+            <Invitation
+              teamLeader={invitation.teamLeader}
+              name={invitation.name}
+              groupId={invitation.groupId}
+              description={invitation.description}
+            />
+          }
       </div>
     );
   }
