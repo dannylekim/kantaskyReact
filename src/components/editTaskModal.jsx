@@ -36,7 +36,7 @@ class EditTaskModal extends React.Component {
     this.props.closeModalFunction();
   }
 
-  //this just opens this modal
+  //this just opens this modal or does it?
   openModal() {
     this.setState({ showModal: !this.state.showModal });
   }
@@ -44,6 +44,10 @@ class EditTaskModal extends React.Component {
   handleInputChange(event, { value, name }) {
     //set the appropriate value to the state
     this.setState({ [name]: value });
+  }
+
+  backModal() {
+    this.setState({ showModal: false });
   }
 
   render() {
@@ -135,6 +139,7 @@ class EditTaskModal extends React.Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
+          <Button basic onClick={() => {this.backModal()}}>Back</Button>
           <EditTaskButton task={this.state} toggleModal={this.toggleModal} />
           <Button basic color="red" onClick={this.toggleModal}>
             <Icon name="remove" /> Close

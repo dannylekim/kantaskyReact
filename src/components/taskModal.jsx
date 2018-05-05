@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Modal, Label, Button, Icon } from "semantic-ui-react";
+import { Header, Modal, Label, Button, Icon, Grid } from "semantic-ui-react";
 import Task from "./task";
 import RemoveTaskButton from "./removeTaskButton";
 import EditTaskModal from "./editTaskModal";
@@ -43,32 +43,38 @@ class taskModal extends React.Component {
         onClose={this.toggleModal}
       >
         <Modal.Header>{this.props.name}</Modal.Header>
-        <Modal.Content>
+        <Modal.Content >
           <Modal.Description>
-            <Header>{this.props.category}</Header>
-            {this.props.description}
-            <br />
-            <br />
-            Assigned to: <Label color="blue"> {this.props.user} </Label>
-            <br />
-            <br />
-            Importance:{" "}
-            <Label color={importanceColor}>{this.props.importance} </Label>
-            <br />
-            <br />
-            Status: <Label color={statusColor}> {this.props.status} </Label>
-            <br />
-            <br />
-            Due date:{" "}
-            {this.props.dueDate && (
-              <Label color="purple"> {this.props.dueDate} </Label>
-            )}
-            <br />
-            <br />
-            Created date:{" "}
-            {this.props.createdDate && (
-              <Label color="pink"> {this.props.createdDate} </Label>
-            )}
+            <Grid>
+              <Grid.Column width={10}>
+                <Header>{this.props.category}</Header>
+                <hr/>
+                {this.props.description}
+              </Grid.Column>
+              <Grid.Column width={2} >
+                <br />
+                Assigned to: <Label color="blue"> {this.props.user} </Label>
+                <br />
+                <br />
+                Importance:{" "}
+                <Label color={importanceColor}>{this.props.importance} </Label>
+                <br />
+                <br />
+                Status: <Label color={statusColor}> {this.props.status} </Label>
+                <br />
+                <br />
+                Due date:{" "}
+                {this.props.dueDate && (
+                  <Label color="purple"> {this.props.dueDate} </Label>
+                )}
+                <br />
+                <br />
+                Created date:{" "}
+                {this.props.createdDate && (
+                  <Label color="pink"> {this.props.createdDate} </Label>
+                )}
+              </Grid.Column>
+            </Grid>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
