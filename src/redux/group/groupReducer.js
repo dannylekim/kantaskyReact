@@ -31,14 +31,14 @@ const reducer = (state = initial, action) => {
       return Object.assign({}, state, {
         groups: oneLessGroupArray
       });
-    case types.LEAVE_GROUP_SUCCESS:
+    case types.LEAVE_GROUP_SUCCESS: //FIXME: this is literally the same as leave group
       let oneLessGroupArrayAgain = state.groups.filter(
         group => group._id !== action.groupId
       );
       return Object.assign({}, state, {
         groups: oneLessGroupArrayAgain
       });
-    case types.JOIN_GROUP_SUCCESS:
+    case types.JOIN_GROUP_SUCCESS: //FIXME: this is literally the same as create group
       let joinedGroupArray = state.groups.slice(); // This is done because you want to CLONE the state rather than mutate it
       joinedGroupArray.push(action.group);
       return Object.assign({}, state, {

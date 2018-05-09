@@ -22,8 +22,12 @@ import groupApi from "./api/groupApi";
 import taskApi from "./api/taskApi";
 import openSocket from "socket.io-client";
 import { backendServerURL } from "./config/config";
+import SocketHandler from "./socketHandler"
+
+
 
 const socket = openSocket(backendServerURL);
+new SocketHandler(socket)
 
 //FIXME:Consider moving this to redux in some way?
 /**
@@ -83,6 +87,7 @@ const getUsersTasks = async userId => {
     //TODO:
   }
 };
+
 
 ReactDOM.render(
   <Provider store={store}>

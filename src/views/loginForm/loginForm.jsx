@@ -10,11 +10,11 @@ import {
   Message
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import style from "./loginFormStyle"
+import style from "./loginFormStyle";
 import Particles from "react-particles-js";
 import { login, getUser } from "../../redux/user/userActionDispatcher";
 import { connect } from "react-redux";
-import {history} from "../../config/config"
+import { history } from "../../config/config";
 
 class loginForm extends React.Component {
   constructor(props) {
@@ -48,9 +48,11 @@ class loginForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     this.setState({ error: undefined });
-    const userId = await this.props.login(this.state);
-    this.props.getUser(userId);
-    history.push("/")
+    try {
+      const userId = await this.props.login(this.state);
+      this.props.getUser(userId);
+      history.push("/");
+    } catch (err) {}
   }
 
   /**
@@ -209,7 +211,7 @@ class loginForm extends React.Component {
               {this.props.message && (
                 <Message
                   success
-                  header="Your user registration was succesful!"
+                  header="Your user registration was successful!"
                   content={this.props.message}
                 />
               )}
