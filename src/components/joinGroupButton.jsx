@@ -19,8 +19,8 @@ class JoinGroupButton extends React.Component {
   async handleClick() {
     const hasJoined = await this.props.joinGroup(this.state.groupId);
     if (hasJoined) {
-      let newAccountDetails;
-       newAccountDetails.notifications = this.state.notifications.filter((notification) => {
+      let newAccountDetails = {};
+      newAccountDetails.notifications = this.state.notifications.filter((notification) => {
         return notification.groupId !== this.state.groupId
       })
       this.props.updateAccount(newAccountDetails, this.state.userId)

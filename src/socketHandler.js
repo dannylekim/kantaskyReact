@@ -19,17 +19,17 @@ export default class SocketHandler {
 
   setupSocket() {
     // === User ====
-    this.socket.on("userChange", data => {
-      this.handleUserChange(data);
+    this.socket.on("userUpdate", data => {
+      this.handleUserUpdate(data);
     });
 
     //==== Task =====
-    this.socket.on("updateTask", data => this.handleTaskUpdate(data));
-    this.socket.on("createTask", data => this.handleTaskCreation(data));
-    this.socket.on("deleteTask", data => this.handleTaskDeletion(data));
+    this.socket.on("taskUpdate", data => this.handleTaskUpdate(data));
+    this.socket.on("taskCreate", data => this.handleTaskCreation(data));
+    this.socket.on("taskDelete", data => this.handleTaskDeletion(data));
 
     //===== Group ====
-    this.socket.on("groupUpdate", data => this.handleGroupChange(data));
+    this.socket.on("groupUpdate", data => this.handleGroupUpdate(data));
     this.socket.on("groupDelete", data => this.handleGroupDelete(data));
     this.socket.on("groupCreation", data => this.handleGroupCreation(data));
   }
