@@ -31,7 +31,7 @@ export default class SocketHandler {
     //===== Group ====
     this.socket.on("groupUpdate", data => this.handleGroupUpdate(data));
     this.socket.on("groupDelete", data => this.handleGroupDelete(data));
-    this.socket.on("groupCreation", data => this.handleGroupCreation(data));
+    this.socket.on("groupCreate", data => this.handleGroupCreation(data));
   }
 
   // ============ USER ========================

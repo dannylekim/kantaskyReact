@@ -26,7 +26,7 @@ import SocketHandler from "./socketHandler"
 
 
 
-const socket = openSocket(backendServerURL);
+export const socket = openSocket(backendServerURL);
 new SocketHandler(socket)
 
 //FIXME:Consider moving this to redux in some way?

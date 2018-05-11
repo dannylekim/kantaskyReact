@@ -31,7 +31,7 @@ const reducer = (state = initial, action) => {
       });
     case types.UPDATE_TASK_SUCCESS:
       let updatedTaskArray = state.tasks.filter(
-        task => task._id !== action.task.id
+        task => (task._id !== action.task.id && task._id !== action.task._id)
       );
       updatedTaskArray.push(action.task);
       return Object.assign({}, state, {

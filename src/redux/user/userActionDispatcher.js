@@ -15,6 +15,7 @@ import { history } from "../../config/config";
 import UserApi from "../../api/userApi";
 import axios from "axios";
 import { decode } from "jsonwebtoken";
+import { socket } from "../../index";
 
 /**
  * Logs the user in with the credentials and sends either a successful or fail action to the reducer
@@ -29,6 +30,7 @@ export const login = credentials => async dispatch => {
       "Bearer " + response.data.token;
     const payload = decode(response.data.token);
     dispatch(loginSuccess(response.data.token, payload.id)); //dispatch the successful login call
+    socket.emit("loggedIn", payload.id);
     return payload.id;
     // getUser(payload.id);
     // history.push("/"); //change page
@@ -89,9 +91,8 @@ export const updateAccount = (newAccountDetails, userId) => async dispatch => {
 
 export const inviteUser = (targetGroupId, inviteeUserId) => async dispatch => {
   try {
-    const response = await UserApi.inviteUser(targetGroupId, inviteeUserId)
-  }
-  catch(err){
+    const response = await UserApi.inviteUser(targetGroupId, inviteeUserId);
+  } catch (err) {
     //TODO:
   }
-}
+};
