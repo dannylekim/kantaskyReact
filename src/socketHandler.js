@@ -7,7 +7,8 @@ import {
 import {
   updateTaskSuccess,
   createTaskInGroupSuccess,
-  removeTaskSuccess
+  removeTaskSuccess,
+  getGroupsTasksSuccess
 } from "./redux/task/taskActions";
 import store from "./redux/configureStore"; //normally, rather than importing the store, this should be redux-thunked, but this is a quicker implementation
 
@@ -27,6 +28,9 @@ export default class SocketHandler {
     this.socket.on("taskUpdate", data => this.handleTaskUpdate(data));
     this.socket.on("taskCreate", data => this.handleTaskCreation(data));
     this.socket.on("taskDelete", data => this.handleTaskDeletion(data));
+    this.socket.on("groupTasksUpdate", data =>
+      this.handleGroupTasksUpdate(data)
+    );
 
     //===== Group ====
     this.socket.on("groupUpdate", data => this.handleGroupUpdate(data));
@@ -68,5 +72,9 @@ export default class SocketHandler {
 
   handleTaskUpdate = data => {
     store.dispatch(updateTaskSuccess(data));
+  };
+
+  handleGroupTasksUpdate = data => {
+    store.dispatch(getGroupsTasksSuccess(data));
   };
 }
