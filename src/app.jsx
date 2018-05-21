@@ -9,6 +9,7 @@ import GroupTask from "./views/groups/groupTasks";
 import Mail from "./views/notifications/notifications";
 import noRequireAuth from "./config/noRequireAuth";
 import TabularMenu from "./components/tabularMenu";
+import "./app.css"
 
 class App extends React.Component {
   constructor(props) {
@@ -30,8 +31,10 @@ class App extends React.Component {
       <Switch>
         <Route path="/login" component={noRequireAuth(Login)} />
         <Route path="/signup" component={noRequireAuth(SignUp)} />
-        <div style={{ marginTop: 0.25 + "em", paddingLeft: 0.1 + "em" }}>
-          <TabularMenu />
+        <div>
+          <div style={{ paddingTop: 0.25 + "em", paddingLeft: 0.1 + "em", backgroundColor: "white" }}>
+            <TabularMenu />
+          </div>
           <div
             style={{
               marginLeft: 1 + "em",
@@ -39,6 +42,7 @@ class App extends React.Component {
               marginTop: 1 + "em"
             }}
           >
+            <div>
               <Route exact path="/" component={requireAuth(Personal)} />
               <Route path="/personal" component={requireAuth(Personal)} />
               <Route path="/mail" component={requireAuth(Mail)} />
@@ -47,6 +51,7 @@ class App extends React.Component {
                 path="/group/:groupId"
                 component={requireAuth(GroupTask)}
               />
+            </div>
           </div>
         </div>
       </Switch>

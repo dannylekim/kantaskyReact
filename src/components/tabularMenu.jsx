@@ -22,7 +22,7 @@ class TabularMenu extends Component {
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu tabular>
+      <Menu pointing secondary>
         <Menu.Item
           name="personal"
           active={activeItem === "personal"}
