@@ -1,17 +1,17 @@
 import React from "react";
-import { Icon } from "semantic-ui-react";
-import {connect} from "react-redux"
+import { Icon, Label } from "semantic-ui-react";
+import { connect } from "react-redux";
 
 class ProfileButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       firstName: null,
-      lastName: null,
-    }
+      lastName: null
+    };
   }
 
-    /**
+  /**
    * This is done to initialize the profile page and set it up with information
    *
    * @memberof ProfilePage
@@ -26,7 +26,7 @@ class ProfileButton extends React.Component {
     ) {
       const user = {
         firstName: userProps.firstName,
-        lastName: userProps.lastName,
+        lastName: userProps.lastName
       };
       if (user !== this.state) {
         this.setState(user);
@@ -42,8 +42,9 @@ class ProfileButton extends React.Component {
 
   render() {
     return (
-        <span>
-        <Icon name="user circle"/> {this.state.firstName} {this.state.lastName}
+      <span>
+        <Icon name="user circle" />
+        {this.state.firstName} {this.state.lastName}
       </span>
     );
   }
@@ -51,4 +52,3 @@ class ProfileButton extends React.Component {
 
 const mapToState = state => ({ user: state.user.user });
 export default connect(mapToState)(ProfileButton);
-

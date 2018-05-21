@@ -1,18 +1,14 @@
 import React from "react";
 import Login from "./views/loginForm/loginForm";
 import SignUp from "./views/signUpForm/signUpForm";
-import Main from "./views/main/main";
 import Personal from "./views/taskPage/taskPage";
 import { Route, Switch } from "react-router-dom";
 import requireAuth from "./config/requireAuth";
-import MenuSidebar from "./components/menuSidebar";
-import ProfilePage from "./views/profile/profilePage";
 import GroupPage from "./views/groups/groupPage";
 import GroupTask from "./views/groups/groupTasks";
-import Notifications from "./views/notifications/notifications";
-import { Sidebar, Segment, Menu, Icon } from "semantic-ui-react";
+import Mail from "./views/notifications/notifications";
 import noRequireAuth from "./config/noRequireAuth";
-import DropdownMenu from "./components/dropdownMenu";
+import TabularMenu from "./components/tabularMenu";
 
 class App extends React.Component {
   constructor(props) {
@@ -34,29 +30,25 @@ class App extends React.Component {
       <Switch>
         <Route path="/login" component={noRequireAuth(Login)} />
         <Route path="/signup" component={noRequireAuth(SignUp)} />
-        <Sidebar.Pushable as={Segment}>
-          <MenuSidebar visible={this.state.visible} />
-          <Sidebar.Pusher style={{ height: 100 + "vh" }}>
-            <Menu.Item onClick={this.toggleVisibility}>
-              <Icon color="red" size="big" name="sidebar" />
-            </Menu.Item>
-            <DropdownMenu />
-            <div style={{ marginLeft: 2 + "em", marginTop: 1 + "em" }}>
-              <Route exact path="/" component={requireAuth(Main)} />
-              <Route path="/profile" component={requireAuth(ProfilePage)} />
+        <div style={{ marginTop: 0.25 + "em", paddingLeft: 0.1 + "em" }}>
+          <TabularMenu />
+          <div
+            style={{
+              marginLeft: 1 + "em",
+              marginRight: 1 + "em",
+              marginTop: 1 + "em"
+            }}
+          >
+              <Route exact path="/" component={requireAuth(Personal)} />
               <Route path="/personal" component={requireAuth(Personal)} />
-              <Route
-                path="/notifications"
-                component={requireAuth(Notifications)}
-              />
+              <Route path="/mail" component={requireAuth(Mail)} />
               <Route path="/groups" component={requireAuth(GroupPage)} />
               <Route
                 path="/group/:groupId"
                 component={requireAuth(GroupTask)}
               />
-            </div>
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
+          </div>
+        </div>
       </Switch>
     );
   }

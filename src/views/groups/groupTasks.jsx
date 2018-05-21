@@ -2,7 +2,7 @@ import React from "react";
 import ListOfTasks from "../../components/listOfTasks";
 import { getGroupsTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
-import { Card } from "semantic-ui-react";
+import { Card, Message } from "semantic-ui-react";
 import TaskMenuBar from "../../components/taskMenuBar";
 
 class GroupTasks extends React.Component {
@@ -38,6 +38,7 @@ class GroupTasks extends React.Component {
 
   render() {
     let listOfTasks;
+    let isEmpty = false;
     if (this.props.tasks) {
       const taskObj = this.sortOutTasks(this.props.tasks);
       listOfTasks = taskObj.categories.map((
@@ -51,17 +52,30 @@ class GroupTasks extends React.Component {
           color="blue"
         />
       ));
+      listOfTasks.length === 0 ? (isEmpty = true) : (isEmpty = false);
     }
 
-    if(this.props.groups && this.state.group === null) {
-      const result = this.props.groups.filter(group => group._id === this.state.groupId)
-      this.setState({group: result[0]})
+    if (this.props.groups && this.state.group === null) {
+      const result = this.props.groups.filter(
+        group => group._id === this.state.groupId
+      );
+      this.setState({ group: result[0] });
     }
-    //TODO: set the teamLeader props to the proper one 
+    //TODO: set the teamLeader props to the proper one
     return (
       <div>
-        <TaskMenuBar groupId={this.state.groupId} group={this.state.group} isTeamLeader={true}/>
+        <TaskMenuBar
+          groupId={this.state.groupId}
+          group={this.state.group}
+          isTeamLeader={true}
+        />
         <Card.Group>{listOfTasks}</Card.Group>
+        { isEmpty && (
+          <Message warning>
+            <Message.Header>There are currently no tasks!</Message.Header>
+            <p>Click the + button to start creating tasks</p>
+          </Message>
+        )}
       </div>
     );
   }

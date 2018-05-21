@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import InviteListItem from "../../components/inviteListItem";
 import Invitation from "../../components/invitation";
-import { List } from "semantic-ui-react";
+import { List, Message } from "semantic-ui-react";
 
 class Notifications extends React.Component {
   constructor(props) {
@@ -83,14 +83,21 @@ class Notifications extends React.Component {
           {listOfNotifications}
         </List>
         {invitation &&
-          notificationStillExists &&
+          notificationStillExists && (
             <Invitation
               teamLeader={invitation.teamLeader}
               name={invitation.name}
               groupId={invitation.groupId}
               description={invitation.description}
             />
-          }
+          )}
+        {listOfNotifications.length === 0 && (
+            <Message warning>
+              <Message.Header>You have no new mail!</Message.Header>
+              <p>Please check back when you have mail!</p>
+            </Message>
+          )
+        }
       </div>
     );
   }
