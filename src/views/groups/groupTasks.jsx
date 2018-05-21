@@ -70,6 +70,7 @@ class GroupTasks extends React.Component {
           isTeamLeader={true}
         />
         <Card.Group>{listOfTasks}</Card.Group>
+        <br/>
         { isEmpty && (
           <Message warning>
             <Message.Header>There are currently no tasks!</Message.Header>

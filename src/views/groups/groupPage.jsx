@@ -37,13 +37,14 @@ class GroupPage extends React.Component {
       <div>
         <GroupMenuBar />
         <Card.Group>{groupCards}</Card.Group>
-        <br/>
-        {(groupCards && groupCards.length === 0) && (
-          <Message warning>
-            <Message.Header>You have no groups!</Message.Header>
-            <p>Click the + button to start creating groups!</p>
-          </Message>
-        )}
+        <br />
+        {groupCards &&
+          groupCards.length === 0 && (
+            <Message warning>
+              <Message.Header>You have no groups!</Message.Header>
+              <p>Click the + button to start creating groups!</p>
+            </Message>
+          )}
       </div>
     );
   }
