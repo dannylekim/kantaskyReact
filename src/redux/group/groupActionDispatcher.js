@@ -9,12 +9,15 @@ import {
 } from "./groupActions";
 import store from "../configureStore";
 import { history } from "../../config/config";
+import { toasterHandler } from "../toaster/toasterHandler";
+
 
 export const getUsersGroups = () => async dispatch => {
   try {
     const userId = store.getState().user.user._id;
     const response = await groupApi.getAllUsersGroups(userId); //api call to login
     dispatch(getGroupSuccess(response.data)); //dispatch the successful login call
+    toasterHandler("Success!", false)
   } catch (err) {
     //TODO:
   }
@@ -63,7 +66,8 @@ export const joinGroup = groupId => async dispatch => {
   try {
     const response = await groupApi.joinGroup(groupId);
     dispatch(joinGroupSuccess(response.data));
-    return true
+    return true //this is to tell the caller that the user has successfully joined and can now remove the notification from list in the UI
+    //NOTE: this might've actually been taken care of by sockets and the backend. Need to investigate
   } catch (err) {
     //TODO:
   }
