@@ -20,6 +20,13 @@ import { decode } from "jsonwebtoken";
 import userApi from "./api/userApi";
 import groupApi from "./api/groupApi";
 import taskApi from "./api/taskApi";
+import openSocket from "socket.io-client";
+import { backendServerURL } from "./config/config";
+import SocketHandler from "./socketHandler";
+
+export const socket = openSocket(backendServerURL);
+new SocketHandler(socket);
+
 //FIXME:Consider moving this to redux in some way?
 /**
  * Decodes the JWT and checks if the token has expired already. If so, it should redirect the user
@@ -41,7 +48,12 @@ const checkToken = () => {
     //load all
     getProfile(userId);
     getUsersGroups(userId);
-    // getUsersTasks(userId);
+    if (
+      window.location.pathname === "/" ||
+      window.location.pathname.includes("personal")
+    )
+      getUsersTasks(userId);
+    socket.emit("loggedIn", userId);
   }
 };
 

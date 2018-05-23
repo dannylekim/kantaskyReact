@@ -31,7 +31,9 @@ class Group {
    */
   static async updateGroup(updatedGroup, groupId) {
     try {
-      return Promise.resolve(await axios.put("groups/" + groupId, updatedGroup));
+      return Promise.resolve(
+        await axios.put("groups/" + groupId, updatedGroup)
+      );
     } catch (err) {
       return Promise.reject(err.response);
     }
@@ -55,17 +57,25 @@ class Group {
     }
   }
 
-/**
- * Gets all groups 
- * 
- * @static
- * @param {any} userId 
- * @returns 
- * @memberof Group
- */
-static async getAllUsersGroups(userId) {
+  /**
+   * Gets all groups
+   *
+   * @static
+   * @param {any} userId
+   * @returns
+   * @memberof Group
+   */
+  static async getAllUsersGroups(userId) {
     try {
       return Promise.resolve(await axios.get("groups/" + userId));
+    } catch (err) {
+      return Promise.reject(err.response);
+    }
+  }
+
+  static async joinGroup(groupId) {
+    try {
+      return Promise.resolve(await axios.get("groups/join/" + groupId));
     } catch (err) {
       return Promise.reject(err.response);
     }
@@ -84,6 +94,26 @@ static async getAllUsersGroups(userId) {
   static async deleteGroup(groupId) {
     try {
       return Promise.resolve(await axios.delete("groups/" + groupId));
+    } catch (err) {
+      return Promise.reject(err.response);
+    }
+  }
+
+  //============== POST REQUESTS ==============================
+
+  /**
+   * Leave the group
+   *
+   * @static
+   * @param {any} groupId
+
+   * @memberof Group
+   */
+  static async leaveGroup(groupId, newTeamLeader) {
+    try {
+      return Promise.resolve(
+        await axios.post("groups/leave/" + groupId, newTeamLeader)
+      );
     } catch (err) {
       return Promise.reject(err.response);
     }

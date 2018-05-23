@@ -15,6 +15,8 @@ const reducer = (state = initial, action) => {
         tasks: action.tasks
       });
     case types.CREATE_TASK_SUCCESS:
+      let isTaskPresent = state.tasks.find(task => task._id === action.task._id);
+      if (isTaskPresent) return state;
       let taskArray = state.tasks.slice(); // This is done because you want to CLONE the state rather than mutate it
       taskArray.push(action.task);
       return Object.assign({}, state, {
@@ -28,7 +30,9 @@ const reducer = (state = initial, action) => {
         tasks: newArray
       });
     case types.UPDATE_TASK_SUCCESS:
-      let updatedTaskArray = state.tasks.filter(task => task._id !== action.task.id);
+      let updatedTaskArray = state.tasks.filter(
+        task => (task._id !== action.task.id && task._id !== action.task._id)
+      );
       updatedTaskArray.push(action.task);
       return Object.assign({}, state, {
         tasks: updatedTaskArray

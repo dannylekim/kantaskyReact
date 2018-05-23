@@ -3,7 +3,7 @@ import { Card } from "semantic-ui-react";
 import TaskModal from "./taskModal";
 
 const listOfTasks = ({items, category, color}) => (
-  <Card color={color}>
+  <Card color={color} >
     <Card.Content style={{flexGrow: 0}}>
       <Card.Header> {category}</Card.Header>
     </Card.Content>

@@ -2,13 +2,13 @@ import React from "react";
 import GroupCard from "../../components/groupCard";
 import { getUsersGroups } from "../../redux/group/groupActionDispatcher";
 import { connect } from "react-redux";
-import { Card } from "semantic-ui-react";
-import GroupMenuBar from "../../components/groupMenuBar"
+import { Card, Message } from "semantic-ui-react";
+import GroupMenuBar from "../../components/groupMenuBar";
 
 class GroupPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   //TODO: Eventually will have the groups saved as a state so can just pull information from there
@@ -37,6 +37,14 @@ class GroupPage extends React.Component {
       <div>
         <GroupMenuBar />
         <Card.Group>{groupCards}</Card.Group>
+        <br />
+        {groupCards &&
+          groupCards.length === 0 && (
+            <Message warning>
+              <Message.Header>You have no groups!</Message.Header>
+              <p>Click the + button to start creating groups!</p>
+            </Message>
+          )}
       </div>
     );
   }

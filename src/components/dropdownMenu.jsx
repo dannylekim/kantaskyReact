@@ -48,7 +48,7 @@ class DropDownMenu extends Component {
 
   render() {
     return (
-      <Dropdown trigger={<ProfileButton />} pointing="top left">
+      <Dropdown trigger={<ProfileButton />} pointing="top right">
         <Dropdown.Menu>
           <Dropdown.Header>{this.state.email}</Dropdown.Header>
           <UpdateUserModal />
