@@ -10,7 +10,7 @@ export const toastSuccess = message => {
   store.dispatch(TOAST_SUCCESS_MESSAGE(message));
 };
 
-export const toastError = message => dispatch => {
+export const toastError = message => {
   store.dispatch(TOAST_ERROR_MESSAGE(message));
 };
 

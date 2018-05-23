@@ -18,12 +18,12 @@ class Toast extends Component {
       let messages = this.props.messages;
       if (messages.errMsg.length > 0)
         for (let messageObj of messages.errMsg) {
-          toast(messageObj.message, toastOptions);
+          toast.error(messageObj.message, toastOptions);
           deleteToastError(messageObj.id);
         }
       if (messages.msg.length > 0)
         for (let messageObj of messages.msg) {
-          toast(messageObj.message, toastOptions);
+          toast.success(messageObj.message, toastOptions);
           deleteToastSuccess(messageObj.id);
         }
     }
