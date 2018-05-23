@@ -36,7 +36,7 @@ export const createTaskInGroup = (task, groupId) => async dispatch => {
 
 export const removeTask = (taskId) => async dispatch => {
   try{ 
-    const response = await taskApi.removeTask(taskId) //FIXME: This actually has a response to use for a toastr
+    const response = await taskApi.removeTask(taskId)
     dispatch(actions.removeTaskSuccess(taskId))
     toasterHandler(response.data, false)
   }
