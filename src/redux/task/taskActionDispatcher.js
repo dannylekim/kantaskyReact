@@ -2,6 +2,7 @@ import taskApi from "../../api/taskApi";
 import * as actions from "./taskActions";
 // import { history } from "../../config/config";
 import store from "../configureStore";
+import {toasterHandler} from "../toaster/toasterHandler"
 
 export const getUsersTasks = () => async dispatch => {
   try {
@@ -9,7 +10,7 @@ export const getUsersTasks = () => async dispatch => {
     const response = await taskApi.getUsersTasks(userId); //api call to login
     dispatch(actions.getUsersTasksSuccess(response.data)); //dispatch the successful login call
   } catch (err) {
-    //TODO:
+    toasterHandler(err.data, true)
   }
 };
 
@@ -18,7 +19,7 @@ export const getGroupsTasks = groupId => async dispatch => {
     const response = await taskApi.getGroupsTasks(groupId);
     dispatch(actions.getGroupsTasksSuccess(response.data));
   } catch (err) {
-    //TODO:
+    toasterHandler(err.data, true)
   }
 };
 
@@ -27,18 +28,20 @@ export const createTaskInGroup = (task, groupId) => async dispatch => {
     const userId = store.getState().user.user._id;
     const response = await taskApi.createTaskInGroup(groupId, userId, task);
     dispatch(actions.createTaskInGroupSuccess(response.data));
+    toasterHandler("Successfully created task!", false)
   } catch (err) {
-    //TODO:
+    toasterHandler(err.data, true)
   }
 };
 
 export const removeTask = (taskId) => async dispatch => {
   try{ 
-    const response = await taskApi.removeTask(taskId) //FIXME: This actually has a response to use for a toastr
+    const response = await taskApi.removeTask(taskId)
     dispatch(actions.removeTaskSuccess(taskId))
+    toasterHandler(response.data, false)
   }
   catch(err) {
-    //TODO:
+    toasterHandler(err.data, true)
   }
 }
 
@@ -46,8 +49,9 @@ export const editTask = (task) => async dispatch => {
   try{ 
     await taskApi.updateTask(task)
     dispatch(actions.updateTaskSuccess(task))
+    toasterHandler("Successfully updated Task!", false)
   }
   catch(err) { 
-    //TODO:
+    toasterHandler(err.data, true)
   }
 }

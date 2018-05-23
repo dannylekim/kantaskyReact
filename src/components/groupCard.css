@@ -1,0 +1,7 @@
+.group {
+  opacity: 0.8;
+}
+
+.group:hover {
+  opacity: 1;
+}

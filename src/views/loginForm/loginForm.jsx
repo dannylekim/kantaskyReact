@@ -51,7 +51,7 @@ class loginForm extends React.Component {
     try {
       const userId = await this.props.login(this.state);
       this.props.getUser(userId);
-      history.push("/");
+      history.push("/personal");
     } catch (err) {}
   }
 

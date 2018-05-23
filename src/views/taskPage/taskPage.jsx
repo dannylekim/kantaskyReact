@@ -2,7 +2,7 @@ import React from "react";
 import ListOfTasks from "../../components/listOfTasks";
 import { getUsersTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
-import { Card } from "semantic-ui-react";
+import { Card, Message } from "semantic-ui-react";
 
 class TaskPage extends React.Component {
   constructor(props) {
@@ -42,12 +42,21 @@ class TaskPage extends React.Component {
           key={index}
           items={taskObj.taskList[category]}
           category={category}
-          color='blue'
+          color="blue"
         />
       ));
     }
-
-    return <Card.Group>{listOfTasks}</Card.Group>;
+    if (listOfTasks.length > 0) return <Card.Group>{listOfTasks}</Card.Group>;
+    else
+      return (
+        <Message warning>
+          <Message.Header>You have no assigned tasks yet!</Message.Header>
+          <p>
+            Create some tasks by going to the group page, creating a group and
+            then creating a task to yourself!
+          </p>
+        </Message>
+      );
   }
 }
 
