@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Icon, Label } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import "./groupCard.css"
 
 const extra = (numberOfUsers, category) => (
   <div>
@@ -32,7 +33,7 @@ class GroupCard extends React.Component {
       : "No description available";
 
     return (
-      <Card>
+      <Card className="group">
         <Link to={"/group/" + this.props.id}>
           <Card
             href=""

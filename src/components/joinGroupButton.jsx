@@ -15,12 +15,11 @@ class JoinGroupButton extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  //TODO: WHEN YOU CLICK JOIN IT MUST ALSO UPDATE THE USER AND REMOVE HIS NOTIFICATIONS AND UPDATE REDUX FOR THAT
   async handleClick() {
     const hasJoined = await this.props.joinGroup(this.state.groupId);
     if (hasJoined) {
-      let newAccountDetails;
-       newAccountDetails.notifications = this.state.notifications.filter((notification) => {
+      let newAccountDetails = {};
+      newAccountDetails.notifications = this.state.notifications.filter((notification) => {
         return notification.groupId !== this.state.groupId
       })
       this.props.updateAccount(newAccountDetails, this.state.userId)
