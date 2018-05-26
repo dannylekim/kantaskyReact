@@ -11,6 +11,7 @@ import {
   getGroupsTasksSuccess
 } from "./redux/task/taskActions";
 import store from "./redux/configureStore"; //normally, rather than importing the store, this should be redux-thunked, but this is a quicker implementation
+import { toasterHandler } from "./redux/toaster/toasterHandler";
 
 export default class SocketHandler {
   constructor(socket) {
@@ -22,6 +23,10 @@ export default class SocketHandler {
     // === User ====
     this.socket.on("userUpdate", data => {
       this.handleUserUpdate(data);
+    });
+
+    this.socket.on("userInvite", data => {
+      toasterHandler("You've got mail!" , false);
     });
 
     //==== Task =====
