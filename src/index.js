@@ -23,6 +23,7 @@ import taskApi from "./api/taskApi";
 import openSocket from "socket.io-client";
 import { backendServerURL } from "./config/config";
 import SocketHandler from "./socketHandler";
+import { toasterHandler } from "./redux/toaster/toasterHandler";
 
 export const socket = openSocket(backendServerURL);
 new SocketHandler(socket);
@@ -74,7 +75,7 @@ const getUsersGroups = async userId => {
       groups: response.data
     }); //dispatch the successful login call
   } catch (err) {
-    //TODO:
+    toasterHandler(err.data, true);
   }
 };
 
@@ -86,7 +87,7 @@ const getUsersTasks = async userId => {
       personalTasks: response.data
     }); //dispatch the successful login call
   } catch (err) {
-    //TODO:
+    toasterHandler(err.data, true);
   }
 };
 
