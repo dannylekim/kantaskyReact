@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import InviteListItem from "../../components/inviteListItem";
 import Invitation from "../../components/invitation";
-import { List, Message } from "semantic-ui-react";
+import { List, Message, Divider, Header, Icon } from "semantic-ui-react";
 
 class Notifications extends React.Component {
   constructor(props) {
@@ -79,9 +79,36 @@ class Notifications extends React.Component {
     }
     return (
       <div>
-        <List selection verticalAlign="middle">
+        {listOfNotifications.length === 0 && (
+          <Message warning>
+            <Message.Header>You have no new mail!</Message.Header>
+            <p>Please check back when you have mail!</p>
+          </Message>
+        )}
+
+        <List
+          selection
+          divided
+          verticalAlign="middle"
+          size="big"
+          style={{
+            height: "20em",
+            overflow: "auto",
+            backgroundColor: "rgb(218, 229, 223, .50)"
+          }}
+        >
+          <Header as="h2" style={{ marginTop: ".5em", marginLeft: ".5em" }}>
+            <Icon name="mail" circular />
+            <Header.Content>
+              Your Notifications
+              <Header.Subheader>Manage all your invitations</Header.Subheader>
+            </Header.Content>
+          </Header>
+          <Divider section/>
           {listOfNotifications}
         </List>
+
+        <Divider inverted />
         {invitation &&
           notificationStillExists && (
             <Invitation
@@ -91,13 +118,6 @@ class Notifications extends React.Component {
               description={invitation.description}
             />
           )}
-        {listOfNotifications.length === 0 && (
-            <Message warning>
-              <Message.Header>You have no new mail!</Message.Header>
-              <p>Please check back when you have mail!</p>
-            </Message>
-          )
-        }
       </div>
     );
   }

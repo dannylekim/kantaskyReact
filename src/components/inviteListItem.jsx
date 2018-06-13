@@ -14,7 +14,7 @@ const InviteListItem = ({ teamLeader, groupId, unread, onClick }) => {
   }
   return (
     <List.Item onClick={onClick}>
-      <List.Icon name="mail square" />
+      <List.Icon name="arrow right" />
       <List.Content>{description}</List.Content>
     </List.Item>
   );
