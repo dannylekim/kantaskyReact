@@ -6,10 +6,10 @@ import AddUserModal from "./addUserModal";
 import DeleteGroupModal from "./deleteGroupModal";
 import LeaveGroupModal from "./leaveGroupModal";
 
-const taskMenuBar = ({ isTeamLeader, groupId, group }) => {
+const taskMenuBar = ({ isTeamLeader, groupId, group, categories }) => {
   return (
     <Menu>
-      <AddTaskButton groupId={groupId} />
+      <AddTaskButton groupId={groupId} categories={categories}/>
       {isTeamLeader && <ViewGroupModal groupId={groupId} />}
       {isTeamLeader && <AddUserModal groupId={groupId} />}
       {isTeamLeader && <DeleteGroupModal groupId={groupId} />}

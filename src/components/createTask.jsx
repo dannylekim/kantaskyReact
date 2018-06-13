@@ -9,12 +9,12 @@ class CreateTask extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        name: null,
-        dueDate: null,
-        category: "Misc.",
-        importance: "normal",
-        status: "pending",
-        description: null,
+      name: null,
+      dueDate: null,
+      category: "Misc.",
+      importance: "normal",
+      status: "pending",
+      description: null,
       showModal: false
     };
     this.addTask = this.addTask.bind(this);
@@ -27,57 +27,65 @@ class CreateTask extends React.Component {
    * @param {any} event
    * @memberof loginForm
    */
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  handleInputChange(event, data) {
+    const value = data.value;
+    const name = data.name;
 
     //set the appropriate value to the state
     this.setState({
         [name]: value
     });
-  }
 
-  toggleAddModal() {
-    this.setState({ showModal: !this.state.showModal });
+    if (this.props.categories && name === 'category') {
+      let foundCategory = this.props.categories.find(category => {
+        return category.key === value
+      })
+      if (!foundCategory) {
+        this.props.categories.push({ key: value, text: value, value: value })
+      }
+    }
   }
-
-  addTask() {
-    let newTask = Object.assign({}, this.state)
+  
+toggleAddModal() {
+  this.setState({ showModal: !this.state.showModal });
+  }
+  
+addTask() {
+  let newTask = Object.assign({}, this.state)
     newTask.showModal = undefined
-    this.props.createTaskInGroup(this.state, this.props.groupId);
-    const nullState = {
-      name: null,
+  this.props.createTaskInGroup(this.state, this.props.groupId);
+  const nullState = {
+    name: null,
       dueDate: null,
-      category: "Misc.",
-      importance: "normal",
-      status: "pending",
-      description: null
-    };
+    category: "Misc.",
+    importance: "normal",
+    status: "pending",
+    description: null
+  }; 
     this.setState({ task: nullState });
-    this.toggleAddModal();
+this.toggleAddModal();
   }
 
   render() {
-    return (
+  return (
       <Modal trigger={<MenuButton onClick={this.toggleAddModal} color='green' icon='add'/>}  open={this.state.showModal} onClose={this.toggleAddModal} >
         <Modal.Header>Create a Task in this group</Modal.Header>
-        <Modal.Content>
-          <Modal.Description>
-            <TaskForm onClickFunction={this.handleInputChange} />
+       <Modal.Content>                     
+        <Modal.Description>
+           <TaskForm onClickFunction={this.handleInputChange} categories={this.props.categories} currentCategoryValue={this.state.category}/>
           </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button inverted color="green" onClick={this.addTask}>
-            <Icon name="checkmark" /> Confirm
-          </Button>
+        </Modal.Content>  
+        <Modal.Actions>       
+          <Button inver ted color="green" onClick={this.addTask}>
+         <Icon name="checkmark" /> Confirm
+        </Button>
           <Button inverted color="red" onClick={this.toggleAddModal}>
             <Icon name="remove" /> Cancel
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    );
-  }
+      </ Button>
+      </Modal.Actions>
+      </Modal>       
+    );       
+  }       
 }
 
 const mapState = state => ({});

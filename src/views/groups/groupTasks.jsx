@@ -39,19 +39,24 @@ class GroupTasks extends React.Component {
   render() {
     let listOfTasks;
     let isEmpty = false;
+    let categories = [{ key: "Misc.", text: "Misc", value: "Misc." }];
     if (this.props.tasks) {
       const taskObj = this.sortOutTasks(this.props.tasks);
       listOfTasks = taskObj.categories.map((
         category,
         index //for every category, create a list of Tasks
-      ) => (
-        <ListOfTasks
-          key={index}
-          items={taskObj.taskList[category]}
-          category={category}
-          color="blue"
-        />
-      ));
+      ) => {
+        if (category !== "Misc.")
+          categories.push({ key: category, text: category, value: category });
+        return (
+          <ListOfTasks
+            key={index}
+            items={taskObj.taskList[category]}
+            category={category}
+            color="blue"
+          />
+        );
+      });
       listOfTasks.length === 0 ? (isEmpty = true) : (isEmpty = false);
     }
 
@@ -68,10 +73,11 @@ class GroupTasks extends React.Component {
           groupId={this.state.groupId}
           group={this.state.group}
           isTeamLeader={true}
+          categories={categories}
         />
         <Card.Group>{listOfTasks}</Card.Group>
-        <br/>
-        { isEmpty && (
+        <br />
+        {isEmpty && (
           <Message warning>
             <Message.Header>There are currently no tasks!</Message.Header>
             <p>Click the + button to start creating tasks</p>
@@ -91,4 +97,7 @@ const mapState = state => ({
 const mapDispatch = {
   getGroupsTasks
 };
-export default connect(mapState, mapDispatch)(GroupTasks);
+export default connect(
+  mapState,
+  mapDispatch
+)(GroupTasks);
