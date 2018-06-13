@@ -17,7 +17,6 @@ import axios from "axios";
 import { decode } from "jsonwebtoken";
 import { socket } from "../../index";
 import {toasterHandler} from "../toaster/toasterHandler"
-import { toast } from "react-toastify";
 
 /**
  * Logs the user in with the credentials and sends either a successful or fail action to the reducer
@@ -99,7 +98,7 @@ export const updateAccount = (newAccountDetails, userId) => async dispatch => {
 
 export const inviteUser = (targetGroupId, inviteeUserId) => async dispatch => {
   try {
-    const response = await UserApi.inviteUser(targetGroupId, inviteeUserId);
+    await UserApi.inviteUser(targetGroupId, inviteeUserId);
     toasterHandler("Invite has been sent!", false)
   } catch (err) {
     toasterHandler(err.data, true)

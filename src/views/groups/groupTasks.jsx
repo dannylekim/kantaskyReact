@@ -4,6 +4,7 @@ import { getGroupsTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card, Message } from "semantic-ui-react";
 import TaskMenuBar from "../../components/taskMenuBar";
+import { Droppable } from "react-beautiful-dnd";
 
 class GroupTasks extends React.Component {
   constructor(props) {
@@ -45,12 +46,23 @@ class GroupTasks extends React.Component {
         category,
         index //for every category, create a list of Tasks
       ) => (
-        <ListOfTasks
-          key={index}
-          items={taskObj.taskList[category]}
-          category={category}
-          color="blue"
-        />
+        <Droppable droppableId={category}>
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              style={{ marginTop: "10px", marginLeft: "7px" }}
+            >
+              <ListOfTasks
+                dropColor={snapshot.isDraggingOver ? "lightgrey" : ""}
+                key={index}
+                items={taskObj.taskList[category]}
+                category={category}
+                color="blue"
+              />
+            </div>
+          )}
+        </Droppable>
       ));
       listOfTasks.length === 0 ? (isEmpty = true) : (isEmpty = false);
     }
@@ -70,8 +82,8 @@ class GroupTasks extends React.Component {
           isTeamLeader={true}
         />
         <Card.Group>{listOfTasks}</Card.Group>
-        <br/>
-        { isEmpty && (
+        <br />
+        {isEmpty && (
           <Message warning>
             <Message.Header>There are currently no tasks!</Message.Header>
             <p>Click the + button to start creating tasks</p>
@@ -91,4 +103,7 @@ const mapState = state => ({
 const mapDispatch = {
   getGroupsTasks
 };
-export default connect(mapState, mapDispatch)(GroupTasks);
+export default connect(
+  mapState,
+  mapDispatch
+)(GroupTasks);

@@ -33,6 +33,7 @@ const TaskForm = ({onClickFunction}) => (
               iconPosition="left"
               placeholder="Input Due Date"
               onChange={onClickFunction}
+              type="date"
             />
 
             <Form.Input
