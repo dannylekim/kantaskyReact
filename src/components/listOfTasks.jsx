@@ -3,12 +3,12 @@ import { Card } from "semantic-ui-react";
 import TaskModal from "./taskModal";
 import { Draggable } from "react-beautiful-dnd";
 
-const listOfTasks = ({ items, category, color }) => (
+const listOfTasks = ({ items, category, color, dropColor }) => (
   <Card color={color}>
     <Card.Content style={{ flexGrow: 0 }}>
       <Card.Header> {category}</Card.Header>
     </Card.Content>
-    <Card.Content>
+    <Card.Content style={{backgroundColor: dropColor}}>
       {items.map((task, index) => (
         <Draggable draggableId={task._id} index={index}>
           {(provided, snapshot) => {
@@ -18,8 +18,9 @@ const listOfTasks = ({ items, category, color }) => (
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-                <div style={{ marginBottom: "10px", color: snapshot.isDragging ? "blue" : "white"}}>
+                <div style={{ marginBottom: "10px"}}>
                   <TaskModal
+                    color = {snapshot.isDragging ? "#e6ffdc" : ""}
                     category={task.category}
                     description={task.description}
                     key={task._id}

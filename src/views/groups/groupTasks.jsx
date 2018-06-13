@@ -48,16 +48,20 @@ class GroupTasks extends React.Component {
       ) => (
         <Droppable droppableId={category}>
           {(provided, snapshot) => (
-            <div ref={provided.innerRef} {...provided.droppableProps} style={{marginTop: '10px', marginLeft: '7px'}}>
+            <div
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              style={{ marginTop: "10px", marginLeft: "7px" }}
+            >
               <ListOfTasks
+                dropColor={snapshot.isDraggingOver ? "lightgrey" : ""}
                 key={index}
                 items={taskObj.taskList[category]}
                 category={category}
                 color="blue"
               />
             </div>
-          )
-          }
+          )}
         </Droppable>
       ));
       listOfTasks.length === 0 ? (isEmpty = true) : (isEmpty = false);
@@ -99,4 +103,7 @@ const mapState = state => ({
 const mapDispatch = {
   getGroupsTasks
 };
-export default connect(mapState, mapDispatch)(GroupTasks);
+export default connect(
+  mapState,
+  mapDispatch
+)(GroupTasks);
