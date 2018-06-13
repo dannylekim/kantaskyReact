@@ -46,7 +46,7 @@ class GroupTasks extends React.Component {
         category,
         index //for every category, create a list of Tasks
       ) => (
-        <Droppable droppableId={index}>
+        <Droppable droppableId={category}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} {...provided.droppableProps} style={{marginTop: '10px', marginLeft: '7px'}}>
               <ListOfTasks
@@ -56,7 +56,8 @@ class GroupTasks extends React.Component {
                 color="blue"
               />
             </div>
-          )}
+          )
+          }
         </Droppable>
       ));
       listOfTasks.length === 0 ? (isEmpty = true) : (isEmpty = false);

@@ -11,7 +11,6 @@ import noRequireAuth from "./config/noRequireAuth";
 import TabularMenu from "./components/tabularMenu";
 import Toast from "./components/toast";
 import "./app.css";
-import { DragDropContext } from "react-beautiful-dnd";
 
 class App extends React.Component {
   constructor(props) {
@@ -28,59 +27,42 @@ class App extends React.Component {
     this.props.checkToken();
   }
 
-  onDragStart = () => {
-    /*...*/
-  };
-  onDragUpdate = () => {
-    /*...*/
-  };
-  onDragEnd = () => {
-    console.log("hi");
-    // the only one that is required
-  };
-
   render() {
     return (
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragUpdate={this.onDragUpdate}
-        onDragEnd={this.onDragEnd}
-      >
-        <Switch>
-          <Route path="/login" component={noRequireAuth(Login)} />
-          <Route path="/signup" component={noRequireAuth(SignUp)} />
-          <div>
-            <div
-              style={{
-                paddingTop: 0.25 + "em",
-                paddingLeft: 0.1 + "em",
-                backgroundColor: "white"
-              }}
-            >
-              <TabularMenu />
-            </div>
-            <div
-              style={{
-                marginLeft: 1 + "em",
-                marginRight: 1 + "em",
-                marginTop: 1 + "em"
-              }}
-            >
-              <div>
-                <Route exact path="/" component={requireAuth(Personal)} />
-                <Route path="/personal" component={requireAuth(Personal)} />
-                <Route path="/mail" component={requireAuth(Mail)} />
-                <Route path="/groups" component={requireAuth(GroupPage)} />
-                <Route
-                  path="/group/:groupId"
-                  component={requireAuth(GroupTask)}
-                />
-              </div>
-              <Toast />
-            </div>
+      <Switch>
+        <Route path="/login" component={noRequireAuth(Login)} />
+        <Route path="/signup" component={noRequireAuth(SignUp)} />
+        <div>
+          <div
+            style={{
+              paddingTop: 0.25 + "em",
+              paddingLeft: 0.1 + "em",
+              backgroundColor: "white"
+            }}
+          >
+            <TabularMenu />
           </div>
-        </Switch>
-      </DragDropContext>
+          <div
+            style={{
+              marginLeft: 1 + "em",
+              marginRight: 1 + "em",
+              marginTop: 1 + "em"
+            }}
+          >
+            <div>
+              <Route exact path="/" component={requireAuth(Personal)} />
+              <Route path="/personal" component={requireAuth(Personal)} />
+              <Route path="/mail" component={requireAuth(Mail)} />
+              <Route path="/groups" component={requireAuth(GroupPage)} />
+              <Route
+                path="/group/:groupId"
+                component={requireAuth(GroupTask)}
+              />
+            </div>
+            <Toast />
+          </div>
+        </div>
+      </Switch>
     );
   }
 }

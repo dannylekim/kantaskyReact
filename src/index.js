@@ -14,7 +14,10 @@ import {
   GET_USER_FAIL
 } from "./redux/user/userActionTypes";
 import { GET_GROUP_SUCCESS } from "./redux/group/groupActionTypes";
-import { GET_USERS_PERSONAL_TASKS_SUCCESS } from "./redux/task/taskActionTypes";
+import {
+  GET_USERS_PERSONAL_TASKS_SUCCESS,
+  UPDATE_TASK_SUCCESS
+} from "./redux/task/taskActionTypes";
 import axios from "axios";
 import { decode } from "jsonwebtoken";
 import userApi from "./api/userApi";
@@ -24,6 +27,7 @@ import openSocket from "socket.io-client";
 import { backendServerURL } from "./config/config";
 import SocketHandler from "./socketHandler";
 import { toasterHandler } from "./redux/toaster/toasterHandler";
+import { DragDropContext } from "react-beautiful-dnd";
 
 export const socket = openSocket(backendServerURL);
 new SocketHandler(socket);
@@ -91,10 +95,51 @@ const getUsersTasks = async userId => {
   }
 };
 
+const onDragStart = () => {
+  /*...*/
+};
+const onDragUpdate = () => {
+  /*...*/
+};
+const onDragEnd = result => {
+  if (!result.destination) {
+    return;
+  } else if (result.source.droppableId === result.destination.droppableId) {
+    //reorder
+  } else {
+    //update Task
+    const task = {
+      id: result.draggableId,
+      category: result.destination.droppableId
+    };
+    editTask(task, result.destination.index);
+  }
+};
+
+const editTask = async  (task, index) => {
+  try {
+    const response = await taskApi.updateTask(task);
+    store.dispatch({
+      type: UPDATE_TASK_SUCCESS,
+      task: response.data,
+      index: index
+    });
+    toasterHandler("Successfully updated Task!", false);
+  } catch (err) {
+    toasterHandler(err.data, true);
+  }
+};
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App checkToken={checkToken} />
+      <DragDropContext
+        onDragStart={onDragStart}
+        onDragUpdate={onDragUpdate}
+        onDragEnd={onDragEnd}
+      >
+        <App checkToken={checkToken} />
+      </DragDropContext>
     </Router>
   </Provider>,
   document.getElementById("root")

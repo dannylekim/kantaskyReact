@@ -11,29 +11,31 @@ const listOfTasks = ({ items, category, color }) => (
     <Card.Content>
       {items.map((task, index) => (
         <Draggable draggableId={task._id} index={index}>
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-            >
-              <div style={{ marginBottom: "10px" }}>
-                <TaskModal
-                  category={task.category}
-                  description={task.description}
-                  key={task._id}
-                  status={task.status}
-                  importance={task.importance}
-                  dueDate={task.dueDate}
-                  createdDate={task.createdDate}
-                  name={task.name}
-                  user={task.user}
-                  id={task._id}
-                  group={task.group}
-                />
+          {(provided, snapshot) => {
+            return (
+              <div
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+              >
+                <div style={{ marginBottom: "10px", color: snapshot.isDragging ? "blue" : "white"}}>
+                  <TaskModal
+                    category={task.category}
+                    description={task.description}
+                    key={task._id}
+                    status={task.status}
+                    importance={task.importance}
+                    dueDate={task.dueDate}
+                    createdDate={task.createdDate}
+                    name={task.name}
+                    user={task.user}
+                    id={task._id}
+                    group={task.group}
+                  />
+                </div>
               </div>
-            </div>
-          )}
+            );
+          }}
         </Draggable>
       ))}
     </Card.Content>
