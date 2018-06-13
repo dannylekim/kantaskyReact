@@ -31,6 +31,7 @@ class taskModal extends React.Component {
         <Modal
           trigger={
             <Task
+              color={this.props.color}
               name={this.props.name}
               description={this.props.description}
               user={this.props.user}

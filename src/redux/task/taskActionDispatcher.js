@@ -47,8 +47,8 @@ export const removeTask = (taskId) => async dispatch => {
 
 export const editTask = (task) => async dispatch => {
   try{ 
-    await taskApi.updateTask(task)
-    dispatch(actions.updateTaskSuccess(task))
+    const response = await taskApi.updateTask(task)
+    dispatch(actions.updateTaskSuccess(response.data))
     toasterHandler("Successfully updated Task!", false)
   }
   catch(err) { 

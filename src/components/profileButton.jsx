@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, Label } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 class ProfileButton extends React.Component {
