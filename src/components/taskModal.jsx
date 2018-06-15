@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Modal, Label, Button, Icon, Grid } from "semantic-ui-react";
+import { Header, Modal, Label, Button, Icon, Grid, Transition } from "semantic-ui-react";
 import Task from "./task";
 import RemoveTaskButton from "./removeTaskButton";
 import EditTaskModal from "./editTaskModal";
@@ -8,9 +8,18 @@ class taskModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      showModal: false,
+      boxVisible: false,
     };
     this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  componentDidMount() {
+    setTimeout(() =>
+      this.setState({
+        boxVisible: true
+      }), this.props.timing * 300
+    );
   }
 
   toggleModal() {
@@ -26,10 +35,15 @@ class taskModal extends React.Component {
     if (this.props.status === "ongoing") statusColor = "orange";
     else if (this.props.status === "pending") statusColor = "grey";
     else statusColor = "teal";
-
     return (
-        <Modal
-          trigger={
+      <Modal
+        trigger={ //Trigger component
+          <Transition
+            transitionOnMount={true}
+            duration={800}
+            animation='fade down'
+            visible={this.state.boxVisible}
+          >
             <Task
               name={this.props.name}
               description={this.props.description}
@@ -38,9 +52,15 @@ class taskModal extends React.Component {
               {...this.props.rest}
               onClick={this.toggleModal}
             />
-          }
-          open={this.state.showModal}
-          onClose={this.toggleModal}
+          </Transition>
+        }
+        open={this.state.showModal}
+        onClose={this.toggleModal}
+      >
+        <Transition
+        visible={true}
+          duration={800}
+          animation='fade down'
         >
           <Modal.Header>{this.props.name}</Modal.Header>
           <Modal.Content >
@@ -98,7 +118,9 @@ class taskModal extends React.Component {
               <Icon name="remove" /> Close
           </Button>
           </Modal.Actions>
-        </Modal>
+        </Transition>
+
+      </Modal>
     );
   }
 }

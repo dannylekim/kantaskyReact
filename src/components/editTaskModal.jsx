@@ -36,16 +36,10 @@ class EditTaskModal extends React.Component {
     this.props.closeModalFunction();
   }
 
-  //this just opens this modal 
-  // openModal() {
-  //   this.setState({ showModal: !this.state.showModal });
-  // }
-
-  //this should do the same shit 
+  //this togle modal 
   openModal() {
     this.setState(prevState => ({ showModal: !prevState.showModal }));
   }
-
 
   handleInputChange(event, { value, name }) {
     //set the appropriate value to the state
