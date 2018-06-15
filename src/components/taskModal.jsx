@@ -57,11 +57,6 @@ class taskModal extends React.Component {
         open={this.state.showModal}
         onClose={this.toggleModal}
       >
-        <Transition
-        visible={true}
-          duration={800}
-          animation='fade down'
-        >
           <Modal.Header>{this.props.name}</Modal.Header>
           <Modal.Content >
             <Modal.Description>
@@ -118,8 +113,6 @@ class taskModal extends React.Component {
               <Icon name="remove" /> Close
           </Button>
           </Modal.Actions>
-        </Transition>
-
       </Modal>
     );
   }
