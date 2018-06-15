@@ -79,7 +79,7 @@ class Notifications extends React.Component {
     }
     return (
       <div>
-        {listOfNotifications.length === 0 && (
+        {this.state.notifications && listOfNotifications.length === 0 && (
           <Message warning>
             <Message.Header>You have no new mail!</Message.Header>
             <p>Please check back when you have mail!</p>

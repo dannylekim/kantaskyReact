@@ -88,7 +88,7 @@ class GroupTasks extends React.Component {
         />
         <Card.Group>{listOfTasks}</Card.Group>
         <br />
-        {isEmpty && (
+        {this.props.tasks && isEmpty && (
           <Message warning>
             <Message.Header>There are currently no tasks!</Message.Header>
             <p>Click the + button to start creating tasks</p>
