@@ -108,6 +108,8 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
             onChange={onClickFunction}
           />
         </Form.Field>
+
+        {/* TODO:ASSIGN TO WHO */}
       </Form>
     </Grid.Column>
   </Grid>

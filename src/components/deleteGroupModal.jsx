@@ -71,7 +71,7 @@ class DeleteGroupModal extends React.Component {
         <Modal.Header>Delete Group</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            Are you sure you'd like to delete this group: {this.state.name}?
+            Are you sure you'd like to delete this group: <b> {this.state.name}</b>? 
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>

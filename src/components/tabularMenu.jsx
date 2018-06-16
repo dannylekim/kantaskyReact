@@ -19,6 +19,14 @@ class TabularMenu extends Component {
     else this.setState({ activeItem: "personal" });
   }
 
+  //this is done because if you select into a groups page, sign out, the personal tab doesn't change properly
+  componentWillUpdate() {
+    const pathName = window.location.pathname;
+    if (pathName.includes("group") && this.state.activeItem !== 'groups') this.setState({ activeItem: "groups" });
+    else if (pathName.includes("mail") && this.state.activeItem !== 'mail') this.setState({ activeItem: "mail" });
+    else if (this.state.activeItem !== 'personal' && pathName.includes("personal")) this.setState({ activeItem: "personal" });
+  }
+
   render() {
     const { activeItem } = this.state;
     return (

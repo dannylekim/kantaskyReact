@@ -86,7 +86,7 @@ class CreateTask extends React.Component {
         open={this.state.showModal}
         onClose={this.toggleAddModal}
       >
-        <Modal.Header>Create a Task in this group</Modal.Header>
+        <Modal.Header>Create a Task</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <TaskForm
