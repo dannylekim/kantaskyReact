@@ -5,9 +5,6 @@ import CreateGroupButton from "./createGroup"
 const groupMenuBar = () => (
   <Menu>
     <CreateGroupButton/>
-    <Menu.Item>
-      <Icon name="remove" />
-    </Menu.Item>
     <Menu.Menu position="right">
       <Menu.Item>
         <Input

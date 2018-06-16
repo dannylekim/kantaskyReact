@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Icon, Form } from "semantic-ui-react";
+import { Modal, Button, Icon, Form, Popup } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import userAPI from "../api/userApi";
 
@@ -23,7 +23,14 @@ class SearchUserModal extends React.Component {
 
   //this toggles and closes the previous modal behind it
   toggleModal() {
-    this.setState({ showModal: !this.state.showModal, errors: null, firstName: null, lastName: null, email: null, userId: null });
+    this.setState({
+      showModal: !this.state.showModal,
+      errors: null,
+      firstName: null,
+      lastName: null,
+      email: null,
+      userId: null
+    });
   }
 
   componentWillReceiveProps() {
@@ -85,7 +92,18 @@ class SearchUserModal extends React.Component {
     return (
       <Modal
         trigger={
-          <MenuButton onClick={this.toggleModal} color="blue" icon="add user" />
+          <Popup
+            trigger={
+              <MenuButton
+                onClick={this.toggleModal}
+                color="blue"
+                icon="add user"
+              />
+            }
+            content="Invite User to this Group"
+            size="tiny"
+            position="bottom center"
+          />
         }
         open={this.state.showModal}
         onClose={this.toggleModal}

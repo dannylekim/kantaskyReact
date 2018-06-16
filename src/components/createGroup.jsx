@@ -54,7 +54,6 @@ class CreateGroup extends React.Component {
       <Modal
         trigger={
           <Popup
-            
             trigger={
               <MenuButton
                 onClick={this.toggleAddModal}
@@ -63,7 +62,7 @@ class CreateGroup extends React.Component {
               />
             }
             content="Add a group"
-
+            size='tiny'
             position='bottom center'
           />
         }
