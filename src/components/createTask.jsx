@@ -92,15 +92,20 @@ class CreateTask extends React.Component {
             <TaskForm
               onClickFunction={this.handleInputChange}
               categories={this.props.categories}
-              state = {this.state}
+              state={this.state}
             />
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button inver ted color="green" onClick={this.addTask}>
+          <Button
+            inverted
+            color="green"
+            onClick={this.addTask}
+            disabled={!this.state.name}
+          >
             <Icon name="checkmark" /> Confirm
           </Button>
-          <Button inverted color="red" onClick={this.toggleAddModal}>
+          <Button basic onClick={this.toggleAddModal}>
             <Icon name="remove" /> Cancel
           </Button>
         </Modal.Actions>

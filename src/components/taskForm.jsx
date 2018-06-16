@@ -7,7 +7,7 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
       <Form size="large">
         {/* Name */}
         <Form.Field required>
-          <label>Task Name</label>
+          <label>Task Name: </label>
           <Form.Input
             fluid
             icon="user"
@@ -19,27 +19,33 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
           />
         </Form.Field>
 
-        <Form.Input
-          fluid
-          icon="lock"
-          name="dueDate"
-          iconPosition="left"
-          placeholder="Input Due Date"
-          onChange={onClickFunction}
-          type="date"
-        />
+        <Form.Field>
+          <label>Due Date: </label>
+          <Form.Input
+            fluid
+            icon="lock"
+            name="dueDate"
+            iconPosition="left"
+            placeholder="Input Due Date"
+            onChange={onClickFunction}
+            type="date"
+          />
+        </Form.Field>
 
-        <Dropdown
-          options={categories}
-          name="category"
-          placeholder="Choose a category"
-          search
-          selection
-          fluid
-          allowAdditions
-          onChange={onClickFunction}
-        />
-        <br />
+        <Form.Field>
+          <label>Category: </label>
+          <Dropdown
+            options={categories}
+            name="category"
+            placeholder="Choose a category"
+            value={state.category}
+            search
+            selection
+            fluid
+            allowAdditions
+            onChange={onClickFunction}
+          />
+        </Form.Field>
 
         <Form.Group inline>
           <label>Status: </label>
@@ -91,14 +97,17 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
           />
         </Form.Group>
 
-        <TextArea
-          placeholder="Task Description"
-          name="description"
-          fluid
-          icon="lock"
-          iconPosition="left"
-          onChange={onClickFunction}
-        />
+        <Form.Field>
+          <label>Description: </label>
+          <TextArea
+            placeholder="Task Description"
+            name="description"
+            fluid
+            icon="lock"
+            iconPosition="left"
+            onChange={onClickFunction}
+          />
+        </Form.Field>
       </Form>
     </Grid.Column>
   </Grid>
