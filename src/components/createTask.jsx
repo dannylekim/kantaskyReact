@@ -92,7 +92,7 @@ class CreateTask extends React.Component {
             <TaskForm
               onClickFunction={this.handleInputChange}
               categories={this.props.categories}
-              currentCategoryValue={this.state.category}
+              state = {this.state}
             />
           </Modal.Description>
         </Modal.Content>
