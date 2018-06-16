@@ -104,7 +104,6 @@ class Notifications extends React.Component {
               <Header.Subheader>Manage all your invitations</Header.Subheader>
             </Header.Content>
           </Header>
-          <Divider section/>
           {listOfNotifications}
         </List>
 

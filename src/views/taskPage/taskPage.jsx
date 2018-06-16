@@ -1,6 +1,6 @@
 import React from "react";
 import ListOfTasks from "../../components/listOfTasks";
-import { getUsersTasks } from "../../redux/task/taskActionDispatcher";
+import { getUsersTasks, unmountGroupTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card, Message } from "semantic-ui-react";
 
@@ -17,6 +17,10 @@ class TaskPage extends React.Component {
   async componentWillMount() {
     await this.props.getUsersTasks();
     this.setState({ finishedRender: true });
+  }
+
+  componentWillUnmount() {
+    this.props.unmountGroupTasks();
   }
 
   sortOutTasks(tasks) {
@@ -73,7 +77,7 @@ class TaskPage extends React.Component {
 
 const mapState = state => ({ tasks: state.task.tasks });
 const mapDispatch = {
-  getUsersTasks
+  getUsersTasks, unmountGroupTasks
 };
 export default connect(
   mapState,
