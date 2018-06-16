@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Grid } from "semantic-ui-react";
+import { Form, Grid, Dropdown } from "semantic-ui-react";
 
 const GroupForm = ({ onChangeFunction }) => (
   <Grid>
@@ -18,23 +18,19 @@ const GroupForm = ({ onChangeFunction }) => (
             required
           />
         </Form.Field>
-        {/* Should be buttons */}
-        {/* TODO: */}
-        {/* Status */}
 
-        {/* Should be buttons */}
-        {/* TODO: */}
-        {/* Importance */}
-
-        <Form.Input
-          fluid
-          icon="lock"
+        <Dropdown
+          options={[
+            { key: "group", value: "group", text: "Group" },
+            { key: "personal", value: "personal", text: "Personal" }
+          ]}
           name="category"
-          iconPosition="left"
-          placeholder="Input Category"
+          placeholder="Choose a category"
+          selection
+          fluid
           onChange={onChangeFunction}
         />
-        {/* TODO: THIS SHOULD BE A DROPDOWN DECISION */}
+        <br />
 
         {/* TODO: TEXT AREA */}
         <Form.Input
