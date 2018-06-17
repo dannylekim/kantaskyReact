@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Icon, Label } from "semantic-ui-react";
+import { Modal, Button, Icon, Label, Popup } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import EditGroupModal from "./editGroupModal";
 import HorizontalList from "./horizontalList";
@@ -51,7 +51,14 @@ class ViewGroupModal extends React.Component {
     return (
       <Modal
         trigger={
-          <MenuButton onClick={this.toggleModal} color="blue" icon="info" />
+          <Popup
+            trigger={
+              <MenuButton onClick={this.toggleModal} color="blue" icon="info" />
+            }
+            content="View Group Details"
+            size="tiny"
+            position="bottom center"
+          />
         }
         open={this.state.showModal}
         onClose={this.toggleModal}

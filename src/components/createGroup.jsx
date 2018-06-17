@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Modal, Icon } from "semantic-ui-react";
+import { Button, Modal, Icon, Popup } from "semantic-ui-react";
 import { createGroup } from "../redux/group/groupActionDispatcher";
 import GroupForm from "./groupForm";
 import { connect } from "react-redux";
-import MenuButton from "./menuButton"
+import MenuButton from "./menuButton";
 
 class CreateGroup extends React.Component {
   constructor(props) {
@@ -24,14 +24,12 @@ class CreateGroup extends React.Component {
    * @param {any} event
    * @memberof loginForm
    */
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  handleInputChange(event, data) {
+    const value = data.value;
+    const name = data.name;
 
     //set the appropriate value to the state
-    this.setState(
-      { [name]: value });
+    this.setState({ [name]: value });
   }
 
   toggleAddModal() {
@@ -39,13 +37,13 @@ class CreateGroup extends React.Component {
   }
 
   addGroup() {
-    let newGroup = Object.assign({}, this.state)
-    newGroup.showModal = undefined
-    this.props.createGroup(newGroup)
+    let newGroup = Object.assign({}, this.state);
+    newGroup.showModal = undefined;
+    this.props.createGroup(newGroup);
     const nullState = {
       name: null,
       category: null,
-      description: null,
+      description: null
     };
     this.setState({ nullState });
     this.toggleAddModal();
@@ -53,7 +51,24 @@ class CreateGroup extends React.Component {
 
   render() {
     return (
-      <Modal trigger={<MenuButton onClick={this.toggleAddModal} color='green' icon='add' />} open={this.state.showModal} onClose={this.toggleAddModal} >
+      <Modal
+        trigger={
+          <Popup
+            trigger={
+              <MenuButton
+                onClick={this.toggleAddModal}
+                color="green"
+                icon="add"
+              />
+            }
+            content="Add a group"
+            size='tiny'
+            position='bottom center'
+          />
+        }
+        open={this.state.showModal}
+        onClose={this.toggleAddModal}
+      >
         <Modal.Header>Create a Group</Modal.Header>
         <Modal.Content>
           <Modal.Description>
@@ -77,4 +92,7 @@ const mapState = state => ({});
 const mapDispatch = {
   createGroup
 };
-export default connect(mapState, mapDispatch)(CreateGroup);
+export default connect(
+  mapState,
+  mapDispatch
+)(CreateGroup);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Icon } from "semantic-ui-react";
+import { Modal, Button, Icon, Popup } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import { connect } from "react-redux";
 import { leaveGroup } from "../redux/group/groupActionDispatcher";
@@ -62,10 +62,17 @@ class LeaveGroupModal extends React.Component {
       this.state.category === "group" && (
         <Modal
           trigger={
-            <MenuButton
-              onClick={this.toggleModal}
-              color="red"
-              icon="sign out"
+            <Popup
+              trigger={
+                <MenuButton
+                  onClick={this.toggleModal}
+                  color="red"
+                  icon="sign out"
+                />
+              }
+              content="Leave Group"
+              size="tiny"
+              position="bottom center"
             />
           }
           open={this.state.showModal}
@@ -97,4 +104,7 @@ const mapState = state => ({ groups: state.group.groups });
 const mapToDispatch = {
   leaveGroup
 };
-export default connect(mapState, mapToDispatch)(LeaveGroupModal);
+export default connect(
+  mapState,
+  mapToDispatch
+)(LeaveGroupModal);
