@@ -3,7 +3,7 @@ import { Card } from "semantic-ui-react";
 import TaskModal from "./taskModal";
 import { Draggable } from "react-beautiful-dnd";
 
-const listOfTasks = ({ items, category, color, dropColor }) => (
+const listOfTasks = ({ items, category, color, dropColor, categories }) => (
   <Card color={color}>
     <Card.Content style={{ flexGrow: 0 }}>
       <Card.Header> {category}</Card.Header>
@@ -24,6 +24,7 @@ const listOfTasks = ({ items, category, color, dropColor }) => (
                     category={task.category}
                     description={task.description}
                     key={task._id}
+                    categories={categories}
                     status={task.status}
                     importance={task.importance}
                     dueDate={task.dueDate}

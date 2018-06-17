@@ -1,20 +1,20 @@
 import React from "react";
-import { Button, Modal, Icon } from "semantic-ui-react";
+import { Button, Modal, Icon, Popup } from "semantic-ui-react";
 import { createTaskInGroup } from "../redux/task/taskActionDispatcher";
 import TaskForm from "./taskForm";
 import { connect } from "react-redux";
-import MenuButton from "./menuButton"
+import MenuButton from "./menuButton";
 
 class CreateTask extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        name: null,
-        dueDate: null,
-        category: "Misc.",
-        importance: "normal",
-        status: "pending",
-        description: null,
+      name: null,
+      dueDate: null,
+      category: "Misc.",
+      importance: "normal",
+      status: "pending",
+      description: null,
       showModal: false
     };
     this.addTask = this.addTask.bind(this);
@@ -27,15 +27,23 @@ class CreateTask extends React.Component {
    * @param {any} event
    * @memberof loginForm
    */
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  handleInputChange(event, data) {
+    const value = data.value;
+    const name = data.name;
 
     //set the appropriate value to the state
     this.setState({
-        [name]: value
+      [name]: value
     });
+
+    if (this.props.categories && name === "category") {
+      let foundCategory = this.props.categories.find(category => {
+        return category.key === value;
+      });
+      if (!foundCategory) {
+        this.props.categories.push({ key: value, text: value, value: value });
+      }
+    }
   }
 
   toggleAddModal() {
@@ -43,8 +51,8 @@ class CreateTask extends React.Component {
   }
 
   addTask() {
-    let newTask = Object.assign({}, this.state)
-    newTask.showModal = undefined
+    let newTask = Object.assign({}, this.state);
+    newTask.showModal = undefined;
     this.props.createTaskInGroup(this.state, this.props.groupId);
     const nullState = {
       name: null,
@@ -60,18 +68,44 @@ class CreateTask extends React.Component {
 
   render() {
     return (
-      <Modal trigger={<MenuButton onClick={this.toggleAddModal} color='green' icon='add'/>}  open={this.state.showModal} onClose={this.toggleAddModal} >
-        <Modal.Header>Create a Task in this group</Modal.Header>
+      <Modal
+        trigger={
+          <Popup
+            trigger={
+              <MenuButton
+                onClick={this.toggleAddModal}
+                color="green"
+                icon="add"
+              />
+            }
+            content="Add a Task"
+            size="tiny"
+            position="bottom center"
+          />
+        }
+        open={this.state.showModal}
+        onClose={this.toggleAddModal}
+      >
+        <Modal.Header>Create a Task</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <TaskForm onClickFunction={this.handleInputChange} />
+            <TaskForm
+              onClickFunction={this.handleInputChange}
+              categories={this.props.categories}
+              state={this.state}
+            />
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button inverted color="green" onClick={this.addTask}>
+          <Button
+            inverted
+            color="green"
+            onClick={this.addTask}
+            disabled={!this.state.name}
+          >
             <Icon name="checkmark" /> Confirm
           </Button>
-          <Button inverted color="red" onClick={this.toggleAddModal}>
+          <Button basic onClick={this.toggleAddModal}>
             <Icon name="remove" /> Cancel
           </Button>
         </Modal.Actions>
@@ -84,4 +118,7 @@ const mapState = state => ({});
 const mapDispatch = {
   createTaskInGroup
 };
-export default connect(mapState, mapDispatch)(CreateTask);
+export default connect(
+  mapState,
+  mapDispatch
+)(CreateTask);

@@ -90,6 +90,7 @@ class taskModal extends React.Component {
               description={this.props.description}
               id={this.props.id}
               group={this.props.group}
+              categories={this.props.categories}
             />
             <RemoveTaskButton
               id={this.props.id}

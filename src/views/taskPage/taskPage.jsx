@@ -1,6 +1,6 @@
 import React from "react";
 import ListOfTasks from "../../components/listOfTasks";
-import { getUsersTasks } from "../../redux/task/taskActionDispatcher";
+import { getUsersTasks, unmountGroupTasks } from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card, Message } from "semantic-ui-react";
 
@@ -8,11 +8,19 @@ class TaskPage extends React.Component {
   constructor(props) {
     super(props);
     this.sortOutTasks = this.sortOutTasks.bind(this);
+    this.state = {
+      finishedRender: false
+    };
   }
 
   //TODO: Eventually will have the user saved as a state so can just pull information from there
-  componentWillMount() {
-    this.props.getUsersTasks();
+  async componentWillMount() {
+    await this.props.getUsersTasks();
+    this.setState({ finishedRender: true });
+  }
+
+  componentWillUnmount() {
+    this.props.unmountGroupTasks();
   }
 
   sortOutTasks(tasks) {
@@ -46,17 +54,22 @@ class TaskPage extends React.Component {
         />
       ));
     }
-    if (listOfTasks.length > 0) return <Card.Group>{listOfTasks}</Card.Group>;
-    else
-      return (
-        <Message warning>
-          <Message.Header>You have no assigned tasks yet!</Message.Header>
-          <p>
-            Create some tasks by going to the group page, creating a group and
-            then creating a task to yourself!
-          </p>
-        </Message>
-      );
+
+    return (
+      <div>
+        {listOfTasks.length === 0 &&
+          this.state.finishedRender && (
+            <Message warning>
+              <Message.Header>You have no assigned tasks yet!</Message.Header>
+              <p>
+                Create some tasks by going to the group page, creating a group
+                and then creating a task to yourself!
+              </p>
+            </Message>
+          )}
+        <Card.Group>{listOfTasks}</Card.Group>;
+      </div>
+    );
   }
 }
 
@@ -64,6 +77,9 @@ class TaskPage extends React.Component {
 
 const mapState = state => ({ tasks: state.task.tasks });
 const mapDispatch = {
-  getUsersTasks
+  getUsersTasks, unmountGroupTasks
 };
-export default connect(mapState, mapDispatch)(TaskPage);
+export default connect(
+  mapState,
+  mapDispatch
+)(TaskPage);

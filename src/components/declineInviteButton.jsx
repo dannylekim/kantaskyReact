@@ -58,7 +58,7 @@ class DeclineInvitationButton extends React.Component {
   render() {
     return (
       <Button Basic onClick={this.handleClick}>
-        <Icon name="checkmark" /> Decline Invitation
+        <Icon name="remove" /> Decline Invitation
       </Button>
     );
   }
