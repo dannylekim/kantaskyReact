@@ -12,6 +12,7 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
             fluid
             icon="user"
             name="name"
+            value={state.name}
             iconPosition="left"
             placeholder="Task Name"
             onChange={onClickFunction}
@@ -25,6 +26,7 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
             fluid
             icon="lock"
             name="dueDate"
+            value={(state.dueDate) ? (new Date(state.dueDate)).toISOString().split('T')[0] : ""}
             iconPosition="left"
             placeholder="Input Due Date"
             onChange={onClickFunction}
@@ -103,6 +105,7 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
             placeholder="Task Description"
             name="description"
             fluid
+            value={state.description}
             icon="lock"
             iconPosition="left"
             onChange={onClickFunction}

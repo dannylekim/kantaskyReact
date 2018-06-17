@@ -51,12 +51,15 @@ class GroupTasks extends React.Component {
     let categories = [{ key: "Misc.", text: "Misc", value: "Misc." }];
     if (this.props.tasks) {
       const taskObj = this.sortOutTasks(this.props.tasks);
+      taskObj.categories.forEach(category => {
+        if (category !== "Misc.")
+          categories.push({ key: category, text: category, value: category });
+      });
+
       listOfTasks = taskObj.categories.map((
         category,
         index //for every category, create a list of Tasks
       ) => {
-        if (category !== "Misc.")
-          categories.push({ key: category, text: category, value: category });
         return (
           <Droppable droppableId={category}>
             {(provided, snapshot) => (
@@ -71,6 +74,7 @@ class GroupTasks extends React.Component {
                   items={taskObj.taskList[category]}
                   category={category}
                   color="blue"
+                  categories={categories}
                 />
               </div>
             )}
