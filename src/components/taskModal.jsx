@@ -45,6 +45,7 @@ class taskModal extends React.Component {
             visible={this.state.boxVisible}
           >
             <Task
+              color={this.props.color}
               name={this.props.name}
               description={this.props.description}
               user={this.props.user}
@@ -104,6 +105,7 @@ class taskModal extends React.Component {
               description={this.props.description}
               id={this.props.id}
               group={this.props.group}
+              categories={this.props.categories}
             />
             <RemoveTaskButton
               id={this.props.id}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Icon, Form } from "semantic-ui-react";
+import { Modal, Button, Icon, Form, Popup, Message } from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import userAPI from "../api/userApi";
 
@@ -23,7 +23,14 @@ class SearchUserModal extends React.Component {
 
   //this toggles and closes the previous modal behind it
   toggleModal() {
-    this.setState({ showModal: !this.state.showModal, errors: null, firstName: null, lastName: null, email: null, userId: null });
+    this.setState({
+      showModal: !this.state.showModal,
+      errors: null,
+      firstName: null,
+      lastName: null,
+      email: null,
+      userId: null
+    });
   }
 
   componentWillReceiveProps() {
@@ -47,7 +54,12 @@ class SearchUserModal extends React.Component {
         errors: null
       });
     } else {
-      this.setState({ errors: response.data, firstName: null, lastName: null });
+      this.setState({
+        errors: response.data,
+        firstName: null,
+        lastName: null,
+        userId: null
+      });
     }
   }
 
@@ -65,7 +77,9 @@ class SearchUserModal extends React.Component {
     if (response.status === 200) {
       this.toggleModal();
     } else {
-      this.setState({ errors: response.data });
+      this.setState({
+        errors: response.data
+      });
     }
 
     //TODO: decide if you want to add via redux or via a normal call
@@ -85,7 +99,18 @@ class SearchUserModal extends React.Component {
     return (
       <Modal
         trigger={
-          <MenuButton onClick={this.toggleModal} color="blue" icon="add user" />
+          <Popup
+            trigger={
+              <MenuButton
+                onClick={this.toggleModal}
+                color="blue"
+                icon="add user"
+              />
+            }
+            content="Invite User to this Group"
+            size="tiny"
+            position="bottom center"
+          />
         }
         open={this.state.showModal}
         onClose={this.toggleModal}
@@ -103,8 +128,26 @@ class SearchUserModal extends React.Component {
                 />
               </Form.Field>
             </Form>
-            {this.state.firstName} {this.state.lastName}
-            {this.state.errors}
+            {this.state.firstName &&
+              this.state.lastName && (
+                <Message positive>
+                  <Message.Header>User has been found!</Message.Header>
+                  <p>
+                    You can invite{" "}
+                    <b>
+                      {this.state.firstName} {this.state.lastName}
+                    </b>{" "}
+                    to this group!
+                  </p>
+                </Message>
+              )}
+
+            {this.state.errors && (
+              <Message error>
+                <Message.Header>{this.state.errors}</Message.Header>
+                <p>Please try again.</p>
+              </Message>
+            )}
           </Modal.Description>
           <br />
           <Button inverted color="blue" onClick={this.handleSearch}>
@@ -112,7 +155,12 @@ class SearchUserModal extends React.Component {
           </Button>
         </Modal.Content>
         <Modal.Actions>
-          <Button inverted color="blue" onClick={this.handleSubmit}>
+          <Button
+            inverted
+            color="blue"
+            onClick={this.handleSubmit}
+            disabled={!this.state.userId}
+          >
             <Icon name="add user" /> Save Changes
           </Button>
           <Button basic color="red" onClick={this.toggleModal}>

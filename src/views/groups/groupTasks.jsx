@@ -1,24 +1,33 @@
 import React from "react";
 import ListOfTasks from "../../components/listOfTasks";
-import { getGroupsTasks } from "../../redux/task/taskActionDispatcher";
+import {
+  getGroupsTasks,
+  unmountGroupTasks
+} from "../../redux/task/taskActionDispatcher";
 import { connect } from "react-redux";
 import { Card, Message } from "semantic-ui-react";
 import TaskMenuBar from "../../components/taskMenuBar";
+import { Droppable } from "react-beautiful-dnd";
 
 class GroupTasks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       groupId: null,
-      group: null
+      group: null,
+      finishedRender: false
     };
     this.sortOutTasks = this.sortOutTasks.bind(this);
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     const groupId = this.props.match.params.groupId;
-    this.props.getGroupsTasks(groupId);
-    this.setState({ groupId: groupId });
+    await this.props.getGroupsTasks(groupId);
+    this.setState({ groupId: groupId, finishedRender: true });
+  }
+
+  componentWillUnmount() {
+    this.props.unmountGroupTasks();
   }
 
   sortOutTasks(tasks) {
@@ -39,19 +48,39 @@ class GroupTasks extends React.Component {
   render() {
     let listOfTasks;
     let isEmpty = false;
+    let categories = [{ key: "Misc.", text: "Misc", value: "Misc." }];
     if (this.props.tasks) {
       const taskObj = this.sortOutTasks(this.props.tasks);
+      taskObj.categories.forEach(category => {
+        if (category !== "Misc.")
+          categories.push({ key: category, text: category, value: category });
+      });
+
       listOfTasks = taskObj.categories.map((
         category,
         index //for every category, create a list of Tasks
-      ) => (
-        <ListOfTasks
-          key={index}
-          items={taskObj.taskList[category]}
-          category={category}
-          color="blue"
-        />
-      ));
+      ) => {
+        return (
+          <Droppable droppableId={category}>
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                style={{ marginTop: "10px", marginLeft: "7px" }}
+              >
+                <ListOfTasks
+                  dropColor={snapshot.isDraggingOver ? "lightgrey" : ""}
+                  key={index}
+                  items={taskObj.taskList[category]}
+                  category={category}
+                  color="blue"
+                  categories={categories}
+                />
+              </div>
+            )}
+          </Droppable>
+        );
+      });
       listOfTasks.length === 0 ? (isEmpty = true) : (isEmpty = false);
     }
 
@@ -68,15 +97,17 @@ class GroupTasks extends React.Component {
           groupId={this.state.groupId}
           group={this.state.group}
           isTeamLeader={true}
+          categories={categories}
         />
         <Card.Group>{listOfTasks}</Card.Group>
-        <br/>
-        { isEmpty && (
-          <Message warning>
-            <Message.Header>There are currently no tasks!</Message.Header>
-            <p>Click the + button to start creating tasks</p>
-          </Message>
-        )}
+        <br />
+        {this.state.finishedRender &&
+          isEmpty && (
+            <Message warning>
+              <Message.Header>There are currently no tasks!</Message.Header>
+              <p>Click the + button to start creating tasks</p>
+            </Message>
+          )}
       </div>
     );
   }
@@ -89,6 +120,10 @@ const mapState = state => ({
   groups: state.group.groups
 });
 const mapDispatch = {
-  getGroupsTasks
+  getGroupsTasks,
+  unmountGroupTasks
 };
-export default connect(mapState, mapDispatch)(GroupTasks);
+export default connect(
+  mapState,
+  mapDispatch
+)(GroupTasks);
