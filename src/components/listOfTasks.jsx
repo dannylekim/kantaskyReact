@@ -33,6 +33,7 @@ const listOfTasks = ({ items, category, color, dropColor, categories }) => (
                     user={task.user}
                     id={task._id}
                     group={task.group}
+                    timing={index}
                   />
                 </div>
               </div>
