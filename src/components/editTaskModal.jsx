@@ -14,6 +14,7 @@ class EditTaskModal extends React.Component {
       importance: this.props.importance,
       category: this.props.category,
       user: this.props.user,
+      userName: this.props.userName,
       dueDate: this.props.dueDate,
       id: this.props.id,
       group: this.props.group

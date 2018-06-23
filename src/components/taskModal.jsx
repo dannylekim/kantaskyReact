@@ -48,7 +48,7 @@ class taskModal extends React.Component {
               color={this.props.color}
               name={this.props.name}
               description={this.props.description}
-              user={this.props.user}
+              user={this.props.userName}
               importance={this.props.importance}
               {...this.props.rest}
               onClick={this.toggleModal}
@@ -69,7 +69,7 @@ class taskModal extends React.Component {
                 </Grid.Column>
                 <Grid.Column width={5} >
                   <br />
-                  Assigned to: <Label color="blue"> {this.props.user} </Label>
+                  Assigned to: <Label color="blue"> {this.props.userName} </Label>
                   <br />
                   <br />
                   Importance:{" "}
@@ -101,6 +101,7 @@ class taskModal extends React.Component {
               status={this.props.status}
               importance={this.props.importance}
               user={this.props.user}
+              userName = {this.props.userName}
               category={this.props.category}
               description={this.props.description}
               id={this.props.id}
