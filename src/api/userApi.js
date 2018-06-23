@@ -97,9 +97,9 @@ class User {
    * @returns
    * @memberof User
    */
-  static async searchUser(email) {
+  static async searchUser(email, groupId) {
     try {
-      return Promise.resolve(await axios.get("/searchUser/" + email));
+      return Promise.resolve(await axios.get("/searchUser/" + groupId + "/" + email));
     } catch (err) {
       return Promise.reject(err.response);
     }
