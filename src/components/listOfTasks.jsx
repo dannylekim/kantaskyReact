@@ -31,6 +31,7 @@ const listOfTasks = ({ items, category, color, dropColor, categories }) => (
                     createdDate={task.createdDate}
                     name={task.name}
                     user={task.user}
+                    userName = {(task.userName) ? task.userName : 'General'}
                     id={task._id}
                     group={task.group}
                     timing={index}
