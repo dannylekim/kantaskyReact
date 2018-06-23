@@ -12,7 +12,8 @@ class SearchUserModal extends React.Component {
       lastName: null,
       email: null,
       userId: null,
-      errors: null
+      errors: null,
+      groupId: null
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -41,7 +42,7 @@ class SearchUserModal extends React.Component {
   async handleSearch() {
     let response;
     try {
-      response = await userAPI.searchUser(this.state.email);
+      response = await userAPI.searchUser(this.state.email, this.state.groupId);
     } catch (err) {
       response = err;
     }
