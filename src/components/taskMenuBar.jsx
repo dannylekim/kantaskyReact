@@ -9,7 +9,7 @@ import LeaveGroupModal from "./leaveGroupModal";
 const taskMenuBar = ({ isTeamLeader, groupId, group, categories }) => {
   return (
     <Menu>
-      <AddTaskButton groupId={groupId} categories={categories} />
+      <AddTaskButton groupId={groupId} categories={categories} group={group}/>
       {isTeamLeader && <ViewGroupModal groupId={groupId} />}
       {isTeamLeader && <AddUserModal groupId={groupId} />}
       {isTeamLeader && <DeleteGroupModal groupId={groupId} />}
