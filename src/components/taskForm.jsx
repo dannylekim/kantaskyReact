@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Grid, Dropdown, TextArea } from "semantic-ui-react";
 
-const TaskForm = ({ onClickFunction, categories, state }) => (
+const TaskForm = ({ onClickFunction, categories, state, users }) => (
   <Grid>
     <Grid.Column>
       <Form size="large">
@@ -26,7 +26,11 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
             fluid
             icon="lock"
             name="dueDate"
-            value={(state.dueDate) ? (new Date(state.dueDate)).toISOString().split('T')[0] : ""}
+            value={
+              state.dueDate
+                ? new Date(state.dueDate).toISOString().split("T")[0]
+                : ""
+            }
             iconPosition="left"
             placeholder="Input Due Date"
             onChange={onClickFunction}
@@ -112,7 +116,15 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
           />
         </Form.Field>
 
-        {/* TODO:ASSIGN TO WHO */}
+        <Dropdown
+          placeholder="Select a new team Leader"
+          search
+          selection
+          options={this.state.users}
+          name="teamLeader"
+          value={this.state.teamLeader.leaderId}
+          onChange={this.handleInputChange}
+        />
       </Form>
     </Grid.Column>
   </Grid>
