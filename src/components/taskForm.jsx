@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Grid, Dropdown, TextArea } from "semantic-ui-react";
 
-const TaskForm = ({ onClickFunction, categories, state, users }) => (
+const TaskForm = ({ onClickFunction, categories, state }) => (
   <Grid>
     <Grid.Column>
       <Form size="large">
@@ -115,15 +115,14 @@ const TaskForm = ({ onClickFunction, categories, state, users }) => (
             onChange={onClickFunction}
           />
         </Form.Field>
-
         <Dropdown
-          placeholder="Select a new team Leader"
+          placeholder="Select a user"
           search
           selection
-          options={this.state.users}
-          name="teamLeader"
-          value={this.state.teamLeader.leaderId}
-          onChange={this.handleInputChange}
+          options={state.users}
+          name="user"
+          value={state.user}
+          onChange={onClickFunction}
         />
       </Form>
     </Grid.Column>

@@ -33,7 +33,7 @@ export const unmountGroupTasks = () => async dispatch => {
 
 export const createTaskInGroup = (task, groupId) => async dispatch => {
   try {
-    const userId = store.getState().user.user._id;
+    const userId = store.getState().user.user._id; //TODO: THIS NEEDS TO BE TAKEN AS A PARAMETER SO YOU CAN CREATE TASKS FOR OTHERS
     const response = await taskApi.createTaskInGroup(groupId, userId, task);
     dispatch(actions.createTaskInGroupSuccess(response.data));
     toasterHandler("Successfully created task!", false);

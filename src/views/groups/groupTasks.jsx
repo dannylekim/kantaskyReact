@@ -30,6 +30,15 @@ class GroupTasks extends React.Component {
     this.props.unmountGroupTasks();
   }
 
+  componentWillReceiveProps(){
+    if (this.props.groups && !this.state.group) {
+      const result = this.props.groups.filter(
+        group => group._id === this.props.match.params.groupId
+      );
+      this.setState({ group: result[0] });
+    }
+  }
+
   sortOutTasks(tasks) {
     let taskList = {}; //and an object with all tasks separated by said category
     let categories = []; //create an array of categories
@@ -84,12 +93,6 @@ class GroupTasks extends React.Component {
       listOfTasks.length === 0 ? (isEmpty = true) : (isEmpty = false);
     }
 
-    if (this.props.groups && this.state.group === null) {
-      const result = this.props.groups.filter(
-        group => group._id === this.state.groupId
-      );
-      this.setState({ group: result[0] });
-    }
     //TODO: set the teamLeader props to the proper one
     return (
       <div>

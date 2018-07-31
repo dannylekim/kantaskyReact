@@ -15,7 +15,9 @@ class CreateTask extends React.Component {
       importance: "normal",
       status: "pending",
       description: null,
-      showModal: false
+      showModal: false,
+      users: null,
+      user: null
     };
     this.addTask = this.addTask.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -50,9 +52,20 @@ class CreateTask extends React.Component {
     this.setState({ showModal: !this.state.showModal });
   }
 
+  componentWillReceiveProps(){
+    if(this.props.group && !this.state.users){
+      const usersKeyObject = this.props.group.users.map((user) => {
+        return {key: user.userId, text: user.userName || user.userId, value: user.userId}
+      })
+
+      this.setState({users: usersKeyObject})
+    }
+  }
+
   addTask() {
     let newTask = Object.assign({}, this.state);
     newTask.showModal = undefined;
+    newTask.users = undefined
     this.props.createTaskInGroup(this.state, this.props.groupId);
     const nullState = {
       name: null,
@@ -60,13 +73,16 @@ class CreateTask extends React.Component {
       category: "Misc.",
       importance: "normal",
       status: "pending",
-      description: null
+      description: null,
+      user: null
     };
     this.setState({ task: nullState });
     this.toggleAddModal();
   }
 
   render() {
+
+
     return (
       <Modal
         trigger={
