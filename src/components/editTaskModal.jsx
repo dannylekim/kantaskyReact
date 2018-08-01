@@ -68,7 +68,7 @@ class EditTaskModal extends React.Component {
       })
 
       const usersKeyObject = group.users.map((user) => {
-        return {key: user.userId, text: user.userName || user.userId, value: user.userId}
+        return {key: user.userId, text: user.userName || "General", value: user.userId}
       })
 
       this.setState({users: usersKeyObject})

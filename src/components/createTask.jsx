@@ -55,7 +55,7 @@ class CreateTask extends React.Component {
   componentWillReceiveProps(){
     if(this.props.group && !this.state.users){
       const usersKeyObject = this.props.group.users.map((user) => {
-        return {key: user.userId, text: user.userName || user.userId, value: user.userId}
+        return {key: user.userId, text: user.userName || "General", value: user.userId}
       })
 
       this.setState({users: usersKeyObject})
