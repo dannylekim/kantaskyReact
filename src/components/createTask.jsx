@@ -66,7 +66,7 @@ class CreateTask extends React.Component {
     let newTask = Object.assign({}, this.state);
     newTask.showModal = undefined;
     newTask.users = undefined
-    this.props.createTaskInGroup(this.state, this.props.groupId);
+    this.props.createTaskInGroup(this.state, this.props.groupId, this.state.user);
     const nullState = {
       name: null,
       dueDate: null,

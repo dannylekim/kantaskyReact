@@ -108,8 +108,7 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
           <TextArea
             placeholder="Task Description"
             name="description"
-            fluid
-            value={state.description}
+            value={state.description || ""}
             icon="lock"
             iconPosition="left"
             onChange={onClickFunction}
