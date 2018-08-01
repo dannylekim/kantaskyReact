@@ -84,6 +84,7 @@ class GroupTasks extends React.Component {
                   category={category}
                   color="blue"
                   categories={categories}
+                  canEdit={true}
                 />
               </div>
             )}

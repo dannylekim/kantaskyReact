@@ -17,7 +17,7 @@ class CreateTask extends React.Component {
       description: null,
       showModal: false,
       users: null,
-      user: null
+      user: "general"
     };
     this.addTask = this.addTask.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
