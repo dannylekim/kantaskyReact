@@ -31,9 +31,8 @@ export const unmountGroupTasks = () => async dispatch => {
   }
 };
 
-export const createTaskInGroup = (task, groupId) => async dispatch => {
+export const createTaskInGroup = (task, groupId, userId) => async dispatch => {
   try {
-    const userId = store.getState().user.user._id;
     const response = await taskApi.createTaskInGroup(groupId, userId, task);
     dispatch(actions.createTaskInGroupSuccess(response.data));
     toasterHandler("Successfully created task!", false);
@@ -61,3 +60,7 @@ export const editTask = task => async dispatch => {
     toasterHandler(err.data, true);
   }
 };
+
+export const searchTask = inputString => dispatch => {
+  dispatch(actions.searchTask(inputString))
+}

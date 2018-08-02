@@ -26,7 +26,11 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
             fluid
             icon="lock"
             name="dueDate"
-            value={(state.dueDate) ? (new Date(state.dueDate)).toISOString().split('T')[0] : ""}
+            value={
+              state.dueDate
+                ? new Date(state.dueDate).toISOString().split("T")[0]
+                : ""
+            }
             iconPosition="left"
             placeholder="Input Due Date"
             onChange={onClickFunction}
@@ -104,15 +108,21 @@ const TaskForm = ({ onClickFunction, categories, state }) => (
           <TextArea
             placeholder="Task Description"
             name="description"
-            fluid
-            value={state.description}
+            value={state.description || ""}
             icon="lock"
             iconPosition="left"
             onChange={onClickFunction}
           />
         </Form.Field>
-
-        {/* TODO:ASSIGN TO WHO */}
+        <Dropdown
+          placeholder="Select a user"
+          search
+          selection
+          options={state.users}
+          name="user"
+          value={state.user}
+          onChange={onClickFunction}
+        />
       </Form>
     </Grid.Column>
   </Grid>

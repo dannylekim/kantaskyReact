@@ -33,9 +33,9 @@ class EditGroupModal extends React.Component {
     if (this.props.users) {
       this.props.users.forEach(user => {
         const userOption = {
-          text: user.userId, //TODO: Swap for name
+          text: user.userName ? user.userName : user.userId,
           key: user.userId,
-          value: { user }
+          value: user.userId
         };
         users.push(userOption);
       });
@@ -68,7 +68,7 @@ class EditGroupModal extends React.Component {
     const groupId = updatedGroup.id;
     delete updatedGroup.users;
     this.props.editGroup(updatedGroup, groupId); //TODO: Receive a success message
-    
+
     this.toggleModal();
   }
 
@@ -107,20 +107,13 @@ class EditGroupModal extends React.Component {
                 name="description"
                 onChange={this.handleInputChange}
               />
-              <Form.Field>
-                <label>Team Leader</label>
-                <input
-                  value={
-                    this.state.teamLeader ? this.state.teamLeader.name : null
-                  }
-                />
-              </Form.Field>
               <Dropdown
                 placeholder="Select a new team Leader"
                 search
                 selection
                 options={this.state.users}
                 name="teamLeader"
+                value={this.state.teamLeader.leaderId}
                 onChange={this.handleInputChange}
               />
             </Form>
@@ -141,4 +134,7 @@ class EditGroupModal extends React.Component {
 
 const mapStateToProps = state => ({});
 const mapDispatch = { editGroup };
-export default connect(mapStateToProps, mapDispatch)(EditGroupModal);
+export default connect(
+  mapStateToProps,
+  mapDispatch
+)(EditGroupModal);

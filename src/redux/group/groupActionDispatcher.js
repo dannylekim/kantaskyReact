@@ -5,7 +5,8 @@ import {
   updateGroupSuccess,
   leaveGroupSuccess,
   deleteGroupSuccess,
-  joinGroupSuccess
+  joinGroupSuccess,
+  searchGroups
 } from "./groupActions";
 import store from "../configureStore";
 import { history } from "../../config/config";
@@ -75,3 +76,7 @@ export const joinGroup = groupId => async dispatch => {
     toasterHandler(err.data, true);
   }
 };
+
+export const searchGroup = inputString => dispatch => {
+  dispatch(searchGroups(inputString))
+}

@@ -15,6 +15,7 @@ class UpdateUserModal extends React.Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   /**
@@ -62,11 +63,22 @@ class UpdateUserModal extends React.Component {
       email: this.state.email
     };
     this.props.updateAccount(newAccountDetails, this.state.id);
+    this.toggleModal();
+  }
+
+  toggleModal() {
+    this.setState({ showModal: !this.state.showModal });
   }
 
   render() {
     return (
-      <Modal trigger={<Dropdown.Item text="Edit Profile" />}>
+      <Modal
+        open={this.state.showModal}
+        onClose={this.toggleModal}
+        trigger={
+          <Dropdown.Item text="Edit Profile" onClick={this.toggleModal} />
+        }
+      >
         <Modal.Header>Edit Profile</Modal.Header>
         <Modal.Content>
           <Modal.Description>
@@ -102,7 +114,7 @@ class UpdateUserModal extends React.Component {
           <Button inverted color="green" onClick={this.handleSubmit}>
             <Icon name="check" /> Save Changes
           </Button>
-          <Button basic secondary color="red">
+          <Button basic secondary color="red" onClick={this.toggleModal}>
             <Icon name="remove" /> Cancel
           </Button>
         </Modal.Actions>
@@ -115,4 +127,7 @@ const mapToState = state => ({ user: state.user.user });
 const mapToDispatch = {
   updateAccount
 };
-export default connect(mapToState, mapToDispatch)(UpdateUserModal);
+export default connect(
+  mapToState,
+  mapToDispatch
+)(UpdateUserModal);

@@ -2,6 +2,9 @@ import React from "react";
 import { Card, Icon, Label } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./groupCard.css"
+import {searchTask} from "../redux/task/taskActionDispatcher"
+import {searchGroup} from "../redux/group/groupActionDispatcher"
+import {connect} from "react-redux"
 
 const extra = (numberOfUsers, category) => (
   <div>
@@ -24,6 +27,8 @@ class GroupCard extends React.Component {
 
   handleOnClick = () => {
     this.setState({ redirect: true });
+    this.props.searchGroup("")
+    this.props.searchTask("")
   };
   //TODO: Need to do an SPA way of routing. This forces a refreshes and there is a lag that comes along with it
   render() {
@@ -51,4 +56,9 @@ class GroupCard extends React.Component {
   }
 }
 
-export default GroupCard;
+
+const mapStateToProps = state => ({});
+const mapDispatch = { searchGroup, searchTask };
+export default connect(
+  mapStateToProps,
+  mapDispatch)(GroupCard);

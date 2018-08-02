@@ -41,4 +41,8 @@ export const getGroupSuccess = groups => ({
   joinGroupSuccess = group => ({
     type:types.JOIN_GROUP_SUCCESS,
     group: group
+  }),
+  searchGroups = searchString => ({
+    type: types.SEARCH_GROUPS,
+    input: searchString
   })
