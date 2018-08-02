@@ -20,6 +20,7 @@ class SearchItems extends React.Component {
         icon={{ name: "search", link: true }}
         placeholder={this.props.placeholder}
         onChange={this.handleInputChange}
+        value={this.props.lastSearchString}
       />
     );
   }

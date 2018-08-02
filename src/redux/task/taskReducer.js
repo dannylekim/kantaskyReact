@@ -30,7 +30,7 @@ const reducer = (state = initial, action) => {
         task => task._id === action.task._id
       );
       if (isTaskPresent) return state;
-      let taskArray = state.tasks.slice(); // This is done because you want to CLONE the state rather than mutate it
+      let taskArray = state.allGroupTasks.slice(); // This is done because you want to CLONE the state rather than mutate it
       taskArray.push(action.task);
       searchedTasks = utilMethods.getMatchingObjectsFromString(
         taskArray,
