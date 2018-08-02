@@ -1,5 +1,12 @@
 import React from "react";
-import { Modal, Button, Icon, Label, Popup } from "semantic-ui-react";
+import {
+  Modal,
+  Button,
+  Icon,
+  Popup,
+  Grid,
+  Header
+} from "semantic-ui-react";
 import MenuButton from "./menuButton";
 import EditGroupModal from "./editGroupModal";
 import HorizontalList from "./horizontalList";
@@ -65,18 +72,23 @@ class ViewGroupModal extends React.Component {
       >
         <Modal.Header>{this.state.name}</Modal.Header>
         <Modal.Content>
-          <Modal.Description>
-            Description: {this.state.description}
-            <br />
-            <br />
-            Team Leader:
-            <Label color="blue">
-              {this.state.teamLeader ? this.state.teamLeader.name : ""}
-            </Label>
-            <br />
-            <br />
-            <HorizontalList users={this.state.users} />
-          </Modal.Description>
+          <Grid>
+            <Grid.Column width={10}>
+              <Header size="medium">Description</Header>
+              <hr />
+              {this.state.description
+                ? this.state.description
+                : "No Description Available"}
+            </Grid.Column>
+            <Grid.Column width={5}>
+              <Header size="medium">Users</Header>
+              <hr/>
+              <HorizontalList
+                users={this.state.users}
+                teamLeader={this.state.teamLeader}
+              />
+            </Grid.Column>
+          </Grid>
         </Modal.Content>
         <Modal.Actions>
           <EditGroupModal

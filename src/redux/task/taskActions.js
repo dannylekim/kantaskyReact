@@ -41,4 +41,9 @@ export const createTaskInGroupSuccess = task => ({
   getGroupsTasksFail = error => ({
     type: types.GET_GROUP_TASKS_FAIL,
     error: error
-  });
+  }),
+  searchTask = searchString => ({
+    type: types.SEARCH_TASKS,
+    input: searchString
+  })
+  ;

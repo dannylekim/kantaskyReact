@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Button, Icon } from "semantic-ui-react";
 import EditTaskButton from "./editTaskButton";
 import TaskForm from "./taskForm";
+import { connect } from "react-redux";
 
 class EditTaskModal extends React.Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class EditTaskModal extends React.Component {
       userName: this.props.userName,
       dueDate: this.props.dueDate,
       id: this.props.id,
-      group: this.props.group
+      groupId: this.props.groupId,
+      users: null
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -35,13 +37,42 @@ class EditTaskModal extends React.Component {
     this.setState(prevState => ({ showModal: !prevState.showModal }));
   }
 
-  handleInputChange(event, { value, name }) {
+  handleInputChange(event, data) {
+    const value = data.value;
+    const name = data.name;
+
     //set the appropriate value to the state
-    this.setState({ [name]: value });
+    this.setState({
+      [name]: value
+    });
+
+    if (this.props.categories && name === "category") {
+      let foundCategory = this.props.categories.find(category => {
+        return category.key === value;
+      });
+      if (!foundCategory) {
+        this.props.categories.push({ key: value, text: value, value: value });
+      }
+    }
   }
 
   backModal() {
     this.setState({ showModal: false });
+  }
+
+  componentWillUpdate(){
+    console.log(this.props.groups)
+    if(this.props.groups && !this.state.users && this.props.groupId){
+      const group = this.props.groups.find((group) => {
+        return group._id === this.props.groupId
+      })
+
+      const usersKeyObject = group.users.map((user) => {
+        return {key: user.userId, text: user.userName || "General", value: user.userId}
+      })
+
+      this.setState({users: usersKeyObject})
+    }
   }
 
   render() {
@@ -84,4 +115,9 @@ class EditTaskModal extends React.Component {
   }
 }
 
-export default EditTaskModal;
+const mapState = state => ({groups: state.group.groups});
+const mapDispatch = {};
+export default connect(
+  mapState,
+  mapDispatch
+)(EditTaskModal);

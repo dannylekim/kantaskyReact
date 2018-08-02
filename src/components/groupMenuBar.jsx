@@ -1,17 +1,14 @@
 import React from "react";
-import { Menu, Input } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import CreateGroupButton from "./createGroup"
+import SearchGroups from "./searchGroups"
 
 const groupMenuBar = () => (
   <Menu>
     <CreateGroupButton/>
     <Menu.Menu position="right">
       <Menu.Item>
-        <Input
-          transparent
-          icon={{ name: "search", link: true }}
-          placeholder="Search Groups..."
-        />
+        <SearchGroups />
       </Menu.Item>
     </Menu.Menu>
   </Menu>

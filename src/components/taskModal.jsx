@@ -94,6 +94,7 @@ class taskModal extends React.Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
+            {this.props.canEdit && 
             <EditTaskModal
               closeModalFunction={this.toggleModal}
               name={this.props.name}
@@ -105,13 +106,16 @@ class taskModal extends React.Component {
               category={this.props.category}
               description={this.props.description}
               id={this.props.id}
-              group={this.props.group}
+              groupId={this.props.group}
               categories={this.props.categories}
             />
+            }
+            {this.props.canEdit &&
             <RemoveTaskButton
               id={this.props.id}
               modalFunction={this.toggleModal}
             />
+            }
             <Button basic color="red" onClick={this.toggleModal}>
               <Icon name="remove" /> Close
           </Button>

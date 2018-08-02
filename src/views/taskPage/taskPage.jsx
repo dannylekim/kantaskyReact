@@ -51,6 +51,7 @@ class TaskPage extends React.Component {
           items={taskObj.taskList[category]}
           category={category}
           color="blue"
+          canEdit = {false}
         />
       ));
     }
