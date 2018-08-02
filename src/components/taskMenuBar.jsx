@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Input } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import AddTaskButton from "./createTask";
 import ViewGroupModal from "./viewGroupModal";
 import AddUserModal from "./addUserModal";
