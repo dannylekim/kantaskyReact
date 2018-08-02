@@ -44,6 +44,26 @@ const reducer = (state = initial, action) => {
       return Object.assign({}, state, {
         tasks: updatedTaskArray
       });
+    case types.SEARCH_TASKS:
+      let searchResults = [];
+      if (state.tasks.length > 0) {
+        let taskKeys = Object.keys(state.tasks[0]);
+        taskKeys = taskKeys.filter(key => {
+          return key !== "_id" || key !== "__v";
+        });
+
+        searchResults = state.tasks.filter(task => {
+          let containsString = false;
+          for (let key of taskKeys) {
+            if (key.includes(action.input)) {
+              containsString = true;
+              break;
+            }
+          }
+          return containsString;
+        });
+      }
+      return Object.assign({}, state, { searchResults: searchResults });
     default:
       return state;
   }

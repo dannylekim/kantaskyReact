@@ -1,5 +1,6 @@
 let initial = {
-  tasks: []
+  tasks: [],
+  searchResults: []
 };
 
 export default initial;

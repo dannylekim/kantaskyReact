@@ -5,11 +5,12 @@ import ViewGroupModal from "./viewGroupModal";
 import AddUserModal from "./addUserModal";
 import DeleteGroupModal from "./deleteGroupModal";
 import LeaveGroupModal from "./leaveGroupModal";
+import SearchTask from "./searchTasks";
 
 const taskMenuBar = ({ isTeamLeader, groupId, group, categories }) => {
   return (
     <Menu>
-      <AddTaskButton groupId={groupId} categories={categories} group={group}/>
+      <AddTaskButton groupId={groupId} categories={categories} group={group} />
       {isTeamLeader && <ViewGroupModal groupId={groupId} />}
       {isTeamLeader && <AddUserModal groupId={groupId} />}
       {isTeamLeader && <DeleteGroupModal groupId={groupId} />}
@@ -22,11 +23,7 @@ const taskMenuBar = ({ isTeamLeader, groupId, group, categories }) => {
       )}
       <Menu.Menu position="right">
         <Menu.Item>
-          <Input
-            transparent
-            icon={{ name: "search", link: true }}
-            placeholder="Search Tasks..."
-          />
+          <SearchTask />
         </Menu.Item>
       </Menu.Menu>
     </Menu>

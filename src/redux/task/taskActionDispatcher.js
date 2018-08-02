@@ -60,3 +60,7 @@ export const editTask = task => async dispatch => {
     toasterHandler(err.data, true);
   }
 };
+
+export const searchTask = inputString => dispatch => {
+  dispatch(actions.searchTask(inputString))
+}
