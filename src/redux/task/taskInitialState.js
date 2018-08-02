@@ -1,6 +1,7 @@
 let initial = {
   tasks: [],
-  searchResults: []
+  allGroupTasks: [],
+  lastSearchString: ""
 };
 
 export default initial;

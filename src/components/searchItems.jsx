@@ -18,7 +18,7 @@ class SearchItems extends React.Component {
       <Input
         transparent
         icon={{ name: "search", link: true }}
-        placeholder="Search Tasks..."
+        placeholder={this.props.placeholder}
         onChange={this.handleInputChange}
       />
     );

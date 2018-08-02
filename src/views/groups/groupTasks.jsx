@@ -106,10 +106,18 @@ class GroupTasks extends React.Component {
         <Card.Group>{listOfTasks}</Card.Group>
         <br />
         {this.state.finishedRender &&
-          isEmpty && (
+          isEmpty && !this.props.searchString && (
             <Message warning>
               <Message.Header>There are currently no tasks!</Message.Header>
               <p>Click the + button to start creating tasks</p>
+            </Message>
+          )}
+
+            {this.state.finishedRender &&
+          isEmpty && this.props.searchString && (
+            <Message warning>
+              <Message.Header>There are no tasks that match the search query!</Message.Header>
+              <p>Try another search query!</p>
             </Message>
           )}
       </div>
@@ -121,6 +129,7 @@ class GroupTasks extends React.Component {
 
 const mapState = state => ({
   tasks: state.task.tasks,
+  searchString: state.task.lastSearchString,
   groups: state.group.groups
 });
 const mapDispatch = {

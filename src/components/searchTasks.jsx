@@ -4,12 +4,9 @@ import {connect} from "react-redux";
 import { searchTask } from "../redux/task/taskActionDispatcher";
 
 class SearchTasks extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
-    return <SearchItems searchFunction={this.props.searchTask} />;
+    return <SearchItems searchFunction={this.props.searchTask} placeholder="Search Tasks..." />;
   }
 }
 
